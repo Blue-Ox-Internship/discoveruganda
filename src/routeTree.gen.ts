@@ -12,6 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppScanRouteImport } from './routes/app.scan'
+import { Route as AppProfileRouteImport } from './routes/app.profile'
+import { Route as AppMissionsRouteImport } from './routes/app.missions'
+import { Route as AppExploreRouteImport } from './routes/app.explore'
+import { Route as AppCardsRouteImport } from './routes/app.cards'
+import { Route as AppAchievementsRouteImport } from './routes/app.achievements'
+import { Route as AppCardsIdRouteImport } from './routes/app.cards.$id'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -28,34 +36,130 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppScanRoute = AppScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMissionsRoute = AppMissionsRouteImport.update({
+  id: '/missions',
+  path: '/missions',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppExploreRoute = AppExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCardsRoute = AppCardsRouteImport.update({
+  id: '/cards',
+  path: '/cards',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAchievementsRoute = AppAchievementsRouteImport.update({
+  id: '/achievements',
+  path: '/achievements',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCardsIdRoute = AppCardsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AppCardsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/achievements': typeof AppAchievementsRoute
+  '/app/cards': typeof AppCardsRouteWithChildren
+  '/app/explore': typeof AppExploreRoute
+  '/app/missions': typeof AppMissionsRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/scan': typeof AppScanRoute
+  '/app/': typeof AppIndexRoute
+  '/app/cards/$id': typeof AppCardsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
   '/auth': typeof AuthRoute
+  '/app/achievements': typeof AppAchievementsRoute
+  '/app/cards': typeof AppCardsRouteWithChildren
+  '/app/explore': typeof AppExploreRoute
+  '/app/missions': typeof AppMissionsRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/scan': typeof AppScanRoute
+  '/app': typeof AppIndexRoute
+  '/app/cards/$id': typeof AppCardsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/achievements': typeof AppAchievementsRoute
+  '/app/cards': typeof AppCardsRouteWithChildren
+  '/app/explore': typeof AppExploreRoute
+  '/app/missions': typeof AppMissionsRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/scan': typeof AppScanRoute
+  '/app/': typeof AppIndexRoute
+  '/app/cards/$id': typeof AppCardsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/auth'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/achievements'
+    | '/app/cards'
+    | '/app/explore'
+    | '/app/missions'
+    | '/app/profile'
+    | '/app/scan'
+    | '/app/'
+    | '/app/cards/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app' | '/auth'
-  id: '__root__' | '/' | '/app' | '/auth'
+  to:
+    | '/'
+    | '/auth'
+    | '/app/achievements'
+    | '/app/cards'
+    | '/app/explore'
+    | '/app/missions'
+    | '/app/profile'
+    | '/app/scan'
+    | '/app'
+    | '/app/cards/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/achievements'
+    | '/app/cards'
+    | '/app/explore'
+    | '/app/missions'
+    | '/app/profile'
+    | '/app/scan'
+    | '/app/'
+    | '/app/cards/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AppRoute: typeof AppRoute
+  AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRoute
 }
 
@@ -82,12 +186,102 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/scan': {
+      id: '/app/scan'
+      path: '/scan'
+      fullPath: '/app/scan'
+      preLoaderRoute: typeof AppScanRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/profile': {
+      id: '/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/missions': {
+      id: '/app/missions'
+      path: '/missions'
+      fullPath: '/app/missions'
+      preLoaderRoute: typeof AppMissionsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/explore': {
+      id: '/app/explore'
+      path: '/explore'
+      fullPath: '/app/explore'
+      preLoaderRoute: typeof AppExploreRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/cards': {
+      id: '/app/cards'
+      path: '/cards'
+      fullPath: '/app/cards'
+      preLoaderRoute: typeof AppCardsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/achievements': {
+      id: '/app/achievements'
+      path: '/achievements'
+      fullPath: '/app/achievements'
+      preLoaderRoute: typeof AppAchievementsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/cards/$id': {
+      id: '/app/cards/$id'
+      path: '/$id'
+      fullPath: '/app/cards/$id'
+      preLoaderRoute: typeof AppCardsIdRouteImport
+      parentRoute: typeof AppCardsRoute
+    }
   }
 }
 
+interface AppCardsRouteChildren {
+  AppCardsIdRoute: typeof AppCardsIdRoute
+}
+
+const AppCardsRouteChildren: AppCardsRouteChildren = {
+  AppCardsIdRoute: AppCardsIdRoute,
+}
+
+const AppCardsRouteWithChildren = AppCardsRoute._addFileChildren(
+  AppCardsRouteChildren,
+)
+
+interface AppRouteChildren {
+  AppAchievementsRoute: typeof AppAchievementsRoute
+  AppCardsRoute: typeof AppCardsRouteWithChildren
+  AppExploreRoute: typeof AppExploreRoute
+  AppMissionsRoute: typeof AppMissionsRoute
+  AppProfileRoute: typeof AppProfileRoute
+  AppScanRoute: typeof AppScanRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAchievementsRoute: AppAchievementsRoute,
+  AppCardsRoute: AppCardsRouteWithChildren,
+  AppExploreRoute: AppExploreRoute,
+  AppMissionsRoute: AppMissionsRoute,
+  AppProfileRoute: AppProfileRoute,
+  AppScanRoute: AppScanRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AppRoute: AppRoute,
+  AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport

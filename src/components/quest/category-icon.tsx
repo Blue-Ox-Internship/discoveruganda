@@ -10,7 +10,7 @@ const MAP = {
   experience: Compass,
 } as const;
 
-export function CategoryIcon({ category, className }: { category: Category; className?: string }) {
+export function CategoryIcon({ category, className, style }: { category: Category; className?: string; style?: React.CSSProperties }) {
   const Icon = MAP[category];
-  return <Icon className={className} />;
+  return <Icon className={className} style={style} />;
 }
