@@ -5,13 +5,14 @@ export const Route = createFileRoute("/app")({
   component: AppLayout,
 });
 
-const NAV = [
+type NavItem = { to: string; label: string; icon: typeof Home; exact?: boolean; primary?: boolean };
+const NAV: NavItem[] = [
   { to: "/app", label: "Passport", icon: Home, exact: true },
   { to: "/app/cards", label: "Cards", icon: Layers },
   { to: "/app/scan", label: "Scan", icon: ScanLine, primary: true },
   { to: "/app/explore", label: "Explore", icon: MapPin },
   { to: "/app/achievements", label: "Trophies", icon: Trophy },
-] as const;
+];
 
 function AppLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -25,7 +26,7 @@ function AppLayout() {
             const Icon = n.icon;
             if (n.primary) {
               return (
-                <Link key={n.to} to={n.to} className="-mt-7">
+              <Link key={n.to} to={n.to as "/app/scan"} className="-mt-7">
                   <div className={`grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 ring-4 ring-background transition ${active ? "scale-105" : ""}`}>
                     <Icon className="h-6 w-6" />
                   </div>
@@ -33,7 +34,7 @@ function AppLayout() {
               );
             }
             return (
-              <Link key={n.to} to={n.to} className={`flex w-14 flex-col items-center gap-1 pt-2 text-[10px] font-semibold uppercase tracking-wider ${active ? "text-primary" : "text-muted-foreground"}`}>
+              <Link key={n.to} to={n.to as "/app"} className={`flex w-14 flex-col items-center gap-1 pt-2 text-[10px] font-semibold uppercase tracking-wider ${active ? "text-primary" : "text-muted-foreground"}`}>
                 <Icon className="h-5 w-5" />
                 {n.label}
               </Link>
