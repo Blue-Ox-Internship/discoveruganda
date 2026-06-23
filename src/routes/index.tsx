@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-uganda.jpg";
 import cards1 from "@/assets/cards-1.png.asset.json";
 import cards2 from "@/assets/cards-2.png.asset.json";
@@ -76,9 +76,9 @@ function Nav() {
           <a href="#passport" className="hover:text-foreground">Digital Passport</a>
           <a href="#get" className="hover:text-foreground">Get a Deck</a>
         </nav>
-        <a href="#get" className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
-          Start the quest <ArrowRight className="h-4 w-4" />
-        </a>
+        <Link to="/auth" className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
+          Open the app <ArrowRight className="h-4 w-4" />
+        </Link>
       </div>
     </header>
   );
