@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { Bell, ScanLine, Trophy, ArrowUpRight, Flame, Compass, Sparkles, Star } from "lucide-react";
+import { Bell, ScanLine, Trophy, ArrowUpRight, Flame, Compass, Sparkles, Star, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
 import { CARDS, PROFILE, ACHIEVEMENTS, CATEGORY_META, type Category } from "@/lib/quest-data";
 import { CategoryIcon } from "@/components/quest/category-icon";
@@ -53,6 +53,17 @@ function Passport() {
           </span>
         </div>
         <div className="mt-2 font-display text-5xl font-bold">{PROFILE.explorerPoints.toLocaleString()}</div>
+        <div className="mt-4">
+          <div className="flex items-center justify-between text-[11px] opacity-80">
+            <span className="flex items-center gap-1">
+              <TrendingUp className="h-3 w-3" /> Level 3 → 4
+            </span>
+            <span>{PROFILE.explorerPoints - 2000}/1000 XP</span>
+          </div>
+          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-primary-foreground/15">
+            <div className="h-full rounded-full bg-accent" style={{ width: `${((PROFILE.explorerPoints - 2000) / 1000) * 100}%` }} />
+          </div>
+        </div>
         <div className="mt-4">
           <div className="flex justify-between text-[11px] opacity-80">
             <span>{nextAch.title}</span>
