@@ -124,6 +124,106 @@ export const CARDS: QuestCard[] = [
     reward: 45, collected: false, completed: false,
     unlocks: ["Forest Guide", "Wildlife Checklist", "Photo Challenge"],
   },
+
+  // === vannyssah-a: Northern region cards ===
+  {
+    id: "kidepo-valley", code: "D-042", title: "Kidepo Valley", category: "destination", region: "Northern",
+    image: img.mountain,
+    description: "A breathtaking savannah park in the far northeast, home to cheetahs, lions, zebras and over 470 bird species. One of Africa's last true wildernesses.",
+    funFact: "Kidepo's name comes from the Karamojong phrase 'to pick from' — a reference to the abundant wild fruit.",
+    mission: "Visit Kidepo or watch a 3-min video about its wildlife in the app.",
+    reward: 70, collected: false, completed: false,
+    unlocks: ["Safari Guide", "Wildlife Checklist", "Photo Challenge", "Cultural Story"],
+  },
+  {
+    id: "karamojong-dance", code: "C-031", title: "Karamojong Dance", category: "culture", region: "Northern",
+    image: img.dance,
+    description: "The Karamojong people of northeastern Uganda have a vibrant jumping dance performed during courtship, ceremonies and harvest celebrations.",
+    funFact: "Warriors wear striking beaded headdresses and will often jump the highest during competitions.",
+    mission: "Watch a Karamojong dance video and learn 2 cultural facts.",
+    reward: 40, collected: false, completed: false,
+    unlocks: ["Dance Video", "Cultural Story", "Fun Facts"],
+  },
+  {
+    id: "akello", code: "L-004", title: "Akello", category: "language", region: "Northern",
+    image: img.bird,
+    description: "A warm greeting in the Acholi language meaning 'I am well, how are you?'. One of the most common greetings across northern Uganda.",
+    funFact: "Acholi is a Western Nilotic language spoken by over 2 million people in Uganda.",
+    mission: "Use 'Akello' with someone from northern Uganda or practice it in the app.",
+    reward: 20, collected: false, completed: false,
+    unlocks: ["Audio Pronunciation", "Phrase Pack", "Cultural Context"],
+  },
+  {
+    id: "ziwa-rhino", code: "W-015", title: "Ziwa White Rhino", category: "wildlife", region: "Northern",
+    image: img.wildlife,
+    description: "Ziwa Rhino Sanctuary is the only place in Uganda where you can see rhinos in the wild. A critical conservation success story.",
+    funFact: "Ziwa is home to over 30 southern white rhinos and is a key breeding site.",
+    mission: "Take a rhino tracking walk or learn 3 facts about rhino conservation.",
+    reward: 55, collected: false, completed: false,
+    unlocks: ["Conservation Story", "Rhino Facts", "Photo Challenge", "Nearby Experiences"],
+  },
+
+  // === vannyssah-a: Eastern region expansion ===
+  {
+    id: "sipi-falls", code: "D-031", title: "Sipi Falls", category: "destination", region: "Eastern",
+    image: img.mountain,
+    description: "Three stunning waterfalls cascading down the slopes of Mount Elgon. A paradise for hikers, photographers and nature lovers.",
+    funFact: "The falls drop a total of 100 m across three tiers — the highest is 85 m.",
+    mission: "Hike to Sipi Falls or watch a drone video of the falls in the app.",
+    reward: 50, collected: false, completed: false,
+    unlocks: ["Hiking Guide", "Trail Map", "Photo Challenge", "Local Stories"],
+  },
+  {
+    id: "imbalu", code: "C-028", title: "Imbalu", category: "culture", region: "Eastern",
+    image: img.craft,
+    description: "Imbalu is the traditional circumcision ceremony of the Bagisu people on the slopes of Mount Elgon. A rite of passage into manhood celebrated every even year.",
+    funFact: "The ceremony happens only during even-numbered years and attracts thousands of spectators.",
+    mission: "Learn 3 facts about Imbalu and watch a cultural documentary clip.",
+    reward: 45, collected: false, completed: false,
+    unlocks: ["Cultural Film", "Ceremony Guide", "Fun Facts", "Photo Essay"],
+  },
+
+  // === vannyssah-a: Western region expansion ===
+  {
+    id: "queen-elizabeth", code: "W-012", title: "Queen Elizabeth Park", category: "wildlife", region: "Western",
+    image: img.wildlife,
+    description: "Uganda's most visited national park, famous for tree-climbing lions, Kazinga Channel boat cruises and over 600 bird species.",
+    funFact: "The tree-climbing lions of Ishasha are one of only two such populations in the world.",
+    mission: "Visit the park or complete a virtual safari quiz in the app.",
+    reward: 60, collected: false, completed: false,
+    unlocks: ["Safari Guide", "Wildlife Facts", "Boat Cruise Video", "Birding Checklist"],
+  },
+
+  // === vannyssah-a: Southwest expansion ===
+  {
+    id: "lake-bunyonyi", code: "E-018", title: "Lake Bunyonyi", category: "experience", region: "Southwest",
+    image: img.destination,
+    description: "One of Africa's deepest lakes, with 29 islands, terraced hillsides and a peaceful atmosphere. A perfect place for canoeing and birdwatching.",
+    funFact: "At 900 m deep, Bunyonyi is the second deepest lake in Africa.",
+    mission: "Take a canoe ride or learn about the lake's legends in the app.",
+    reward: 40, collected: false, completed: false,
+    unlocks: ["Canoe Guide", "Birding List", "Local Legends", "Photo Challenge"],
+  },
+  {
+    id: "tea-plantations", code: "E-020", title: "Tea Plantations", category: "experience", region: "Southwest",
+    image: img.craft,
+    description: "Rolling green tea estates stretch across the hills of southwestern Uganda. Visit a plantation, meet the farmers and taste fresh Ugandan tea.",
+    funFact: "Uganda is Africa's second largest tea exporter after Kenya.",
+    mission: "Tour a tea estate or watch a from-leaf-to-cup video in the app.",
+    reward: 30, collected: false, completed: false,
+    unlocks: ["Tea Tasting Guide", "Farmers Story", "Brewing Tips", "Sustainability Facts"],
+  },
+
+  // === vannyssah-a: Central expansion ===
+  {
+    id: "kasubi-tombs", code: "D-022", title: "Kasubi Tombs", category: "destination", region: "Central",
+    image: img.dance,
+    description: "A UNESCO World Heritage site, the Kasubi Tombs are the burial grounds of Buganda kings. An extraordinary example of traditional Ganda architecture built from organic materials.",
+    funFact: "The main tomb building is 52 m in diameter and made entirely of reed, bark cloth and wood.",
+    mission: "Visit the tombs or take a virtual tour in the app.",
+    reward: 45, collected: false, completed: false,
+    unlocks: ["History Guide", "Architecture Tour", "Cultural Story", "Photo Gallery"],
+  },
 ];
 
 export const CATEGORY_META: Record<Category, { label: string; color: string; iconName: string }> = {
@@ -136,20 +236,24 @@ export const CATEGORY_META: Record<Category, { label: string; color: string; ico
 };
 
 export const REGIONS: { name: Region; cards: number; tagline: string }[] = [
-  { name: "Central",   cards: 4, tagline: "Kingdoms, drums and the Buganda heartland" },
-  { name: "Eastern",   cards: 1, tagline: "The Nile, Mount Elgon and Sipi Falls" },
-  { name: "Western",   cards: 1, tagline: "Rwenzori glaciers and crater lakes" },
-  { name: "Southwest", cards: 1, tagline: "Gorillas, Bwindi and rolling tea hills" },
-  { name: "Northern",  cards: 0, tagline: "Kidepo, savannah and Karamojong heritage" },
+  { name: "Central",   cards: 8, tagline: "Kingdoms, drums and the Buganda heartland" },
+  { name: "Eastern",   cards: 3, tagline: "The Nile, Mount Elgon and Sipi Falls" },
+  { name: "Western",   cards: 2, tagline: "Rwenzori glaciers and crater lakes" },
+  { name: "Southwest", cards: 3, tagline: "Gorillas, Bwindi and rolling tea hills" },
+  { name: "Northern",  cards: 4, tagline: "Kidepo, savannah and Karamojong heritage" },
 ];
 
 export const ACHIEVEMENTS = [
-  { id: "central", title: "Central Uganda Explorer",  desc: "Collect 4 cards in Central Uganda", progress: 4, total: 4, unlocked: true },
-  { id: "wildlife", title: "Wildlife Explorer",       desc: "Collect 6 wildlife cards",          progress: 2, total: 6, unlocked: false },
-  { id: "cultural", title: "Cultural Explorer",       desc: "Complete 5 culture missions",       progress: 2, total: 5, unlocked: false },
+  { id: "central", title: "Central Uganda Explorer",  desc: "Collect 8 cards in Central Uganda", progress: 5, total: 8, unlocked: false },
+  { id: "wildlife", title: "Wildlife Explorer",       desc: "Collect 6 wildlife cards",          progress: 2, total: 8, unlocked: false },
+  { id: "cultural", title: "Cultural Explorer",       desc: "Complete 5 culture missions",       progress: 2, total: 6, unlocked: false },
+  { id: "eastern", title: "Eastern Explorer",         desc: "Collect 3 cards in Eastern Uganda", progress: 0, total: 3, unlocked: false },
+  { id: "northern", title: "Northern Pioneer",        desc: "Collect 4 cards in Northern Uganda",progress: 0, total: 4, unlocked: false },
   { id: "food",    title: "Food Explorer",            desc: "Try 8 Ugandan dishes",              progress: 2, total: 8, unlocked: false },
   { id: "pearl",   title: "Pearl of Africa Master",   desc: "Reach 5,000 Explorer Points",       progress: 2480, total: 5000, unlocked: false },
 ];
+
+const collectedRegions = new Set(CARDS.filter(c => c.collected).map(c => c.region));
 
 export const PROFILE = {
   name: "Amara Okello",
@@ -159,7 +263,7 @@ export const PROFILE = {
   knowledgePoints: 640,
   cards: CARDS.filter(c => c.collected).length,
   missions: CARDS.filter(c => c.completed).length,
-  regions: 3,
+  regions: collectedRegions.size,
 };
 
 export function getCard(id: string) {
