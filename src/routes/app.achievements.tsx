@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Lock, Trophy } from "lucide-react";
-import { ACHIEVEMENTS, PROFILE } from "@/lib/quest-data";
+import { Lock, Trophy, Star, Target, Award, Sparkles } from "lucide-react";
+import { ACHIEVEMENTS, PROFILE, CARDS } from "@/lib/quest-data";
 
 export const Route = createFileRoute("/app/achievements")({
   head: () => ({
@@ -14,6 +14,12 @@ export const Route = createFileRoute("/app/achievements")({
 
 function AchievementsPage() {
   const unlocked = ACHIEVEMENTS.filter((a) => a.unlocked).length;
+  const totalEP = CARDS.reduce((sum, c) => sum + c.reward, 0);
+  const earnedEP = CARDS.filter(c => c.completed).reduce((sum, c) => sum + c.reward, 0);
+  const totalCards = CARDS.length;
+  const collectedCards = CARDS.filter(c => c.collected).length;
+  const completionPct = Math.round((earnedEP / totalEP) * 100);
+
   return (
     <div className="mx-auto max-w-md px-5 pt-6 pb-4">
       <header className="flex items-center justify-between">
@@ -32,7 +38,37 @@ function AchievementsPage() {
           </div>
           <Trophy className="h-10 w-10 text-accent" />
         </div>
-        <div className="mt-3 text-xs opacity-70">{PROFILE.explorerPoints.toLocaleString()} Explorer Points · {PROFILE.knowledgePoints} Knowledge Points</div>
+      </section>
+
+      <section className="mt-4 grid grid-cols-3 gap-3">
+        <div className="rounded-2xl border border-border bg-card p-4 text-center">
+          <Target className="mx-auto h-5 w-5 text-primary" />
+          <div className="mt-1 font-display text-xl font-bold">{collectedCards}/{totalCards}</div>
+          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Cards</div>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-4 text-center">
+          <Star className="mx-auto h-5 w-5 text-primary" />
+          <div className="mt-1 font-display text-xl font-bold">{earnedEP}/{totalEP}</div>
+          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">EP Earned</div>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-4 text-center">
+          <Award className="mx-auto h-5 w-5 text-primary" />
+          <div className="mt-1 font-display text-xl font-bold">{completionPct}%</div>
+          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Complete</div>
+        </div>
+      </section>
+
+      <section className="mt-4 rounded-2xl border border-accent/40 bg-accent/10 p-4">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+          <Sparkles className="h-3.5 w-3.5" /> Explorer progress
+        </div>
+        <div className="mt-2 flex items-center justify-between text-sm">
+          <span className="text-foreground/70">Overall completion</span>
+          <span className="font-bold">{completionPct}%</span>
+        </div>
+        <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-accent/20">
+          <div className="h-full rounded-full bg-accent" style={{ width: `${completionPct}%` }} />
+        </div>
       </section>
 
       <div className="mt-6 space-y-3">
