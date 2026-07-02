@@ -1,5 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Bell, ChevronRight, Globe, HelpCircle, LogOut, Settings, Share2, Trophy, User } from "lucide-react";
+import { toast } from "sonner";
 import { PROFILE, CARDS } from "@/lib/quest-data";
 
 export const Route = createFileRoute("/app/profile")({
@@ -14,6 +15,14 @@ export const Route = createFileRoute("/app/profile")({
 
 function ProfilePage() {
   const total = CARDS.length;
+  const navigate = useNavigate();
+
+  function handleSignOut() {
+    localStorage.removeItem("uq_explorer");
+    toast("Signed out successfully");
+    navigate({ to: "/" });
+  }
+
   return (
     <div className="mx-auto max-w-md px-5 pt-6 pb-4">
       <header className="flex items-center justify-between">
@@ -57,9 +66,9 @@ function ProfilePage() {
         <Row icon={HelpCircle} label="Help & support" />
       </section>
 
-      <Link to="/" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-destructive/40 py-3 text-sm font-semibold text-destructive">
+      <button onClick={handleSignOut} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-destructive/40 py-3 text-sm font-semibold text-destructive">
         <LogOut className="h-4 w-4" /> Sign out
-      </Link>
+      </button>
     </div>
   );
 }
