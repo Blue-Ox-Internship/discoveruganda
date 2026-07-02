@@ -15,11 +15,20 @@ export const Route = createFileRoute("/auth")({
 
 type Mode = "intro" | "scan" | "manual" | "name";
 
+const EXPLORER_KEY = "uq_explorer";
+
 function AuthPage() {
   const [mode, setMode] = useState<Mode>("intro");
   const [cardId, setCardId] = useState("");
   const [name, setName] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const saved = localStorage.getItem(EXPLORER_KEY);
+    if (saved) {
+      navigate({ to: "/app", replace: true });
+    }
+  }, [navigate]);
 
   // Simulated scan: auto-detect after a short delay
   useEffect(() => {
@@ -49,7 +58,10 @@ function AuthPage() {
             cardId={cardId}
             name={name}
             onChange={setName}
-            onSubmit={() => navigate({ to: "/app" })}
+            onSubmit={() => {
+              localStorage.setItem(EXPLORER_KEY, JSON.stringify({ cardId, name, joined: new Date().toISOString() }));
+              navigate({ to: "/app" });
+            }}
           />
         )}
       </div>
