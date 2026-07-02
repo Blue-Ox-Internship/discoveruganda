@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useParams, useRouter } from "@tanstack/react-router";
+import { useCallback } from "react";
 import { toast } from "sonner";
-import { ArrowLeft, Camera, Check, MapPin, PlayCircle, Share2, Sparkles, Star, Volume2 } from "lucide-react";
+import { ArrowLeft, Camera, Check, MapPin, PlayCircle, Share2, Sparkles, Star, Volume2, Headphones, BookOpen, Cpu } from "lucide-react";
 import { CATEGORY_META, getCard } from "@/lib/quest-data";
 import { CategoryIcon } from "@/components/quest/category-icon";
 
@@ -86,14 +87,31 @@ function CardDetail() {
           <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Scan unlocked</div>
           <ul className="mt-3 space-y-2">
             {card.unlocks.map((u, i) => {
-              const Icon = [Volume2, PlayCircle, Sparkles, MapPin][i % 4];
+              const icons = [Volume2, PlayCircle, BookOpen, MapPin, Headphones, Cpu, Sparkles, Camera];
+              const Icon = icons[i % icons.length];
+              const descriptions = [
+                "Listen to audio guides and pronunciation",
+                "Watch videos and documentaries",
+                "Read in-depth cultural stories",
+                "Find nearby places and experiences",
+                "Hear traditional music and songs",
+                "Interactive quizzes and challenges",
+                "Fun facts and trivia",
+                "Photo challenges and submissions",
+              ];
+              const desc = descriptions[i % descriptions.length];
               return (
-                <li key={u} className="flex items-center gap-3 rounded-xl border border-border bg-card p-3">
-                  <div className="grid h-9 w-9 place-items-center rounded-lg bg-primary/10 text-primary">
-                    <Icon className="h-4 w-4" />
-                  </div>
-                  <div className="flex-1 text-sm font-medium">{u}</div>
-                  <span className="text-xs text-muted-foreground">Open</span>
+                <li key={u}>
+                  <button onClick={() => toast(`Opening "${u}"`, { description: desc })} className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-3 text-left transition hover:bg-accent/5">
+                    <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="truncate text-sm font-medium">{u}</div>
+                      <div className="truncate text-[11px] text-muted-foreground">{desc}</div>
+                    </div>
+                    <span className="shrink-0 text-xs font-semibold text-primary">Open</span>
+                  </button>
                 </li>
               );
             })}
