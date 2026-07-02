@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import heroImg from "@/assets/hero-uganda.jpg";
 import cards1 from "@/assets/cards-1.png.asset.json";
 import cards2 from "@/assets/cards-2.png.asset.json";
 import {
   MessageCircle, Drum, UtensilsCrossed, PawPrint, Mountain, Compass,
-  QrCode, MapPin, Trophy, Camera, ScanLine, Sparkles, ArrowRight,
+  QrCode, MapPin, Trophy, Camera, ScanLine, Sparkles, ArrowRight, CheckCircle2,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -335,6 +336,30 @@ function Passport() {
 }
 
 function CTA() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    const existing = JSON.parse(localStorage.getItem("uq_reservations") || "[]");
+    if (existing.includes(email)) {
+      setError("This email is already registered");
+      return;
+    }
+
+    existing.push(email);
+    localStorage.setItem("uq_reservations", JSON.stringify(existing));
+    setSubmitted(true);
+  }
+
   return (
     <section id="get" className="relative overflow-hidden bg-primary text-primary-foreground">
       <div className="uq-pattern absolute inset-0 opacity-20" />
@@ -348,20 +373,29 @@ function CTA() {
           Pre-order a Uganda Quest deck and get early access to the digital passport
           when it launches.
         </p>
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="mx-auto mt-10 flex max-w-md flex-col gap-3 sm:flex-row"
-        >
-          <input
-            type="email"
-            required
-            placeholder="you@email.com"
-            className="flex-1 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-5 py-3 text-sm text-primary-foreground placeholder:text-primary-foreground/50 outline-none focus:border-accent"
-          />
-          <button className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-foreground transition hover:brightness-105">
-            Reserve a deck
-          </button>
-        </form>
+        {submitted ? (
+          <div className="mx-auto mt-10 flex max-w-md items-center justify-center gap-3 rounded-full bg-accent/20 px-6 py-4 text-accent">
+            <CheckCircle2 className="h-5 w-5 shrink-0" />
+            <span className="text-sm font-semibold">You're on the list! We'll be in touch.</span>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="mx-auto mt-10 max-w-md">
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@email.com"
+                className="flex-1 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-5 py-3 text-sm text-primary-foreground placeholder:text-primary-foreground/50 outline-none focus:border-accent"
+              />
+              <button className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-foreground transition hover:brightness-105">
+                Reserve a deck
+              </button>
+            </div>
+            {error && <p className="mt-2 text-xs text-accent">{error}</p>}
+          </form>
+        )}
       </div>
     </section>
   );
