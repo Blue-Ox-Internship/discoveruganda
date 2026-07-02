@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef } from "react";
 import { toast } from "sonner";
-import { Camera, Check, Star, Upload } from "lucide-react";
+import { Camera, Check, Star, Upload, Trophy, Target, Award } from "lucide-react";
 import { CARDS, CATEGORY_META } from "@/lib/quest-data";
 import { CategoryIcon } from "@/components/quest/category-icon";
 
@@ -18,15 +18,47 @@ export const Route = createFileRoute("/app/missions")({
 function MissionsPage() {
   const active = CARDS.filter((c) => c.collected && !c.completed);
   const done = CARDS.filter((c) => c.completed);
+  const totalMissions = CARDS.filter((c) => c.collected).length;
+  const totalReward = CARDS.filter(c => c.collected).reduce((sum, c) => sum + c.reward, 0);
+  const collectedReward = done.reduce((sum, c) => sum + c.reward, 0);
+  const totalEP = done.length > 0 ? Math.round((collectedReward / totalReward) * 100) : 0;
+
   return (
     <div className="mx-auto max-w-md px-5 pt-6 pb-4">
       <header>
         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Missions</div>
         <h1 className="font-display text-3xl font-bold">Your Quests</h1>
-        <div className="mt-1 text-sm text-muted-foreground">
-          {active.length} active · {done.length} completed
-        </div>
       </header>
+
+      <section className="mt-5 grid grid-cols-3 gap-3">
+        <div className="rounded-2xl border border-border bg-card p-4 text-center">
+          <Target className="mx-auto h-5 w-5 text-primary" />
+          <div className="mt-2 font-display text-2xl font-bold">{active.length}</div>
+          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Active</div>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-4 text-center">
+          <Trophy className="mx-auto h-5 w-5 text-primary" />
+          <div className="mt-2 font-display text-2xl font-bold">{done.length}</div>
+          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Completed</div>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-4 text-center">
+          <Award className="mx-auto h-5 w-5 text-primary" />
+          <div className="mt-2 font-display text-2xl font-bold">{collectedReward}</div>
+          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">EP Earned</div>
+        </div>
+      </section>
+
+      {totalMissions > 0 && (
+        <section className="mt-4 rounded-2xl border border-accent/40 bg-accent/10 p-4">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-semibold uppercase tracking-wider">Mission progress</span>
+            <span className="font-semibold">{done.length}/{totalMissions} complete</span>
+          </div>
+          <div className="mt-2 h-2 overflow-hidden rounded-full bg-accent/20">
+            <div className="h-full rounded-full bg-accent" style={{ width: `${totalEP}%` }} />
+          </div>
+        </section>
+      )}
 
       <h2 className="mt-6 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Active</h2>
       <div className="mt-3 space-y-3">
@@ -38,10 +70,14 @@ function MissionsPage() {
         )}
       </div>
 
-      <h2 className="mt-8 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Completed</h2>
-      <div className="mt-3 space-y-3">
-        {done.map((c) => <MissionRow key={c.id} card={c} done />)}
-      </div>
+      {done.length > 0 && (
+        <>
+          <h2 className="mt-8 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Completed</h2>
+          <div className="mt-3 space-y-3">
+            {done.map((c) => <MissionRow key={c.id} card={c} done />)}
+          </div>
+        </>
+      )}
     </div>
   );
 }
