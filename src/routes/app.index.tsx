@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bell, ScanLine, Trophy, ArrowUpRight, Flame, Compass } from "lucide-react";
+import { useMemo } from "react";
+import { Bell, ScanLine, Trophy, ArrowUpRight, Flame, Compass, Sparkles, Star } from "lucide-react";
 import { toast } from "sonner";
-import { CARDS, PROFILE, ACHIEVEMENTS, CATEGORY_META } from "@/lib/quest-data";
+import { CARDS, PROFILE, ACHIEVEMENTS, CATEGORY_META, type Category } from "@/lib/quest-data";
 import { CategoryIcon } from "@/components/quest/category-icon";
 
 export const Route = createFileRoute("/app/")({
@@ -17,6 +18,21 @@ export const Route = createFileRoute("/app/")({
 function Passport() {
   const recent = CARDS.filter((c) => c.collected).slice(0, 6);
   const nextAch = ACHIEVEMENTS.find((a) => !a.unlocked)!;
+
+  const dailyQuest = useMemo(() => {
+    const incomplete = CARDS.filter(c => !c.collected);
+    return incomplete[Math.floor(Math.random() * incomplete.length)] ?? CARDS[0];
+  }, []);
+
+  const categoryProgress = useMemo(() => {
+    const cats = Object.keys(CATEGORY_META) as Category[];
+    return cats.map(cat => {
+      const total = CARDS.filter(c => c.category === cat).length;
+      const owned = CARDS.filter(c => c.category === cat && c.collected).length;
+      return { cat, label: CATEGORY_META[cat].label, total, owned, pct: Math.round((owned / total) * 100) };
+    });
+  }, []);
+
   return (
     <div className="mx-auto max-w-md px-5 pt-6">
       <header className="flex items-center justify-between">
@@ -48,6 +64,21 @@ function Passport() {
         </div>
       </section>
 
+      <section className="mt-4 rounded-2xl border border-accent/40 bg-gradient-to-br from-accent/10 to-accent/5 p-4">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+          <Sparkles className="h-3.5 w-3.5 text-accent" /> Daily quest
+        </div>
+        <p className="mt-2 text-sm font-medium">{dailyQuest.mission}</p>
+        <div className="mt-3 flex items-center justify-between">
+          <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+            <Star className="h-3 w-3" /> +{dailyQuest.reward} EP
+          </span>
+          <Link to="/app/cards/$id" params={{ id: dailyQuest.id }} className="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground">
+            Start quest
+          </Link>
+        </div>
+      </section>
+
       <div className="mt-4 grid grid-cols-3 gap-3">
         {[
           ["Cards", PROFILE.cards],
@@ -60,6 +91,26 @@ function Passport() {
           </div>
         ))}
       </div>
+
+      <section className="mt-4 rounded-2xl border border-border bg-card p-4">
+        <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Category progress</div>
+        <div className="mt-3 space-y-2">
+          {categoryProgress.map(({ cat, label, total, owned, pct }) => (
+            <div key={cat} className="flex items-center gap-3">
+              <CategoryIcon category={cat} className="h-4 w-4 shrink-0" style={{ color: CATEGORY_META[cat].color }} />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-medium">{label}</span>
+                  <span className="text-muted-foreground">{owned}/{total}</span>
+                </div>
+                <div className="mt-1 h-1 overflow-hidden rounded-full bg-secondary">
+                  <div className="h-full rounded-full bg-primary" style={{ width: `${pct}%` }} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <Link to="/app/scan" className="mt-5 flex items-center justify-between rounded-2xl border border-dashed border-primary/50 bg-primary/5 p-4">
         <div className="flex items-center gap-3">
