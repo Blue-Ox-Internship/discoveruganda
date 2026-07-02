@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
 import { Search, Check, Lock, ArrowUpDown } from "lucide-react";
-import { CARDS, CATEGORY_META, type Category } from "@/lib/quest-data";
+import { CARDS, CATEGORY_META, REGIONS, type Category, type Region } from "@/lib/quest-data";
 import { CategoryIcon } from "@/components/quest/category-icon";
 
 export const Route = createFileRoute("/app/cards")({
@@ -32,6 +32,7 @@ function CardsPage() {
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<"all" | "collected" | "locked">("all");
   const [cat, setCat] = useState<Category | "all">("all");
+  const [region, setRegion] = useState<Region | "all">("all");
   const [sort, setSort] = useState<SortKey>("name");
   const [sortAsc, setSortAsc] = useState(true);
 
@@ -40,6 +41,7 @@ function CardsPage() {
       if (filter === "collected" && !c.collected) return false;
       if (filter === "locked" && c.collected) return false;
       if (cat !== "all" && c.category !== cat) return false;
+      if (region !== "all" && c.region !== region) return false;
       if (q && !c.title.toLowerCase().includes(q.toLowerCase())) return false;
       return true;
     });
@@ -49,7 +51,7 @@ function CardsPage() {
       if (sort === "reward") return (a.reward - b.reward) * dir;
       return a.region.localeCompare(b.region) * dir;
     });
-  }, [q, filter, cat, sort, sortAsc]);
+  }, [q, filter, cat, region, sort, sortAsc]);
 
   const total = CARDS.length;
   const owned = CARDS.filter((c) => c.collected).length;
@@ -99,6 +101,23 @@ function CardsPage() {
             >
               {c !== "all" && <CategoryIcon category={c} className="h-3.5 w-3.5" />}
               {c === "all" ? "All categories" : CATEGORY_META[c].label}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5">
+        {(["all" as const, ...REGIONS.map(r => r.name)]).map((r) => {
+          const active = region === r;
+          return (
+            <button
+              key={r}
+              onClick={() => setRegion(r)}
+              className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold capitalize ${
+                active ? "border-primary bg-primary/10 text-primary" : "border-border bg-card text-foreground/70"
+              }`}
+            >
+              {r === "all" ? "All regions" : r}
             </button>
           );
         })}
