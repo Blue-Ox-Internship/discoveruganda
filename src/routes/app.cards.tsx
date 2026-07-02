@@ -69,6 +69,19 @@ function CardsPage() {
         </div>
       </header>
 
+      <div className="mt-4 grid grid-cols-6 gap-1.5">
+        {(Object.keys(CATEGORY_META) as Category[]).map((cat) => {
+          const total = CARDS.filter(c => c.category === cat).length;
+          const owned = CARDS.filter(c => c.category === cat && c.collected).length;
+          return (
+            <div key={cat} className="flex flex-col items-center gap-1 rounded-xl border border-border bg-card py-2">
+              <CategoryIcon category={cat} className="h-4 w-4" style={{ color: CATEGORY_META[cat].color }} />
+              <span className="text-[10px] font-bold">{owned}/{total}</span>
+            </div>
+          );
+        })}
+      </div>
+
       <div className="mt-5 flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5">
         <Search className="h-4 w-4 text-muted-foreground" />
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search cards..." className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
