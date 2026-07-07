@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Speak Uganda"
+version = "1.0.0"
+id = "artifacts/speak-uganda"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20068
+
+[services.development]
+run = "pnpm --filter @workspace/speak-uganda run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/speak-uganda", "run", "build" ]
+publicDir = "artifacts/speak-uganda/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20068"
+BASE_PATH = "/"
