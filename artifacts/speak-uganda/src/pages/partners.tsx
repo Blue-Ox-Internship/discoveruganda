@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Link } from "wouter";
 import {
   Hotel, Map, Utensils, Building, BadgeCheck, X, QrCode, Smartphone,
-  TrendingUp, Users, Repeat, Heart, ArrowDown, Star, Phone, Mail, Globe,
-  Plane, Car, Coffee, ShoppingBag, Wifi
+  TrendingUp, Users, Repeat, Heart, ArrowDown, Mail,
+  Plane, Car, Coffee, ShoppingBag, Wifi, ArrowRight
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -162,44 +163,6 @@ const allFeatures = [
   "Analytics Dashboard", "Exclusive Category Sponsor"
 ];
 
-const featuredHotels = [
-  {
-    name: "Gorilla Forest Lodge",
-    location: "Bwindi Impenetrable Forest",
-    stars: 5,
-    category: "Luxury Eco-Lodge",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
-    discount: "20% OFF",
-    offer: "Book direct through the game card",
-    highlights: ["Luxury Forest Suites", "Gorilla Trekking Packages", "Infinity Pool", "Gourmet Restaurant"],
-    phone: "+256 700 123 456",
-    website: "gorillalodge.ug"
-  },
-  {
-    name: "Serena Kampala Hotel",
-    location: "Kampala, Uganda",
-    stars: 5,
-    category: "5-Star City Hotel",
-    image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80",
-    discount: "15% OFF",
-    offer: "Exclusive game card holders rate",
-    highlights: ["Rooftop Pool & Spa", "Conference Facilities", "Fine Dining", "Airport Transfers"],
-    phone: "+256 700 234 567",
-    website: "serena.co.ug"
-  },
-  {
-    name: "Murchison River Lodge",
-    location: "Murchison Falls NP",
-    stars: 4,
-    category: "Safari Lodge",
-    image: "https://images.unsplash.com/photo-1615880484746-a134be9a6ecf?w=800&q=80",
-    discount: "FREE Safari",
-    offer: "Complimentary game drive with 2-night stay",
-    highlights: ["Nile-View Cottages", "Game Drives", "Boat Safaris", "Bird Watching"],
-    phone: "+256 700 345 678",
-    website: "murchisonsafari.ug"
-  }
-];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -547,92 +510,67 @@ export default function Partners() {
         </div>
       </section>
 
-      {/* ── FEATURED PARTNER HOTELS ──────────────────────────── */}
+      {/* ── DIRECTORY TEASER ─────────────────────────────────── */}
       <section className="py-24 bg-background px-4 md:px-6">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-primary font-bold uppercase tracking-wider text-sm mb-3">Partner Showcase</h2>
-            <h3 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-4">Hotels Already in the Game</h3>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              These partners are featured in game cards, destination pages, and QR booking flows — reaching travelers before they land in Uganda.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {featuredHotels.map((hotel, idx) => (
-              <motion.div
-                key={idx}
-                custom={idx}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                data-testid={`card-hotel-${idx}`}
-                className="bg-card border border-border rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col"
-              >
-                <div className="relative h-52 overflow-hidden">
-                  <img
-                    src={hotel.image}
-                    alt={hotel.name}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute top-4 left-4 bg-accent text-accent-foreground text-xs font-bold uppercase px-3 py-1.5 rounded-full tracking-wider">
-                    {hotel.category}
-                  </div>
-                  <div className="absolute bottom-4 right-4 bg-primary text-primary-foreground font-bold text-sm px-4 py-2 rounded-full">
-                    {hotel.discount}
-                  </div>
+        <div className="container mx-auto max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-card border-2 border-primary/20 rounded-3xl overflow-hidden shadow-lg"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              <div className="relative h-64 md:h-auto overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80"
+                  alt="Partner hotels and places"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/20 md:bg-gradient-to-l" />
+                <div className="absolute bottom-4 left-4 flex gap-2">
+                  {["Hotels", "Tours", "Restaurants", "Attractions"].map((tag) => (
+                    <span key={tag} className="bg-black/50 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-
-                <div className="p-6 flex flex-col flex-1 space-y-4">
-                  <div>
-                    <h4 className="font-serif text-xl font-bold text-foreground">{hotel.name}</h4>
-                    <p className="text-sm text-muted-foreground mt-1">{hotel.location}</p>
-                    <div className="flex gap-0.5 mt-2">
-                      {[...Array(hotel.stars)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 fill-accent text-accent" />
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="bg-primary/5 border border-primary/20 rounded-xl p-3 flex items-center gap-3">
-                    <QrCode className="h-5 w-5 text-primary shrink-0" />
-                    <p className="text-sm text-foreground font-medium">{hotel.offer}</p>
-                  </div>
-
-                  <ul className="space-y-1.5 flex-1">
-                    {hotel.highlights.map((h, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <BadgeCheck className="h-4 w-4 text-accent shrink-0" />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="pt-2 border-t border-border space-y-2">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <Phone className="h-3.5 w-3.5" />{hotel.phone}
-                    </div>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <Globe className="h-3.5 w-3.5" />{hotel.website}
-                    </div>
-                  </div>
-
-                  <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90" data-testid={`btn-hotel-book-${idx}`}>
-                    Book & Claim Discount
+              </div>
+              <div className="p-10 flex flex-col justify-center gap-6">
+                <div>
+                  <span className="text-primary font-bold uppercase tracking-widest text-xs mb-3 block">Partner Directory</span>
+                  <h3 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
+                    Browse All Partner Hotels, Places & Experiences
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Every business that partners with Speak Uganda gets a full listing — with photos, discounts, booking info, and QR details — in our dedicated Directory. Travelers browse it to plan their trips.
+                  </p>
+                </div>
+                <ul className="space-y-2">
+                  {[
+                    "Hotels & lodges with rooms, photos, and star ratings",
+                    "Tour operators with safari and activity packages",
+                    "Restaurants with menus and exclusive game-card discounts",
+                    "Attractions with opening hours and booking links",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <BadgeCheck className="h-4 w-4 text-accent shrink-0 mt-0.5" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-6" data-testid="btn-view-directory">
+                    <Link href="/directory">
+                      View the Directory <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/5 h-12 px-6" data-testid="btn-join-directory">
+                    <a href="#apply">Get Your Business Listed</a>
                   </Button>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-muted-foreground mb-4">Want your hotel in this showcase?</p>
-            <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/5 h-12 px-8" data-testid="btn-join-showcase">
-              <a href="#apply">Apply to Partner</a>
-            </Button>
-          </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
