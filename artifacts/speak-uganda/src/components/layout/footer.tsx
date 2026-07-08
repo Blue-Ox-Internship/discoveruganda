@@ -56,7 +56,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-secondary-foreground/80">
                 <Mail className="h-4 w-4" />
-                <span>hello@speakuganda.com</span>
+                <span>hello@discoveruganda.com</span>
               </li>
               <li className="flex items-center gap-3 text-secondary-foreground/80">
                 <Phone className="h-4 w-4" />

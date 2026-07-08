@@ -19,7 +19,7 @@ const products: Product[] = [
     price: "$29.99",
     category: "Base Game",
     description: "The original deck. 100 beautifully illustrated cards covering the core destinations, wildlife, and culture of Uganda.",
-    imageUrl: "https://images.unsplash.com/photo-1610633389918-7d5b62977dc3?w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=600&q=80",
     badge: "Best Seller"
   },
   {
@@ -36,7 +36,7 @@ const products: Product[] = [
     price: "$14.99",
     category: "Expansion Pack",
     description: "50 cards exploring traditional dishes, local languages, tribes, and cultural heritage sites.",
-    imageUrl: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80"
   },
   {
     id: "premium-bundle",
@@ -44,7 +44,7 @@ const products: Product[] = [
     price: "$49.99",
     category: "Gift Pack",
     description: "The Classic Edition plus both Wildlife and Culture expansions. Comes in a premium travel pouch.",
-    imageUrl: "https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&q=80",
     badge: "Save 15%"
   },
   {
@@ -53,7 +53,7 @@ const products: Product[] = [
     price: "$9.99",
     category: "Accessories",
     description: "Protect your cards from the elements while traveling. Pack of 200 clear matte sleeves.",
-    imageUrl: "https://images.unsplash.com/photo-1606167668584-78701c57f13d?w=600&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1530866959561-b6e2e2d10e7e?w=600&q=80"
   },
   {
     id: "guide-book",
@@ -70,13 +70,20 @@ export default function Shop() {
     <div className="min-h-screen bg-background pb-20">
       
       {/* Hero Section */}
-      <section className="bg-white pt-32 pb-16 px-4 md:px-6 border-b border-border">
-        <div className="container mx-auto text-center max-w-4xl">
+      <section className="relative pt-32 pb-16 px-4 md:px-6 border-b border-border overflow-hidden bg-[#1a1a1a]">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/card-kampala.png"
+            alt="Uganda"
+            className="w-full h-full object-cover opacity-30"
+          />
+        </div>
+        <div className="container relative z-10 mx-auto text-center max-w-4xl">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-5xl md:text-7xl font-serif font-bold text-foreground mb-6"
+            className="text-5xl md:text-7xl font-serif font-bold text-white mb-6"
           >
             The Game. The Expansion. The Experience.
           </motion.h1>
@@ -84,7 +91,7 @@ export default function Shop() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-muted-foreground tracking-wide"
+            className="text-xl text-white/70 tracking-wide"
           >
             Free shipping on orders over $50 · Ships to 30+ countries
           </motion.p>

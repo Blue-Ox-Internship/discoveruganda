@@ -3,27 +3,39 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-background pt-24 pb-20">
-      <div className="container mx-auto px-4 md:px-6">
-        
-        <div className="max-w-4xl mx-auto mb-20 text-center">
-          <motion.h1 
+    <div className="min-h-screen bg-background pb-20">
+
+      {/* Hero */}
+      <section className="relative pt-36 pb-24 px-4 md:px-6 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/card-rwenzori.png"
+            alt="Rwenzori Mountains"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
+        <div className="container relative z-10 mx-auto text-center max-w-3xl">
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-6xl font-serif font-bold text-foreground mb-6"
+            className="text-4xl md:text-6xl font-serif font-bold text-white mb-6"
           >
             Our Story
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-muted-foreground leading-relaxed"
+            className="text-xl text-white/80 leading-relaxed"
           >
             Discover Uganda started as a question: what if the best travel guide to Uganda wasn't a book — but a game you could hold, deal, and play before you ever booked a flight?
           </motion.p>
         </div>
+      </section>
+
+      <div className="container mx-auto px-4 md:px-6 pt-20">
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
           <motion.div 

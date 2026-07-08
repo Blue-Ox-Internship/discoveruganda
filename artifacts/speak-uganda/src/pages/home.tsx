@@ -45,10 +45,10 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 w-full max-w-md justify-center mb-16"
           >
-            <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg h-14 px-8" data-testid="hero-cta-buy">
+            <Button asChild size="lg" className="bg-primary text-white hover:bg-primary/90 text-lg h-14 px-8 shadow-2xl ring-2 ring-white/30" data-testid="hero-cta-buy">
               <Link href="/shop">Buy the Game</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 border-white/30 text-lg h-14 px-8" data-testid="hero-cta-partner">
+            <Button asChild size="lg" variant="outline" className="bg-white/20 text-white hover:bg-white/30 border-white/70 text-lg h-14 px-8 backdrop-blur-sm" data-testid="hero-cta-partner">
               <Link href="/partners">Become a Partner</Link>
             </Button>
           </motion.div>

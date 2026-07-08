@@ -224,9 +224,17 @@ export default function Directory() {
     <div className="min-h-screen bg-background">
 
       {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="bg-secondary text-secondary-foreground pt-36 pb-24 px-4 md:px-6 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_bottom_left,_hsl(var(--accent))_0%,_transparent_60%)]" />
-        <div className="container mx-auto text-center max-w-4xl relative z-10">
+      <section className="relative text-secondary-foreground pt-36 pb-24 px-4 md:px-6 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1600&q=80"
+            alt="Uganda landscape"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-secondary/85" />
+        </div>
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_bottom_left,_hsl(var(--accent))_0%,_transparent_60%)] z-[1]" />
+        <div className="container mx-auto text-center max-w-4xl relative z-[2]">
           <motion.span
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             className="inline-block text-accent font-bold uppercase tracking-widest text-sm mb-5"
