@@ -68,9 +68,9 @@ export function InteractiveCard({ frontImage, title, region, highlights, descrip
           </div>
           
           <div className="mt-auto pt-4 flex justify-between items-center">
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Speak Uganda</span>
+            <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Discover Uganda</span>
             <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-              <span className="text-primary font-serif font-bold text-xs">SU</span>
+              <span className="text-primary font-serif font-bold text-xs">DU</span>
             </div>
           </div>
         </div>

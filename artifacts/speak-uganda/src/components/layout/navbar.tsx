@@ -23,7 +23,7 @@ export function Navbar() {
           <div className="bg-primary text-primary-foreground p-2 rounded-md group-hover:bg-secondary transition-colors">
             <MapPin className="h-6 w-6" />
           </div>
-          <span className="font-serif text-2xl font-bold tracking-tight text-foreground">Speak Uganda</span>
+          <span className="font-serif text-2xl font-bold tracking-tight text-foreground">Discover Uganda</span>
         </Link>
 
         {/* Desktop Nav */}

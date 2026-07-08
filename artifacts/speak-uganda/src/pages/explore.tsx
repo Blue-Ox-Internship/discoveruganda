@@ -38,7 +38,7 @@ export default function Explore() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-secondary-foreground/80 max-w-2xl mx-auto"
           >
-            Flip through the cards that make up the Speak Uganda experience. Hold the Pearl of Africa in your hands.
+            Flip through the cards that make up the Discover Uganda experience. Hold the Pearl of Africa in your hands.
           </motion.p>
         </div>
       </section>

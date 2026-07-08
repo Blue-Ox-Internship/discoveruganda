@@ -21,7 +21,7 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-muted-foreground leading-relaxed"
           >
-            Speak Uganda started as a question: what if the best travel guide to Uganda wasn't a book — but a game you could hold, deal, and play before you ever booked a flight?
+            Discover Uganda started as a question: what if the best travel guide to Uganda wasn't a book — but a game you could hold, deal, and play before you ever booked a flight?
           </motion.p>
         </div>
 
@@ -68,7 +68,7 @@ export default function About() {
           >
             <h2 className="text-3xl font-serif font-bold text-foreground">The Platform Vision</h2>
             <p className="text-lg text-muted-foreground">
-              Speak Uganda is a physical card game, yes. But underneath the beautifully illustrated cards lies an innovative, tech-enabled marketing platform.
+              Discover Uganda is a physical card game, yes. But underneath the beautifully illustrated cards lies an innovative, tech-enabled marketing platform.
             </p>
             <p className="text-lg text-muted-foreground">
               By integrating QR codes, we turned a piece of cardboard into a booking engine. A player draws the 'Bwindi Forest' card, reads about gorilla trekking, scans the back, and is immediately connected to a local tour operator offering a discount.

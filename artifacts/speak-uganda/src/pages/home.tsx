@@ -161,7 +161,7 @@ export default function Home() {
             <div className="bg-card p-10 rounded-3xl shadow-sm border border-border">
               <Star className="h-8 w-8 text-accent fill-accent mb-6" />
               <p className="text-xl font-serif leading-relaxed text-foreground mb-6">
-                "I played Speak Uganda at my hotel in Kampala and booked a gorilla trek through a card. Three weeks later I was in Bwindi."
+                "I played Discover Uganda at my hotel in Kampala and booked a gorilla trek through a card. Three weeks later I was in Bwindi."
               </p>
               <div className="font-bold text-primary">— Sarah M., London</div>
             </div>

@@ -243,7 +243,7 @@ export default function Directory() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-secondary-foreground/75 mb-10 max-w-2xl mx-auto"
           >
-            Every business listed here is an official Speak Uganda partner. Game card holders unlock exclusive discounts, priority bookings, and special offers at each one.
+            Every business listed here is an official Discover Uganda partner. Game card holders unlock exclusive discounts, priority bookings, and special offers at each one.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
@@ -267,7 +267,7 @@ export default function Directory() {
               { value: "12", label: "Partner Businesses" },
               { value: "4", label: "Categories" },
               { value: "QR", label: "Booking on every listing" },
-              { value: "100%", label: "Verified by Speak Uganda" },
+              { value: "100%", label: "Verified by Discover Uganda" },
             ].map((item, idx) => (
               <div key={idx}>
                 <div className="text-3xl font-bold text-primary mb-1">{item.value}</div>
@@ -438,7 +438,7 @@ export default function Directory() {
             Your Business Belongs Here
           </h2>
           <p className="text-secondary-foreground/80 text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-            Join 12 tourism businesses already reaching travelers through Speak Uganda. Partner listings are free for Gold partners.
+            Join 12 tourism businesses already reaching travelers through Discover Uganda. Partner listings are free for Gold partners.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 h-14 px-10 text-lg" data-testid="banner-cta-partner">

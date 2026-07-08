@@ -15,7 +15,7 @@ interface Product {
 const products: Product[] = [
   {
     id: "classic",
-    name: "Speak Uganda Classic Edition",
+    name: "Discover Uganda Classic Edition",
     price: "$29.99",
     category: "Base Game",
     description: "The original deck. 100 beautifully illustrated cards covering the core destinations, wildlife, and culture of Uganda.",

@@ -14,7 +14,7 @@ export function Footer() {
               <div className="bg-accent text-accent-foreground p-2 rounded-md">
                 <MapPin className="h-6 w-6" />
               </div>
-              <span className="font-serif text-2xl font-bold tracking-tight">Speak Uganda</span>
+              <span className="font-serif text-2xl font-bold tracking-tight">Discover Uganda</span>
             </Link>
             <p className="text-secondary-foreground/80 leading-relaxed max-w-sm">
               Uganda's first interactive tourism card game. Play. Discover. Experience the Pearl of Africa.
@@ -92,7 +92,7 @@ export function Footer() {
 
         <div className="border-t border-secondary-foreground/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-secondary-foreground/60">
           <div className="flex items-center gap-3">
-             <p>© {new Date().getFullYear()} Speak Uganda. All rights reserved.</p>
+             <p>© {new Date().getFullYear()} Discover Uganda. All rights reserved.</p>
              <span className="px-2 py-0.5 rounded bg-white/10 text-white text-xs font-bold uppercase tracking-wider">Made in Uganda</span>
           </div>
         </div>

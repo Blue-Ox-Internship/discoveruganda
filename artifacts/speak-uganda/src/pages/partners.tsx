@@ -42,7 +42,7 @@ const whyPartner = [
   {
     icon: Users,
     title: "Create Memorable Experiences",
-    desc: "Hotels can offer Speak Uganda as in-room entertainment. Every stay becomes more engaging — and more shareable."
+    desc: "Hotels can offer Discover Uganda as in-room entertainment. Every stay becomes more engaging — and more shareable."
   },
   {
     icon: Heart,
@@ -64,7 +64,7 @@ const partnerTypes = [
 ];
 
 const bookingFlow = [
-  "Guest buys Speak Uganda",
+  "Guest buys Discover Uganda",
   "Discovers Gorilla Trekking",
   "Finds Your Lodge Card",
   "Scans QR Code",
@@ -81,7 +81,7 @@ const qrFlow = [
 ];
 
 const customerJourney = [
-  "Tourist", "Plays Speak Uganda", "Discovers Destination",
+  "Tourist", "Plays Discover Uganda", "Discovers Destination",
   "Scans QR Code", "Finds Your Business", "Books Experience",
   "Visits Uganda", "Shares the Experience"
 ];
@@ -226,7 +226,7 @@ export default function Partners() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-secondary-foreground/80 mb-10 max-w-2xl mx-auto"
           >
-            Speak Uganda puts your hotel, tour company, or restaurant inside a card game played by Uganda's most engaged travelers — before they even book a flight.
+            Discover Uganda puts your hotel, tour company, or restaurant inside a card game played by Uganda's most engaged travelers — before they even book a flight.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
@@ -247,7 +247,7 @@ export default function Partners() {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-primary font-bold uppercase tracking-wider text-sm mb-3">The Business Case</h2>
-            <h3 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-4">Why Businesses Partner With Speak Uganda</h3>
+            <h3 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-4">Why Businesses Partner With Discover Uganda</h3>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">This isn't sponsorship. This is a marketing channel that puts your brand inside a game played by your exact target audience.</p>
           </div>
 
@@ -319,7 +319,7 @@ export default function Partners() {
             >
               <div className="w-72 rounded-3xl overflow-hidden shadow-2xl border-4 border-accent bg-card">
                 <div className="bg-secondary text-white px-5 py-3 text-center">
-                  <span className="text-xs font-bold uppercase tracking-widest text-accent">Speak Uganda</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-accent">Discover Uganda</span>
                   <p className="text-[10px] text-secondary-foreground/60 mt-0.5">Official Partner Card</p>
                 </div>
                 <div className="bg-gradient-to-br from-secondary to-secondary/70 h-36 flex items-center justify-center">
@@ -536,7 +536,7 @@ export default function Partners() {
             </div>
             <div className="bg-primary/5 p-12 text-center">
               <p className="text-xl text-foreground font-medium mb-8 max-w-2xl mx-auto">
-                Join 12+ leading hotels, tour operators, and restaurants already listed in the official Speak Uganda directory.
+                Join 12+ leading hotels, tour operators, and restaurants already listed in the official Discover Uganda directory.
               </p>
               <Button asChild size="lg" className="h-14 px-8 text-lg">
                 <Link href="/discover">View Partner Directory</Link>
