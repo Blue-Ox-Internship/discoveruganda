@@ -3,43 +3,67 @@ interface CraneLogoProps {
   className?: string;
 }
 
-export function CraneLogo({ size = 40, className = "" }: CraneLogoProps) {
+export function CraneLogo({ size = 44, className = "" }: CraneLogoProps) {
+  const h = size;
+  const w = size * 0.65;
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 48 48"
+      width={w}
+      height={h}
+      viewBox="0 0 52 80"
       fill="none"
       className={className}
-      aria-label="Discover Uganda logo — Grey Crowned Crane"
+      aria-label="Discover Uganda — Grey Crowned Crane"
     >
-      <rect width="48" height="48" rx="10" fill="#E84010"/>
-      {/* Crown feathers — golden */}
-      <line x1="28" y1="10" x2="25" y2="4" stroke="#FFD700" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="30" y1="9" x2="28" y2="3" stroke="#FFD700" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="32" y1="9" x2="32" y2="3" stroke="#FFD700" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="34" y1="10" x2="35" y2="4" stroke="#FFD700" strokeWidth="2" strokeLinecap="round"/>
-      {/* Head */}
-      <circle cx="31" cy="14" r="4" fill="white"/>
-      {/* Red cheek patch */}
-      <circle cx="33" cy="15" r="1.6" fill="#CC2200" opacity="0.85"/>
-      {/* Beak */}
-      <path d="M34 13 L43 13.5 L34 15.2 Z" fill="white"/>
-      {/* Neck */}
-      <path d="M28 17.5 C25 21 22 24.5 20 27.5" stroke="white" strokeWidth="4" strokeLinecap="round" fill="none"/>
-      {/* Body */}
-      <ellipse cx="16" cy="31" rx="8.5" ry="6" fill="white" transform="rotate(-15 16 31)"/>
-      {/* Wing */}
-      <path d="M10 28 C7 23 7 18 11 14 C14 20 16 24.5 19 27" fill="rgba(220,220,220,0.9)"/>
-      {/* Tail feathers */}
-      <path d="M9 35 Q4 37 3 41" stroke="white" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-      <path d="M10 33.5 Q5 35 3 38" stroke="white" strokeWidth="2" strokeLinecap="round" opacity="0.75" fill="none"/>
-      {/* Leg */}
-      <line x1="17" y1="36.5" x2="14" y2="44" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
-      {/* Foot */}
-      <line x1="14" y1="44" x2="9" y2="46" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-      <line x1="14" y1="44" x2="15" y2="47" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+      {/* ── Crown feathers (golden) ── */}
+      <line x1="23" y1="8"  x2="19" y2="1"  stroke="#FFD700" strokeWidth="2.8" strokeLinecap="round"/>
+      <line x1="26" y1="7"  x2="24" y2="0"  stroke="#FFD700" strokeWidth="2.8" strokeLinecap="round"/>
+      <line x1="29" y1="7"  x2="29" y2="0"  stroke="#FFD700" strokeWidth="2.8" strokeLinecap="round"/>
+      <line x1="32" y1="8"  x2="34" y2="1"  stroke="#FFD700" strokeWidth="2.8" strokeLinecap="round"/>
+      <line x1="34" y1="9"  x2="37" y2="3"  stroke="#FFD700" strokeWidth="2.8" strokeLinecap="round"/>
+
+      {/* ── Head ── */}
+      <circle cx="28" cy="14" r="6" fill="#E84010"/>
+
+      {/* ── Red wattle / cheek patch ── */}
+      <circle cx="31" cy="16" r="2.4" fill="#B82A00"/>
+
+      {/* ── Beak ── */}
+      <path d="M33 12.5 L44 13.5 L33 16 Z" fill="#E84010"/>
+
+      {/* ── Neck (S-curve to body) ── */}
+      <path
+        d="M24 19 C21 24 18 29 17 35"
+        stroke="#E84010" strokeWidth="5.5" strokeLinecap="round" fill="none"
+      />
+
+      {/* ── Body ── */}
+      <ellipse cx="15" cy="42" rx="13" ry="10" fill="#E84010" transform="rotate(-12 15 42)"/>
+
+      {/* ── Wing (darker tone for depth) ── */}
+      <path
+        d="M5 38 C1 32 2 24 7 19 C11 26 13 32 16 37"
+        fill="#C23200"
+      />
+
+      {/* ── Tail feathers ── */}
+      <path d="M4 48 Q-1 52 -2 58" stroke="#E84010" strokeWidth="3.5" strokeLinecap="round" fill="none"/>
+      <path d="M5 46 Q0 49 -1 54"  stroke="#E84010" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.6"/>
+
+      {/* ── Standing leg ── */}
+      <line x1="17" y1="51" x2="14" y2="67" stroke="#E84010" strokeWidth="2.4" strokeLinecap="round"/>
+      {/* Standing foot (toes) */}
+      <line x1="14" y1="67" x2="6"  y2="70" stroke="#E84010" strokeWidth="2"   strokeLinecap="round"/>
+      <line x1="14" y1="67" x2="15" y2="71" stroke="#E84010" strokeWidth="2"   strokeLinecap="round"/>
+      <line x1="14" y1="67" x2="21" y2="69" stroke="#E84010" strokeWidth="2"   strokeLinecap="round"/>
+
+      {/* ── Raised leg (stepping forward — Uganda coat-of-arms pose) ── */}
+      <path d="M21 50 L27 61 L24 67" stroke="#E84010" strokeWidth="2.4" strokeLinecap="round" fill="none"/>
+      {/* Raised foot */}
+      <line x1="24" y1="67" x2="18" y2="70" stroke="#E84010" strokeWidth="2"   strokeLinecap="round"/>
+      <line x1="24" y1="67" x2="25" y2="71" stroke="#E84010" strokeWidth="2"   strokeLinecap="round"/>
     </svg>
   );
 }
