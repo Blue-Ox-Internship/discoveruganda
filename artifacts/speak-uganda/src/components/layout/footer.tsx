@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { MapPin, Mail, Phone, Instagram, Twitter, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { CraneLogo } from "@/components/ui/crane-logo";
 
 export function Footer() {
   return (
@@ -10,10 +11,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-2 group w-max" data-testid="footer-logo">
-              <div className="bg-accent text-accent-foreground p-2 rounded-md">
-                <MapPin className="h-6 w-6" />
-              </div>
+            <Link href="/" className="flex items-center gap-3 group w-max" data-testid="footer-logo">
+              <CraneLogo size={40} />
               <span className="font-serif text-2xl font-bold tracking-tight">Discover Uganda</span>
             </Link>
             <p className="text-secondary-foreground/80 leading-relaxed max-w-sm">
