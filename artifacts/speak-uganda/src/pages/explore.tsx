@@ -7,8 +7,16 @@ export default function Explore() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-secondary text-secondary-foreground pt-32 pb-20 px-4 md:px-6">
-        <div className="container mx-auto text-center max-w-4xl">
+      <section className="relative text-secondary-foreground pt-32 pb-20 px-4 md:px-6 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/card-bwindi.png"
+            alt="Uganda Forest"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-secondary/80" />
+        </div>
+        <div className="container relative z-10 mx-auto text-center max-w-4xl">
           <div className="flex flex-wrap justify-center gap-3 mb-8">
             {["Northern Uganda", "Western Uganda", "Central Uganda", "Eastern Uganda", "South Western Uganda"].map((region) => (
               <span key={region} className="px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-sm font-medium tracking-wide">

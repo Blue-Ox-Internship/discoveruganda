@@ -53,21 +53,6 @@ export default function Home() {
             </Button>
           </motion.div>
 
-          {/* Animated Cards Dealing Effect */}
-          <div className="relative h-40 w-full max-w-2xl mx-auto flex justify-center perspective-1000 mt-auto">
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                initial={{ y: 200, opacity: 0, rotate: 0 }}
-                animate={{ y: 0, opacity: 1, rotate: (i - 1) * 15 }}
-                transition={{ duration: 0.8, delay: 0.8 + (i * 0.1), type: "spring", stiffness: 100 }}
-                className="absolute bottom-0 w-32 md:w-48 aspect-[3/4] rounded-xl shadow-2xl border-4 border-white/20 bg-card overflow-hidden"
-                style={{ zIndex: i, left: `calc(50% - ${4 + (1 - i) * 60}px)` }}
-              >
-                <img src={destinations[i]?.frontImage} className="w-full h-full object-cover" alt="" />
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 

@@ -28,7 +28,7 @@ const products: Product[] = [
     price: "$14.99",
     category: "Expansion Pack",
     description: "Add 50 new cards focused entirely on the rich biodiversity, birds, and mammals of the Pearl of Africa.",
-    imageUrl: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=600&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=600&q=80"
   },
   {
     id: "culture-expansion",
