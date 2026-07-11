@@ -1,8 +1,8 @@
 kind = "web"
 previewPath = "/"
-title = "Speak Uganda"
+title = "Discover Uganda"
 version = "1.0.0"
-id = "artifacts/speak-uganda"
+id = "artifacts/discover-uganda"
 router = "path"
 
 [[integratedSkills]]
@@ -15,11 +15,11 @@ paths = [ "/" ]
 localPort = 20068
 
 [services.development]
-run = "pnpm --filter @workspace/speak-uganda run dev"
+run = "pnpm --filter @workspace/discover-uganda run dev"
 
 [services.production]
-build = [ "pnpm", "--filter", "@workspace/speak-uganda", "run", "build" ]
-publicDir = "artifacts/speak-uganda/dist/public"
+build = [ "pnpm", "--filter", "@workspace/discover-uganda", "run", "build" ]
+publicDir = "artifacts/discover-uganda/dist/public"
 serve = "static"
 
 [[services.production.rewrites]]

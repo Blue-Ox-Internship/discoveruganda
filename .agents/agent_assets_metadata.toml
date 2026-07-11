@@ -3,54 +3,54 @@ outputs = []
 
 [[generated]]
 id = "y58Eqzi-8JneSo4NZ61ja"
-uri = "file://artifacts/speak-uganda/public/images/hero-uganda.png"
+uri = "file://artifacts/discover-uganda/public/images/hero-uganda.png"
 type = "image"
 title = "Uganda savanna landscape with wildlife"
 
 [[generated]]
 id = "mvtEr-2M91H5HLp-VLIXo"
-uri = "file://artifacts/speak-uganda/public/images/card-bwindi.png"
+uri = "file://artifacts/discover-uganda/public/images/card-bwindi.png"
 type = "image"
 title = "Bwindi mountain gorilla in forest"
 
 [[generated]]
 id = "bjEmClbD30BZjtPz7LKFi"
-uri = "file://artifacts/speak-uganda/public/images/card-murchison.png"
+uri = "file://artifacts/discover-uganda/public/images/card-murchison.png"
 type = "image"
 title = "Powerful Murchison Falls waterfall"
 
 [[generated]]
 id = "JkL3rxYfqs_OOalAjdbbC"
-uri = "file://artifacts/speak-uganda/public/images/card-victoria.png"
+uri = "file://artifacts/discover-uganda/public/images/card-victoria.png"
 type = "image"
 title = "Peaceful Lake Victoria with boats"
 
 [[generated]]
 id = "kpVy7pDIHO2n_4yumumIi"
-uri = "file://artifacts/speak-uganda/public/images/card-rwenzori.png"
+uri = "file://artifacts/discover-uganda/public/images/card-rwenzori.png"
 type = "image"
 title = "Rwenzori Mountains snowy peaks"
 
 [[generated]]
 id = "qo_wmVc3NxsVkMEIzSoxm"
-uri = "file://artifacts/speak-uganda/public/images/card-jinja.png"
+uri = "file://artifacts/discover-uganda/public/images/card-jinja.png"
 type = "image"
 title = "White water rafting on the Nile"
 
 [[generated]]
 id = "lgD84-QnQRS8zmdegzIjY"
-uri = "file://artifacts/speak-uganda/public/images/card-queen-elizabeth.png"
+uri = "file://artifacts/discover-uganda/public/images/card-queen-elizabeth.png"
 type = "image"
 title = "Tree climbing lions Queen Elizabeth"
 
 [[generated]]
 id = "9dokfnf9vyShig7sCvIEa"
-uri = "file://artifacts/speak-uganda/public/images/card-kampala.png"
+uri = "file://artifacts/discover-uganda/public/images/card-kampala.png"
 type = "image"
 title = "Kampala city skyline at dusk"
 
 [[generated]]
 id = "9SkvwxHbWrYaIFgctSX2i"
-uri = "file://artifacts/speak-uganda/public/images/card-kidepo.png"
+uri = "file://artifacts/discover-uganda/public/images/card-kidepo.png"
 type = "image"
 title = "Kidepo Valley untouched wilderness"
