@@ -5,7 +5,7 @@ import cloudinary from "../lib/cloudinary";
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 50 * 1024 * 1024 } });
 
-router.post("/video", upload.single("video"), async (req: Request & { file?: Express.Multer.File }, res: Response) => {
+router.post("/video", upload.single("video"), async (req: Request, res: Response) => {
   try {
     if (!req.file) {
       res.status(400).json({ error: "No video file provided" });
