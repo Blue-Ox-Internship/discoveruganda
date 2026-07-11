@@ -8,7 +8,7 @@ const app: Express = express();
 
 app.use(
   pinoHttp({
-    logger,
+    logger: logger as any,
     serializers: {
       req(req) {
         return {
