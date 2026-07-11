@@ -10,9 +10,10 @@ export default function Explore() {
       <section className="relative text-secondary-foreground pt-32 pb-20 px-4 md:px-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/card-bwindi.png"
+            src="/images/card-bwindi.jpg"
             alt="Uganda Forest"
             className="w-full h-full object-cover"
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-secondary/80" />
         </div>
@@ -84,7 +85,7 @@ export default function Explore() {
             </div>
             <div className="relative flex justify-center lg:justify-end">
               <div className="relative w-64 aspect-[3/4] bg-white rounded-3xl shadow-2xl border-4 border-border overflow-hidden rotate-[-5deg] z-10">
-                <img src={destinations[0]?.frontImage || "/images/hero-uganda.png"} alt="Card" className="w-full h-full object-cover" />
+                <img src={destinations[0]?.frontImage || "/images/hero-uganda.jpg"} alt="Card" className="w-full h-full object-cover" loading="lazy" />
               </div>
               <div className="absolute top-10 right-0 lg:-right-10 w-56 aspect-[9/19] bg-black rounded-[2.5rem] shadow-2xl border-[6px] border-zinc-800 rotate-[10deg] flex flex-col items-center justify-center p-4">
                 <Smartphone className="text-white/20 h-16 w-16 mb-4" />

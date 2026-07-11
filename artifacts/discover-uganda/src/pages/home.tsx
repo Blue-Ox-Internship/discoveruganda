@@ -13,9 +13,10 @@ export default function Home() {
       <section className="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/images/hero-uganda.png" 
+            src="/images/hero-uganda.jpg" 
             alt="Uganda Landscape" 
             className="w-full h-full object-cover"
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-black/50" />
         </div>

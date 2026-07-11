@@ -31,7 +31,7 @@ export function InteractiveCard({ frontImage, title, region, highlights, descrip
           className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl border-4 border-card"
           style={{ backfaceVisibility: "hidden" }}
         >
-          <img src={frontImage} alt={title} className="w-full h-full object-cover" />
+          <img src={frontImage} alt={title} className="w-full h-full object-cover" loading="lazy" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
             <span className="text-accent font-semibold tracking-wider uppercase text-xs mb-1">{region}</span>
             <h3 className="text-white font-serif text-2xl font-bold leading-tight">{title}</h3>

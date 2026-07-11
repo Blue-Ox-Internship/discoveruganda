@@ -9,9 +9,10 @@ export default function About() {
       <section className="relative pt-36 pb-24 px-4 md:px-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/card-rwenzori.png"
+            src="/images/card-rwenzori.jpg"
             alt="Rwenzori Mountains"
             className="w-full h-full object-cover"
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-black/60" />
         </div>
@@ -46,9 +47,10 @@ export default function About() {
           >
             <div className="absolute inset-0 bg-secondary rounded-3xl transform -translate-x-4 -translate-y-4 -z-10" />
             <img 
-              src="/images/card-rwenzori.png" 
+              src="/images/card-rwenzori.jpg" 
               alt="Rwenzori Mountains" 
               className="w-full h-auto rounded-3xl shadow-xl aspect-[4/3] object-cover"
+              loading="lazy"
             />
           </motion.div>
           
@@ -109,9 +111,10 @@ export default function About() {
           >
             <div className="absolute inset-0 bg-primary/20 rounded-3xl transform translate-x-4 translate-y-4 -z-10" />
             <img 
-              src="/images/card-kampala.png" 
+              src="/images/card-kampala.jpg" 
               alt="Kampala City" 
               className="w-full h-auto rounded-3xl shadow-xl aspect-[4/3] object-cover"
+              loading="lazy"
             />
           </motion.div>
         </div>
