@@ -11,6 +11,7 @@ interface InteractiveCardProps {
   highlights: string[];
   description: string;
   cardType?: CardType;
+  defaultFlipped?: boolean;
   [key: string]: unknown;
 }
 
@@ -255,8 +256,9 @@ function QRPlaceholder() {
 
 export function InteractiveCard({
   frontImage, title, region, regionCode, fact, cardType = "Destination",
+  defaultFlipped = false,
 }: InteractiveCardProps) {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(defaultFlipped);
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const badgeColor = REGION_COLORS[regionCode] ?? "#8E9BAE";
   const { base, accent } = BACK_CONFIG[cardType];
@@ -266,8 +268,8 @@ export function InteractiveCard({
     <div
       className="relative w-full aspect-[3/4] cursor-pointer"
       style={{ perspective: "1000px" }}
-      onMouseEnter={() => setIsFlipped(true)}
-      onMouseLeave={() => setIsFlipped(false)}
+      onMouseEnter={() => setIsFlipped(!defaultFlipped)}
+      onMouseLeave={() => setIsFlipped(defaultFlipped)}
       onClick={() => setIsFlipped(f => !f)}
       data-testid={`card-${title.toLowerCase().replace(/\s+/g, "-")}`}
     >
