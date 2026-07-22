@@ -2,7 +2,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { InteractiveCard } from "@/components/ui/interactive-card";
 import { KitengeDivider } from "@/components/ui/kitenge-divider";
+import { FeaturedPartnerCard } from "@/components/common/featured-partner-card";
 import { destinations } from "@/data/cards";
+import { featuredPartners } from "@/data/featured-partners";
 import type { RegionCode } from "@/data/cards";
 
 const REGIONS: { code: RegionCode | "All"; label: string }[] = [
@@ -93,56 +95,74 @@ export default function Explore() {
       <section className="py-20">
         <div className="container mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-            {filtered.map((dest, idx) => (
-              <motion.div
-                key={dest.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{
-                  duration: 0.55,
-                  delay: (idx % 4) * 0.08,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-              >
-                <InteractiveCard
-                  frontImage={dest.frontImage}
-                  title={dest.title}
-                  region={dest.region}
-                  regionCode={dest.regionCode}
-                  fact={dest.fact}
-                  highlights={dest.highlights}
-                  description={dest.description}
-                  cardType={dest.cardType}
-                />
-                {/* Card label below */}
-                <div className="mt-4 flex items-start justify-between gap-2">
-                  <div>
-                    <p
-                      className="text-foreground font-medium"
-                      style={{ fontSize: "var(--du-text-small)" }}
+            {filtered.map((dest, idx) => {
+              /* Inject the first featured partner at grid position 2 (only on "All" view) */
+              const partnerSlot = activeRegion === "All" && idx === 2 && featuredPartners[0];
+
+              return (
+                <>
+                  {partnerSlot && (
+                    <motion.div
+                      key="featured-partner-0"
+                      initial={{ opacity: 0, y: 24 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ duration: 0.55, delay: 0.16, ease: [0.25, 0.46, 0.45, 0.94] }}
                     >
-                      {dest.title}
-                    </p>
-                    <p
-                      className="text-muted-foreground"
-                      style={{ fontSize: "var(--du-text-micro)", letterSpacing: "var(--du-tracking-label)", textTransform: "uppercase", marginTop: 3 }}
-                    >
-                      {dest.region} · {dest.cardType}
-                    </p>
-                  </div>
-                  <div
-                    style={{
-                      width: 10,
-                      height: 10,
-                      background: REGION_COLORS[dest.regionCode],
-                      marginTop: 4,
-                      flexShrink: 0,
+                      <FeaturedPartnerCard partner={partnerSlot} />
+                    </motion.div>
+                  )}
+                  <motion.div
+                    key={dest.id}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{
+                      duration: 0.55,
+                      delay: (idx % 4) * 0.08,
+                      ease: [0.25, 0.46, 0.45, 0.94],
                     }}
-                  />
-                </div>
-              </motion.div>
-            ))}
+                  >
+                    <InteractiveCard
+                      frontImage={dest.frontImage}
+                      title={dest.title}
+                      region={dest.region}
+                      regionCode={dest.regionCode}
+                      fact={dest.fact}
+                      highlights={dest.highlights}
+                      description={dest.description}
+                      cardType={dest.cardType}
+                    />
+                    {/* Card label below */}
+                    <div className="mt-4 flex items-start justify-between gap-2">
+                      <div>
+                        <p
+                          className="text-foreground font-medium"
+                          style={{ fontSize: "var(--du-text-small)" }}
+                        >
+                          {dest.title}
+                        </p>
+                        <p
+                          className="text-muted-foreground"
+                          style={{ fontSize: "var(--du-text-micro)", letterSpacing: "var(--du-tracking-label)", textTransform: "uppercase", marginTop: 3 }}
+                        >
+                          {dest.region} · {dest.cardType}
+                        </p>
+                      </div>
+                      <div
+                        style={{
+                          width: 10,
+                          height: 10,
+                          background: REGION_COLORS[dest.regionCode],
+                          marginTop: 4,
+                          flexShrink: 0,
+                        }}
+                      />
+                    </div>
+                  </motion.div>
+                </>
+              );
+            })}
           </div>
 
           {filtered.length === 0 && (

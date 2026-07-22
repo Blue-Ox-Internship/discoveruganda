@@ -3,7 +3,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { InteractiveCard } from "@/components/ui/interactive-card";
 import { KitengeDivider } from "@/components/ui/kitenge-divider";
+import { FeaturedPartnerSpotlight } from "@/components/common/featured-partner-spotlight";
 import { destinations } from "@/data/cards";
+import { featuredPartners } from "@/data/featured-partners";
 import { ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
@@ -384,6 +386,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── FEATURED PARTNER SPOTLIGHT ───────────────────────────────── */}
+      {featuredPartners.length > 0 && (
+        <FeaturedPartnerSpotlight partners={featuredPartners} />
+      )}
 
       <KitengeDivider />
 
