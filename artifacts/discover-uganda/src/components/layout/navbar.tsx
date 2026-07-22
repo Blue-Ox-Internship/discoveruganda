@@ -3,10 +3,12 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CraneLogo } from "@/components/ui/crane-logo";
+import { useAuth } from "@/contexts/auth-context";
 
 export function Navbar() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   const links = [
     { href: "/", label: "Home" },
@@ -48,6 +50,26 @@ export function Navbar() {
           <Button asChild variant="default" className="rounded-full px-6" data-testid="nav-cta">
             <Link href="/shop">Buy the Game</Link>
           </Button>
+          {user ? (
+            <Link
+              href="/profile"
+              className="w-9 h-9 rounded-full bg-primary flex items-center justify-center shrink-0 hover:opacity-85 transition-opacity"
+              title={user.name}
+              data-testid="nav-user-avatar"
+            >
+              <span className="text-primary-foreground font-serif font-bold text-sm">
+                {user.name[0].toUpperCase()}
+              </span>
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="text-[13px] font-medium text-muted-foreground hover:text-primary transition-colors"
+              data-testid="nav-sign-in"
+            >
+              Sign In
+            </Link>
+          )}
         </nav>
 
         {/* Mobile Nav Toggle */}
@@ -79,6 +101,32 @@ export function Navbar() {
           <Button asChild variant="default" className="w-full mt-2" data-testid="nav-mobile-cta">
             <Link href="/shop" onClick={() => setIsMobileMenuOpen(false)}>Buy the Game</Link>
           </Button>
+          {user ? (
+            <div className="flex items-center justify-between px-4 py-3 border-t border-border mt-2">
+              <Link
+                href="/profile"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-sm font-medium text-foreground"
+              >
+                {user.name}
+              </Link>
+              <button
+                onClick={() => { logout(); setIsMobileMenuOpen(false); }}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Sign out
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block px-4 py-3 text-lg font-medium rounded-md text-foreground hover:bg-muted"
+              data-testid="nav-mobile-sign-in"
+            >
+              Sign In
+            </Link>
+          )}
         </div>
       )}
     </header>

@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { AuthProvider } from "@/contexts/auth-context";
 
 // Pages
 import Home from "@/pages/home";
@@ -13,6 +14,9 @@ import Shop from "@/pages/shop";
 import Partners from "@/pages/partners";
 import DiscoverUganda from "@/pages/discover-uganda";
 import About from "@/pages/about";
+import Login from "@/pages/login";
+import Register from "@/pages/register";
+import Profile from "@/pages/profile";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +42,9 @@ function Router() {
         <Route path="/partners" component={Partners} />
         <Route path="/discover" component={DiscoverUganda} />
         <Route path="/about" component={About} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/profile" component={Profile} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
@@ -49,7 +56,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <Router />
+          <AuthProvider>
+            <Router />
+          </AuthProvider>
         </WouterRouter>
         <Toaster />
       </TooltipProvider>

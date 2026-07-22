@@ -92,12 +92,23 @@ Journey cards: Tour Guide, Backpack, Camera, Travel Map, Bus Ticket, Journal, Bi
 
 ## Using the Region System in Digital Design (Website)
 
-The same 5 colors above should be used consistently across the website wherever regions are referenced:
+### The Cardinal Rule
+**Region colors appear ONLY on cards, map elements, and card-related UI.**
+They do not appear as general interface color — not in buttons, not in navigation, not in page backgrounds.
 
-- Region filter buttons on the Explore page
-- Destination card region labels
-- Leaderboard regional categories
-- Any map or Uganda visualization
-- Partner listings filtered by region
+The website UI palette is near-colorless (warm parchment, earthy brown, one gold accent). Region colors earn their power from scarcity. When a green Destination card appears on a cream page, it commands attention because it is the *only* color on the page. If region colors are used in navigation and buttons, that power is lost.
 
-This creates visual consistency between the physical cards and the digital experience.
+### Where Region Colors Are Permitted
+
+| Permitted | Not Permitted |
+|---|---|
+| Destination card region badge | Navigation links or buttons |
+| Card back accent colors | Page section backgrounds |
+| Uganda map with 4 glowing region borders | Filter pills on explore page |
+| Achievement badge fills (when earned) | General icon colors |
+| Region labels *inside* a card component | Headings or subheadings |
+
+### Region filter UI on Explore Page
+Filter pills that let users browse by region should use **neutral styling** (earthy brown text on parchment, gold underline on active) — not the region colors. The region color only appears once a card is visible.
+
+This creates visual consistency between the physical cards and the digital experience, while preserving the impact of the colors when they appear.
