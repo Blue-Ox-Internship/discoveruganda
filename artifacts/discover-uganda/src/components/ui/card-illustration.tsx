@@ -1,0 +1,708 @@
+import type { IllustrationConfig } from "@/data/illustration-config";
+
+const W = 300;
+const H = 400;
+
+// Namespaced SVG ID helper — prevents gradient clashes when multiple cards render on one page
+const sid = (uid: string, name: string) => `il${uid}${name}`;
+
+interface SceneProps { uid: string; cfg: IllustrationConfig; }
+
+// ── Shared definitions (sky + vignette gradients) ────────────────────────────
+
+function SharedDefs({ uid, cfg }: SceneProps) {
+  return (
+    <defs>
+      <linearGradient id={sid(uid, "sky")} x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor={cfg.skyTop} />
+        <stop offset="100%" stopColor={cfg.skyBottom} />
+      </linearGradient>
+      <radialGradient id={sid(uid, "vgn")} cx="50%" cy="50%" r="70%">
+        <stop offset="45%" stopColor="rgba(0,0,0,0)" />
+        <stop offset="100%" stopColor="rgba(0,0,0,0.54)" />
+      </radialGradient>
+      {cfg.sun && (
+        <radialGradient id={sid(uid, "sun")} cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stopColor={cfg.sun} stopOpacity="0.95" />
+          <stop offset="55%"  stopColor={cfg.sun} stopOpacity="0.28" />
+          <stop offset="100%" stopColor={cfg.sun} stopOpacity="0" />
+        </radialGradient>
+      )}
+    </defs>
+  );
+}
+
+// ── Shared scene building-blocks ─────────────────────────────────────────────
+
+function Sky({ uid }: { uid: string }) {
+  return <rect width={W} height={H} fill={`url(#${sid(uid, "sky")})`} />;
+}
+
+function Vignette({ uid }: { uid: string }) {
+  return <rect width={W} height={H} fill={`url(#${sid(uid, "vgn")})`} />;
+}
+
+function Hills({ far, mid }: { far: string; mid: string }) {
+  return (
+    <>
+      <path d="M0,188 C55,160 115,175 155,164 C195,153 252,170 300,157 L300,262 L0,262 Z" fill={far} />
+      <path d="M0,218 C45,196 108,210 152,202 C196,194 258,212 300,200 L300,312 L0,312 Z" fill={mid} />
+    </>
+  );
+}
+
+function Ground({ mid, dark }: { mid: string; dark: string }) {
+  return (
+    <>
+      <path d="M0,354 Q80,343 152,356 Q224,369 300,349 L300,400 L0,400 Z" fill={mid} />
+      <rect x="0" y="368" width={W} height="32" fill={dark} />
+    </>
+  );
+}
+
+function RoundTree(p: { x: number; y: number; h?: number; r?: number; dark: string; light: string }) {
+  const { x, y, h = 80, r = 34, dark, light } = p;
+  return (
+    <>
+      <rect x={x - 6} y={y} width={12} height={h} fill="#3A2010" />
+      <ellipse cx={x}     cy={y - 6}  rx={r}            ry={r * 0.76}  fill={dark} />
+      <ellipse cx={x - 9} cy={y - 18} rx={r * 0.70}     ry={r * 0.54}  fill={light} />
+    </>
+  );
+}
+
+function PalmTree(p: { x: number; base: number; h?: number }) {
+  const { x, base, h = 85 } = p;
+  const top = base - h;
+  const fronds: [number, number][] = [[-50,-16],[-36,-30],[-18,-40],[0,-44],[18,-40],[36,-30],[50,-16]];
+  return (
+    <>
+      <path d={`M${x},${base} Q${x + 8},${base - h * 0.5} ${x},${top}`}
+        stroke="#8B5E3C" strokeWidth="7" fill="none" strokeLinecap="round" />
+      {fronds.map(([dx, dy], i) => (
+        <path key={i}
+          d={`M${x},${top} Q${x + dx * 0.5},${top + dy * 0.5} ${x + dx},${top + dy}`}
+          stroke="#2D6A4F" strokeWidth={i === 3 ? 4 : 3} fill="none" strokeLinecap="round"
+          opacity={i === 0 || i === 6 ? 0.6 : 0.9} />
+      ))}
+      <circle cx={x - 5} cy={top + 5} r="4" fill="#8B6040" />
+      <circle cx={x + 6} cy={top + 2} r="4" fill="#8B6040" />
+    </>
+  );
+}
+
+// ── Scene 1 — Kasubi Royal Tombs ─────────────────────────────────────────────
+// The Muzibu-Azaala-Mpanga: the largest traditional thatched structure in the world.
+// Visual: enormous thatched cone flanked by satellite buildings and royal fig trees.
+
+function KasubiTombs({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="228" cy="72" r="62" fill={`url(#${sid(uid, "sun")})`} />
+          <circle cx="228" cy="72" r="36" fill={cfg.sun} opacity="0.9" />
+        </>
+      )}
+      <rect x="0" y="172" width={W} height="38" fill={cfg.skyBottom} opacity="0.14" />
+      <Hills far={cfg.hillsFar} mid={cfg.hillsMid} />
+      {/* Royal fig trees flanking */}
+      <RoundTree x={36}  y={178} h={105} r={42} dark="#1A5030" light={cfg.hillsMid} />
+      <RoundTree x={264} y={182} h={100} r={40} dark="#1A5030" light={cfg.hillsMid} />
+      {/* Satellite tomb — left */}
+      <polygon points="90,236 44,298 136,298"  fill="#3A1E08" />
+      <polygon points="90,236 52,280 128,280"  fill="#4A2A12" opacity="0.5" />
+      <polygon points="90,236 62,262 118,262"  fill="#5C3420" opacity="0.38" />
+      <rect x="46"  y="296" width="88" height="30" fill="#6B4A2C" />
+      <rect x="46"  y="316" width="88" height="10" fill="#4A3018" />
+      {/* Satellite tomb — right */}
+      <polygon points="210,236 164,298 256,298" fill="#3A1E08" />
+      <polygon points="210,236 172,280 248,280" fill="#4A2A12" opacity="0.5" />
+      <polygon points="210,236 182,262 238,262" fill="#5C3420" opacity="0.38" />
+      <rect x="166" y="296" width="88" height="30" fill="#6B4A2C" />
+      <rect x="166" y="316" width="88" height="10" fill="#4A3018" />
+      {/* Main thatched cone — six tonal layers give a sense of depth */}
+      <polygon points="150,150 52,314 248,314"  fill="#2E1606" />
+      <polygon points="150,150 62,296 238,296"  fill="#3E2010" opacity="0.58" />
+      <polygon points="150,150 74,276 226,276"  fill="#50280E" opacity="0.46" />
+      <polygon points="150,150 88,254 212,254"  fill="#623218" opacity="0.36" />
+      <polygon points="150,150 103,232 197,232" fill="#743C22" opacity="0.26" />
+      <polygon points="150,150 118,210 182,210" fill="#864628" opacity="0.18" />
+      {/* Crown finial */}
+      <polygon points="150,142 143,160 157,160"  fill={cfg.accent} opacity="0.72" />
+      {/* Body — cylindrical reed walls */}
+      <rect x="54"  y="312" width="192" height="54" fill="#7A5232" />
+      <rect x="54"  y="344" width="192" height="22" fill="#533A1C" />
+      {[320, 330, 338].map(y => (
+        <line key={y} x1="54" y1={y} x2="246" y2={y} stroke="#4A2A14" strokeWidth="1.2" opacity="0.35" />
+      ))}
+      {/* Ceremonial arched door */}
+      <path d="M134,366 L134,320 Q150,306 166,320 L166,366 Z" fill="#1C0C04" />
+      {/* Reed fence foreground */}
+      <rect x="14" y="344" width="272" height="4" fill="#8B6040" />
+      {Array.from({ length: 18 }, (_, i) => (
+        <rect key={i} x={14 + i * 15} y={348} width={4} height={22} fill="#8B6040" rx={1} />
+      ))}
+      <rect x="14" y="367" width="272" height="3" fill="#7A5030" />
+      <Ground mid={cfg.groundMid} dark={cfg.groundDark} />
+    </>
+  );
+}
+
+// ── Scene 2 — Uganda Museum (Colonial) ───────────────────────────────────────
+// Bright midday blue sky. Kampala's oldest building: a classical colonial structure
+// with an arched colonnade, flanked by palm trees.
+
+function UgandaMuseum({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="150" cy="48" r="50" fill={`url(#${sid(uid, "sun")})`} />
+          <circle cx="150" cy="48" r="26" fill={cfg.sun} opacity="0.96" />
+        </>
+      )}
+      {/* Clouds */}
+      <ellipse cx="60"  cy="88"  rx="40" ry="18" fill="rgba(255,255,255,0.72)" />
+      <ellipse cx="44"  cy="94"  rx="24" ry="14" fill="rgba(255,255,255,0.65)" />
+      <ellipse cx="82"  cy="96"  rx="28" ry="14" fill="rgba(255,255,255,0.60)" />
+      <ellipse cx="240" cy="94"  rx="36" ry="16" fill="rgba(255,255,255,0.62)" />
+      <ellipse cx="258" cy="100" rx="22" ry="12" fill="rgba(255,255,255,0.56)" />
+      <Hills far={cfg.hillsFar} mid={cfg.hillsMid} />
+      {/* Main building body */}
+      <rect x="46"  y="196" width="208" height="128" fill="#D4B896" />
+      {/* Classical pediment */}
+      <polygon points="68,196 232,196 150,158" fill="#C8AA82" />
+      <polygon points="80,196 220,196 150,166" fill="#D4B896" opacity="0.5" />
+      {/* Pediment detail — bas-relief suggestion */}
+      <ellipse cx="150" cy="183" rx="22" ry="10" fill="rgba(200,170,120,0.55)" />
+      {/* Colonnade — 6 arches */}
+      {[66, 98, 130, 162, 194, 226].map((x, i) => (
+        <g key={i}>
+          <rect x={x} y="234" width="24" height="72" fill="#C4A07C" />
+          <path d={`M${x},234 Q${x + 12},219 ${x + 24},234`} fill="#C4A07C" />
+          <rect x={x} y="234" width="24" height="72" fill="rgba(80,40,0,0.08)" />
+        </g>
+      ))}
+      <rect x="46" y="306" width="208" height="7" fill="#BCA080" />
+      {/* Windows above colonnade */}
+      {[72, 108, 178, 212].map((x, i) => (
+        <rect key={i} x={x} y="220" width="18" height="16" rx="9" fill="rgba(180,215,245,0.55)" />
+      ))}
+      {/* Steps */}
+      <rect x="58"  y="313" width="184" height="8"  fill="#D0B898" />
+      <rect x="68"  y="321" width="164" height="7"  fill="#C8B090" />
+      <rect x="74"  y="328" width="152" height="7"  fill="#C0A888" />
+      {/* Entrance door */}
+      <path d="M132,324 L132,276 Q150,258 168,276 L168,324 Z" fill="#2A1A0A" />
+      <path d="M135,278 Q150,262 165,278" fill="none" stroke={cfg.accent} strokeWidth="1.5" opacity="0.5" />
+      {/* Museum path */}
+      <path d="M88,400 Q150,336 212,400" fill="rgba(196,172,136,0.35)" />
+      {/* Palm trees */}
+      <PalmTree x={22}  base={350} h={108} />
+      <PalmTree x={278} base={344} h={100} />
+      <Ground mid={cfg.groundMid} dark={cfg.groundDark} />
+    </>
+  );
+}
+
+// ── Scene 3 — Kabaka's Palace (Lubiri) ───────────────────────────────────────
+// Morning golden light. High perimeter wall with battlements visible above the tree line.
+// Ornate ceremonial gate at centre; flanking ceremonial poles.
+
+function KabakasPalace({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="66" cy="82" r="54" fill={`url(#${sid(uid, "sun")})`} />
+          <circle cx="66" cy="82" r="30" fill={cfg.sun} opacity="0.86" />
+        </>
+      )}
+      {/* Morning rays */}
+      {[22, 44, 66, 88, 110].map((deg, i) => {
+        const r = deg * Math.PI / 180;
+        return (
+          <line key={i} x1="66" y1="82"
+            x2={66  + Math.cos(r) * 180} y2={82 + Math.sin(r) * 180}
+            stroke={cfg.sun ?? "#FFE566"} strokeWidth="2.5" opacity="0.06" />
+        );
+      })}
+      <Hills far={cfg.hillsFar} mid={cfg.hillsMid} />
+      {/* Tree masses behind palace */}
+      <ellipse cx="50"  cy="192" rx="40" ry="28" fill="#1A4A2A" />
+      <ellipse cx="250" cy="188" rx="38" ry="26" fill="#1A4A2A" />
+      <ellipse cx="80"  cy="198" rx="28" ry="20" fill="#225A38" />
+      <ellipse cx="222" cy="195" rx="26" ry="19" fill="#225A38" />
+      {/* Palace roof visible above walls */}
+      <rect x="62" y="178" width="176" height="46" fill="#C8A870" />
+      <polygon points="62,178 150,142 238,178" fill="#C09050" />
+      <rect x="92"  y="158" width="28" height="22" fill="#B88840" />
+      <rect x="180" y="158" width="28" height="22" fill="#B88840" />
+      <circle cx="106" cy="150" r="5" fill={cfg.accent} opacity="0.82" />
+      <circle cx="194" cy="150" r="5" fill={cfg.accent} opacity="0.82" />
+      {/* High perimeter wall */}
+      <rect x="18" y="222" width="264" height="118" fill="#8B6A4A" />
+      <rect x="18" y="222" width="264" height="10"  fill="#7A5A3A" />
+      {/* Battlements */}
+      {Array.from({ length: 18 }, (_, i) => (
+        <rect key={i} x={16 + i * 15} y="212" width="10" height="13" fill="#8B6A4A" />
+      ))}
+      {/* Stone-course texture lines */}
+      {[232, 244, 256, 268, 280, 292, 304, 316].map(y => (
+        <line key={y} x1="18" y1={y} x2="282" y2={y} stroke="#7A5A3A" strokeWidth="1" opacity="0.28" />
+      ))}
+      {/* Ceremonial gate — centred */}
+      <rect x="108" y="220" width="84" height="120" fill="#7A5A3A" />
+      {/* Gate arch */}
+      <path d="M108,248 Q150,216 192,248 L192,220 L108,220 Z" fill="#5A3A22" />
+      <path d="M116,251 Q150,222 184,251 L184,240 Q150,212 116,240 Z"
+        fill="none" stroke={cfg.accent} strokeWidth="1.5" opacity="0.55" />
+      {/* Gate doors */}
+      <rect x="110" y="247" width="38" height="93" fill="#2A1808" />
+      <rect x="152" y="247" width="38" height="93" fill="#2A1808" />
+      {/* Door panel carvings */}
+      <rect x="116" y="255" width="26" height="36" fill="none" stroke={cfg.accent} strokeWidth="1" opacity="0.38" />
+      <rect x="157" y="255" width="26" height="36" fill="none" stroke={cfg.accent} strokeWidth="1" opacity="0.38" />
+      {/* Gate pillars */}
+      <rect x="96"  y="217" width="15" height="123" fill="#6A4A2C" />
+      <rect x="189" y="217" width="15" height="123" fill="#6A4A2C" />
+      <rect x="92"  y="208" width="23" height="11"  fill={cfg.accent} opacity="0.68" />
+      <rect x="185" y="208" width="23" height="11"  fill={cfg.accent} opacity="0.68" />
+      {/* Ceremonial poles with pennants */}
+      <rect x="40"  y="172" width="4" height="92" fill="#6A4A2C" />
+      <polygon points="44,172 68,183 44,194" fill={cfg.accent} opacity="0.78" />
+      <rect x="256" y="172" width="4" height="92" fill="#6A4A2C" />
+      <polygon points="256,172 232,183 256,194" fill={cfg.accent} opacity="0.78" />
+      {/* Approach path */}
+      <path d="M94,400 Q150,342 206,400" fill="rgba(196,172,120,0.30)" />
+      <Ground mid={cfg.groundMid} dark={cfg.groundDark} />
+    </>
+  );
+}
+
+// ── Scene 4 — Gaddafi National Mosque ────────────────────────────────────────
+// Brilliant blue midday sky. Kampala city panorama below. Large dome + tall minaret.
+// The mosque sits on Old Kampala Hill — the city spreads out beneath it.
+
+function GaddafiMosque({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="242" cy="52" r="44" fill={`url(#${sid(uid, "sun")})`} />
+          <circle cx="242" cy="52" r="24" fill={cfg.sun} opacity="0.96" />
+        </>
+      )}
+      {/* Kampala city silhouette */}
+      {([[0,260,48,290],[42,252,32,290],[68,246,54,290],[104,240,68,290],
+         [158,236,48,290],[192,243,58,290],[232,250,44,290],[268,256,38,290]] as [number,number,number,number][])
+        .map(([x, y, w, h], i) => (
+          <rect key={i} x={x} y={y} width={w} height={h} fill={cfg.hillsMid} opacity="0.52" />
+        ))}
+      {/* City window details */}
+      {[[62,254],[85,248],[115,243],[172,240],[198,246]].map(([x, y], i) => (
+        <rect key={i} x={x} y={y} width="4" height="4" fill={cfg.skyTop} opacity="0.28" />
+      ))}
+      <path d="M0,248 C62,223 124,238 168,226 C212,214 268,233 300,222 L300,296 L0,296 Z"
+        fill={cfg.hillsMid} opacity="0.42" />
+      {/* Mosque building base */}
+      <rect x="52" y="198" width="196" height="110" fill="#EDE8DC" />
+      {/* Arcade — 7 pointed arches */}
+      {[62, 92, 122, 152, 182, 212, 236].map((x, i) => (
+        <g key={i}>
+          <path d={`M${x},290 L${x},248 Q${x + 12},230 ${x + 24},248 L${x + 24},290`}
+            fill="rgba(205,192,170,0.78)" />
+          <path d={`M${x + 2},290 L${x + 2},250 Q${x + 13},234 ${x + 22},250 L${x + 22},290`}
+            fill="rgba(50,30,10,0.10)" />
+        </g>
+      ))}
+      <rect x="52" y="288" width="196" height="7" fill="#D8D0BC" />
+      {/* Main dome */}
+      <ellipse cx="150" cy="198" rx="58" ry="18" fill="#EDE8DC" />
+      <path d="M92,198 Q92,144 150,136 Q208,144 208,198 Z" fill="#F5F0E4" />
+      {[160, 176, 192].map((y, i) => (
+        <path key={y}
+          d={`M${112 + i * 8},${y} Q150,${y - 15 + i * 3} ${188 - i * 8},${y}`}
+          fill="none" stroke="#D8CCB4" strokeWidth="1" opacity="0.48" />
+      ))}
+      {/* Dome finial */}
+      <line x1="150" y1="136" x2="150" y2="114" stroke={cfg.accent} strokeWidth="3" />
+      <circle cx="150" cy="112" r="5.5" fill={cfg.accent} />
+      <circle cx="150" cy="104" r="2.5" fill="#fff" opacity="0.8" />
+      {/* Crescent */}
+      <path d="M143,124 Q150,116 157,124 Q153,130 143,124 Z" fill={cfg.accent} opacity="0.8" />
+      {/* Tall minaret — left */}
+      <rect x="68" y="112" width="26" height="180" fill="#EDE8DC" />
+      <rect x="64" y="138" width="34" height="7"  fill="#D8D0BC" />
+      <rect x="64" y="165" width="34" height="7"  fill="#D8D0BC" />
+      <rect x="64" y="192" width="34" height="7"  fill="#D8D0BC" />
+      <rect x="60" y="138" width="42" height="7"  fill="#D0C8B4" />
+      {/* Minaret cap */}
+      <polygon points="68,112 80,112 80,104 74,92 68,104" fill="#D8D0BC" />
+      <polygon points="80,112 94,112 94,104 88,92 80,104" fill="#EDE8DC" />
+      <line x1="81" y1="92" x2="81" y2="74" stroke={cfg.accent} strokeWidth="2.5" />
+      <circle cx="81" cy="72" r="4.5" fill={cfg.accent} />
+      {/* Shorter right minaret */}
+      <rect x="206" y="142" width="22" height="150" fill="#EDE8DC" />
+      <rect x="202" y="166" width="30" height="6"   fill="#D8D0BC" />
+      <rect x="202" y="188" width="30" height="6"   fill="#D8D0BC" />
+      <line x1="217" y1="142" x2="217" y2="124" stroke={cfg.accent} strokeWidth="2" />
+      <circle cx="217" cy="122" r="3.5" fill={cfg.accent} />
+      {/* Central arched entrance */}
+      <path d="M128,307 L128,262 Q150,243 172,262 L172,307 Z" fill="#2A1808" />
+      <path d="M131,265 Q150,248 169,265" fill="none" stroke={cfg.accent} strokeWidth="1.5" opacity="0.55" />
+      <Ground mid={cfg.groundMid} dark={cfg.groundDark} />
+    </>
+  );
+}
+
+// ── Scene 5 — Ndere Cultural Centre ──────────────────────────────────────────
+// Evening warm light. Modern building with a traditional curved roof.
+// Silhouetted performers mid-dance; drums in the foreground.
+
+function NdereCentre({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="248" cy="138" r="50" fill={`url(#${sid(uid, "sun")})`} />
+          <circle cx="248" cy="138" r="28" fill={cfg.sun} opacity="0.86" />
+        </>
+      )}
+      <Hills far={cfg.hillsFar} mid={cfg.hillsMid} />
+      {/* Trees flanking */}
+      <ellipse cx="28"  cy="196" rx="36" ry="25" fill="#1A5030" />
+      <ellipse cx="272" cy="200" rx="34" ry="24" fill="#1A5030" />
+      {/* Main building block */}
+      <rect x="50" y="218" width="200" height="112" fill="#7A5A3A" />
+      {/* Traditional curved layered roof — three tonal arcs */}
+      <path d="M32,218 Q150,152 268,218 Z" fill="#4A2E10" />
+      <path d="M46,218 Q150,160 254,218 Z" fill="#5E3A18" opacity="0.72" />
+      <path d="M62,218 Q150,168 238,218 Z" fill="#784A22" opacity="0.55" />
+      {/* Roof ridge finial */}
+      <line x1="150" y1="152" x2="150" y2="218" stroke={cfg.accent} strokeWidth="2" opacity="0.45" />
+      <circle cx="150" cy="148" r="5.5" fill={cfg.accent} opacity="0.78" />
+      <circle cx="32"  cy="218" r="4"   fill={cfg.accent} opacity="0.5" />
+      <circle cx="268" cy="218" r="4"   fill={cfg.accent} opacity="0.5" />
+      {/* Stage opening */}
+      <rect x="116" y="244" width="68" height="60" fill="#180C04" />
+      <path d="M116,258 Q150,240 184,258" fill="#241004" />
+      {/* Stage lights */}
+      {[130, 150, 170].map(x => (
+        <circle key={x} cx={x} cy={240} r="4" fill={cfg.accent} opacity="0.82" />
+      ))}
+      {/* Lit windows */}
+      {[66, 104, 180, 216].map((x, i) => (
+        <rect key={i} x={x} y="236" width="22" height="28" fill="rgba(255,200,80,0.52)" />
+      ))}
+      {/* Performer silhouettes — three figures mid-dance */}
+      {/* Centre lead */}
+      <ellipse cx="150" cy="306" rx="8"  ry="10" fill="#180C04" />
+      <path d="M150,316 Q147,340 140,364 M150,316 Q153,340 160,364"
+        stroke="#180C04" strokeWidth="10" fill="none" strokeLinecap="round" />
+      <path d="M150,326 Q128,313 115,302" stroke="#180C04" strokeWidth="7" fill="none" strokeLinecap="round" />
+      <path d="M150,326 Q172,313 185,302" stroke="#180C04" strokeWidth="7" fill="none" strokeLinecap="round" />
+      {/* Left dancer */}
+      <ellipse cx="106" cy="316" rx="7" ry="9" fill="#180C04" />
+      <path d="M106,325 Q104,346 100,368 M106,325 Q108,346 112,368"
+        stroke="#180C04" strokeWidth="9" fill="none" strokeLinecap="round" />
+      <path d="M106,335 Q86,323 74,316"  stroke="#180C04" strokeWidth="6" fill="none" strokeLinecap="round" />
+      <path d="M106,335 Q124,323 136,317" stroke="#180C04" strokeWidth="6" fill="none" strokeLinecap="round" />
+      {/* Right dancer */}
+      <ellipse cx="194" cy="313" rx="7" ry="9" fill="#180C04" />
+      <path d="M194,322 Q192,343 188,366 M194,322 Q196,343 200,366"
+        stroke="#180C04" strokeWidth="9" fill="none" strokeLinecap="round" />
+      <path d="M194,332 Q174,320 162,314" stroke="#180C04" strokeWidth="6" fill="none" strokeLinecap="round" />
+      <path d="M194,332 Q214,320 226,316" stroke="#180C04" strokeWidth="6" fill="none" strokeLinecap="round" />
+      {/* Drums — foreground */}
+      <ellipse cx="56"  cy="360" rx="16" ry="10" fill="#6B3A18" />
+      <rect    x="40"   y="350"  width="32" height="12" fill="#7A4A22" />
+      <ellipse cx="56"  cy="350" rx="16" ry="7"  fill="#5C2E12" />
+      <ellipse cx="244" cy="358" rx="14" ry="9"  fill="#6B3A18" />
+      <rect    x="230"  y="349"  width="28" height="11" fill="#7A4A22" />
+      <ellipse cx="244" cy="349" rx="14" ry="6"  fill="#5C2E12" />
+      <Ground mid={cfg.groundMid} dark={cfg.groundDark} />
+    </>
+  );
+}
+
+// ── Scene 6 — Mabira Forest ───────────────────────────────────────────────────
+// A cathedral of ancient trees. Minimal sky — the canopy dominates.
+// Light shafts pierce the green darkness. Winding forest path into the distance.
+
+function MabiraForest({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      {/* Deep green base — the canopy IS the sky here */}
+      <rect width={W} height={H} fill={cfg.skyTop} />
+      {/* Far canopy layers */}
+      <ellipse cx="28"  cy="38"  rx="52" ry="56" fill="#1A5030" opacity="0.72" />
+      <ellipse cx="100" cy="18"  rx="68" ry="62" fill="#1E5535" opacity="0.82" />
+      <ellipse cx="188" cy="14"  rx="72" ry="60" fill="#1A5030" opacity="0.82" />
+      <ellipse cx="272" cy="28"  rx="54" ry="56" fill="#1E5535" opacity="0.72" />
+      {/* Mid canopy */}
+      <ellipse cx="0"   cy="58"  rx="58" ry="62" fill="#155028" />
+      <ellipse cx="76"  cy="42"  rx="62" ry="66" fill="#1A5A30" />
+      <ellipse cx="158" cy="36"  rx="70" ry="64" fill="#155028" />
+      <ellipse cx="232" cy="48"  rx="60" ry="62" fill="#1A5A30" />
+      <ellipse cx="300" cy="52"  rx="54" ry="60" fill="#155028" />
+      {/* Near canopy — darkest */}
+      <ellipse cx="18"  cy="78"  rx="52" ry="58" fill="#0E3A1C" />
+      <ellipse cx="102" cy="62"  rx="68" ry="62" fill="#123A20" />
+      <ellipse cx="192" cy="68"  rx="65" ry="60" fill="#0E3A1C" />
+      <ellipse cx="282" cy="73"  rx="54" ry="57" fill="#123A20" />
+      {/* Light shafts filtering through */}
+      {[[68,  22, 56], [142, 18, 64], [214, 24, 52]].map(([x, w, spread], i) => (
+        <path key={i}
+          d={`M${x - w / 2},0 L${x + w / 2},0 L${x + spread},400 L${x - spread},400 Z`}
+          fill={`rgba(220,200,120,0.038)`} />
+      ))}
+      <path d="M122,0 L140,0 L178,400 L108,400 Z" fill="rgba(220,200,120,0.055)" />
+      {/* Tree trunks — five columns */}
+      {[[18, 32], [84, 28], [148, 32], [214, 28], [268, 30]].map(([x, w], i) => (
+        <g key={i}>
+          <rect x={x}      y="88" width={w}     height={H} fill="#2A1808" />
+          <rect x={x + 4}  y="88" width={w * 0.38} height={H} fill="#3A2010" />
+        </g>
+      ))}
+      {/* Root buttresses at base */}
+      {[[18, -10], [50, 10], [148, -10], [180, 10]].map(([x, dx], i) => (
+        <path key={i} d={`M${x + 14},320 Q${x + 14 + dx},360 ${x + 14 + dx * 0.6},400 L${x + 14},400 Z`}
+          fill="#2A1808" />
+      ))}
+      {/* Ferns — left cluster */}
+      {Array.from({ length: 5 }, (_, i) => (
+        <path key={i}
+          d={`M58,${345 + i * 5} Q${36 - i * 9},${320 - i * 5} ${20 - i * 7},${310 - i * 7}`}
+          stroke="#1E5530" strokeWidth={3 - i * 0.45} fill="none" strokeLinecap="round" />
+      ))}
+      {/* Ferns — centre left */}
+      {Array.from({ length: 5 }, (_, i) => (
+        <path key={i}
+          d={`M152,${348 + i * 4} Q${128 - i * 6},${322 - i * 6} ${116 - i * 7},${315 - i * 8}`}
+          stroke="#1E5530" strokeWidth={3 - i * 0.42} fill="none" strokeLinecap="round" />
+      ))}
+      {Array.from({ length: 4 }, (_, i) => (
+        <path key={i}
+          d={`M152,${350 + i * 4} Q${174 + i * 6},${324 - i * 6} ${185 + i * 7},${316 - i * 8}`}
+          stroke="#1E5530" strokeWidth={2.5 - i * 0.42} fill="none" strokeLinecap="round" />
+      ))}
+      {/* Forest floor */}
+      <rect x="0" y="372" width={W} height="28" fill="#0A2814" />
+      <path d="M0,365 Q82,354 152,368 Q222,382 300,360 L300,382 L0,382 Z" fill="#123A20" />
+      {/* Winding path into depth */}
+      <path d="M116,400 Q132,350 140,300 Q146,262 150,240"
+        stroke="rgba(196,168,112,0.22)" strokeWidth="24" fill="none" strokeLinecap="round" />
+      <path d="M120,400 Q135,352 143,302 Q148,264 152,242"
+        stroke="rgba(210,184,128,0.16)" strokeWidth="14" fill="none" strokeLinecap="round" />
+      {/* Mossy rocks */}
+      <ellipse cx="74"  cy="368" rx="18" ry="10" fill="#2A4020" />
+      <ellipse cx="222" cy="372" rx="15" ry="8"  fill="#2A4020" />
+    </>
+  );
+}
+
+// ── Scene 7 — Ssese Islands ───────────────────────────────────────────────────
+// Spectacular Lake Victoria sunset. Purple-to-amber sky reflected in still water.
+// Island silhouette with palms; a traditional dugout canoe with sail in the foreground.
+
+function SseseIslands({ uid, cfg }: SceneProps) {
+  const waterGradId = sid(uid, "wtr");
+  return (
+    <>
+      <defs>
+        <linearGradient id={waterGradId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stopColor={cfg.skyBottom}             stopOpacity="0.55" />
+          <stop offset="45%"  stopColor={cfg.water ?? "#2A5068"}    stopOpacity="0.82" />
+          <stop offset="100%" stopColor="#0E1E2A"                   stopOpacity="1" />
+        </linearGradient>
+      </defs>
+      <Sky uid={uid} />
+      {/* Sunset colour bands */}
+      <rect x="0" y="148" width={W} height="62" fill="rgba(232,120,50,0.18)" />
+      <rect x="0" y="182" width={W} height="40" fill="rgba(220,80,90,0.12)" />
+      {/* Sun near horizon */}
+      {cfg.sun && (
+        <>
+          <circle cx="154" cy="196" r="60" fill={`url(#${sid(uid, "sun")})`} opacity="0.45" />
+          <circle cx="154" cy="196" r="34" fill={cfg.sun} opacity="0.80" />
+        </>
+      )}
+      {/* Distant island horizon line */}
+      <path d="M0,194 Q38,181 78,191 Q118,201 158,188 Q198,175 238,189 Q268,197 300,186 L300,210 L0,210 Z"
+        fill="#0E2014" opacity="0.65" />
+      {/* Lake Victoria */}
+      <rect x="0" y="205" width={W} height="195" fill={`url(#${waterGradId})`} />
+      {/* Sun reflection on water */}
+      <ellipse cx="154" cy="206" rx="56" ry="9" fill={cfg.sun ?? "#FFE566"} opacity="0.46" />
+      <path d="M122,222 Q154,216 186,222 Q176,240 154,243 Q132,240 122,222 Z"
+        fill={cfg.sun ?? "#FFE566"} opacity="0.22" />
+      {/* Water ripple lines */}
+      {[222, 244, 268, 295, 325, 358].map((y, i) => (
+        <path key={i}
+          d={`M${18 + i * 3},${y} Q150,${y - 4} ${282 - i * 3},${y}`}
+          stroke="rgba(255,255,255,0.09)" strokeWidth="1" fill="none" />
+      ))}
+      {/* Main island silhouette */}
+      <path d="M8,228 Q32,214 64,216 Q96,218 124,212 Q150,207 166,212 Q178,217 168,224 Q156,231 130,233 Q98,235 68,232 Q38,229 8,233 Z"
+        fill="#0A1C10" />
+      {/* Palm trees on main island */}
+      <PalmTree x={44}  base={222} h={50} />
+      <PalmTree x={80}  base={216} h={58} />
+      <PalmTree x={120} base={216} h={46} />
+      {/* Far island */}
+      <path d="M210,220 Q232,210 258,212 Q275,215 270,222 Q254,227 232,224 Q212,221 210,220 Z"
+        fill="#0A1C10" opacity="0.70" />
+      <PalmTree x={240} base={218} h={34} />
+      {/* Traditional dugout canoe + sail */}
+      <path d="M38,290 Q82,278 132,280 Q172,282 192,290 Q172,302 132,299 Q82,296 38,290 Z"
+        fill="#5C3218" />
+      <path d="M38,290 Q82,281 132,283 Q172,285 192,290 L192,292 Q172,297 132,295 Q82,292 38,292 Z"
+        fill="#3A2008" />
+      {/* Sail */}
+      <path d="M108,290 L108,256 L148,276 Z" fill="rgba(220,202,162,0.84)" />
+      <line x1="108" y1="256" x2="108" y2="295" stroke="#5C3218" strokeWidth="2" />
+      {/* Fisherman silhouette */}
+      <ellipse cx="169" cy="281" rx="5" ry="6" fill="#180C04" />
+      <rect    x="164"  y="286"  width="10" height="14" fill="#180C04" />
+      <line x1="169" y1="292" x2="182" y2="297" stroke="#180C04" strokeWidth="3" />
+      {/* Near foreground ripples */}
+      {[344, 368, 390].map((y, i) => (
+        <ellipse key={i} cx="150" cy={y} rx={122 - i * 14} ry={3}
+          fill="rgba(255,255,255,0.055)" />
+      ))}
+    </>
+  );
+}
+
+// ── Scene 8 — Namugongo Martyrs Shrine ───────────────────────────────────────
+// Spiritual morning light with radiating rays. Rolling Kampala hills.
+// White basilica with towers. Eternal flame. Pilgrims approaching on a path.
+
+function NamugongoShrine({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {/* Spiritual radiance — soft glow from behind shrine */}
+      {cfg.sun && (
+        <circle cx="150" cy="182" r="92" fill={`url(#${sid(uid, "sun")})`} opacity="0.38" />
+      )}
+      {/* Light rays emanating outward */}
+      {[-62, -42, -24, -10, 10, 24, 42, 62].map((deg, i) => {
+        const rad = deg * Math.PI / 180;
+        const len = 240;
+        return (
+          <line key={i}
+            x1="150" y1="190"
+            x2={150 + Math.cos(rad) * len} y2={190 + Math.sin(rad) * len}
+            stroke={cfg.sun ?? "#FFE566"} strokeWidth={i === 3 || i === 4 ? 3.5 : 2}
+            opacity={0.055 + (i === 3 || i === 4 ? 0.038 : 0)} />
+        );
+      })}
+      <Hills far={cfg.hillsFar} mid={cfg.hillsMid} />
+      {/* Flanking trees */}
+      <RoundTree x={30}  y={192} h={96} r={36} dark="#1A5030" light={cfg.hillsMid} />
+      <RoundTree x={270} y={196} h={92} r={34} dark="#1A5030" light={cfg.hillsMid} />
+      {/* Side towers */}
+      <rect x="76"  y="186" width="36" height="44" fill="#F0EBE2" />
+      <polygon points="76,186 112,186 94,168"  fill="#E4DDD0" />
+      <rect x="188" y="186" width="36" height="44" fill="#F0EBE2" />
+      <polygon points="188,186 224,186 206,168" fill="#E4DDD0" />
+      {/* Main basilica body */}
+      <rect x="64"  y="212" width="172" height="116" fill="#F5F0E8" />
+      <rect x="64"  y="308" width="172" height="20"  fill="#E4DDD0" />
+      {/* Central tower / steeple */}
+      <rect x="118" y="152" width="64" height="62" fill="#F5F0E8" />
+      <polygon points="118,152 182,152 150,116" fill="#E8E2D4" />
+      {/* Steeple dome cap */}
+      <ellipse cx="150" cy="152" rx="14" ry="6" fill="#E0D8C8" />
+      {/* Cross */}
+      <line x1="150" y1="116" x2="150" y2="88"  stroke={cfg.accent} strokeWidth="4" />
+      <line x1="136" y1="104" x2="164" y2="104" stroke={cfg.accent} strokeWidth="3" />
+      <circle cx="150" cy="86" r="3" fill={cfg.accent} />
+      {/* Rose window */}
+      <circle cx="150" cy="237" rx="0" r="20" fill="rgba(175,210,245,0.58)" />
+      {[0, 45, 90, 135].map(a => {
+        const rad = a * Math.PI / 180;
+        return (
+          <line key={a}
+            x1={150 + Math.cos(rad) * 20} y1={237 + Math.sin(rad) * 20}
+            x2={150 - Math.cos(rad) * 20} y2={237 - Math.sin(rad) * 20}
+            stroke="rgba(160,200,240,0.75)" strokeWidth="1.5" />
+        );
+      })}
+      {/* Entrance arch */}
+      <path d="M130,328 L130,278 Q150,258 170,278 L170,328 Z" fill="#D8D0C0" />
+      <path d="M133,280 Q150,262 167,280" fill="none" stroke={cfg.accent} strokeWidth="1.5" opacity="0.52" />
+      <rect x="132" y="298" width="36" height="30" fill="#2A1808" />
+      {/* Eternal flame monument */}
+      <rect x="142" y="312" width="16" height="28" fill="#8B6A4A" />
+      {/* Flame */}
+      <path d="M150,310 Q143,294 147,282 Q150,274 153,282 Q157,294 150,310 Z" fill="#E04010" />
+      <path d="M150,306 Q145,293 148,284 Q150,278 152,284 Q155,293 150,306 Z" fill="#FFB030" />
+      <path d="M150,300 Q148,292 150,286 Q152,292 150,300 Z" fill="#FFE566" />
+      <circle cx="150" cy="294" r="13" fill={cfg.accent} opacity="0.10" />
+      {/* Pilgrims — small approaching silhouettes */}
+      {[[78,354],[102,358],[128,352],[170,356],[198,352],[220,358]].map(([x, y], i) => (
+        <g key={i}>
+          <ellipse cx={x} cy={y}     rx="4" ry="5" fill="#180C04" />
+          <rect    x={x - 3} y={y + 4} width="6" height="13" fill="#180C04" />
+        </g>
+      ))}
+      {/* Approach path */}
+      <path d="M82,400 Q150,350 218,400" fill="rgba(200,180,140,0.28)" />
+      <path d="M100,400 Q150,360 200,400" fill="rgba(200,180,140,0.18)" />
+      <Ground mid={cfg.groundMid} dark={cfg.groundDark} />
+    </>
+  );
+}
+
+// ── Scene dispatcher ──────────────────────────────────────────────────────────
+
+function renderScene(uid: string, cfg: IllustrationConfig): React.ReactNode {
+  const p = { uid, cfg };
+  switch (cfg.landmark) {
+    case "kasubi-royal-tombs": return <KasubiTombs  {...p} />;
+    case "uganda-museum":      return <UgandaMuseum  {...p} />;
+    case "kabakas-palace":     return <KabakasPalace {...p} />;
+    case "gaddafi-mosque":     return <GaddafiMosque {...p} />;
+    case "ndere-centre":       return <NdereCentre   {...p} />;
+    case "mabira-forest":      return <MabiraForest  {...p} />;
+    case "ssese-islands":      return <SseseIslands  {...p} />;
+    case "namugongo-shrine":   return <NamugongoShrine {...p} />;
+    default: return null;
+  }
+}
+
+// ── Public component ──────────────────────────────────────────────────────────
+
+interface CardIllustrationProps {
+  config: IllustrationConfig;
+  title: string;
+  className?: string;
+}
+
+export function CardIllustration({ config, title, className }: CardIllustrationProps) {
+  const uid = config.id.replace(/[^a-zA-Z0-9]/g, "");
+  return (
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      xmlns="http://www.w3.org/2000/svg"
+      width="100%"
+      height="100%"
+      style={{ display: "block" }}
+      aria-label={title}
+      className={className}
+    >
+      <SharedDefs uid={uid} cfg={config} />
+      {renderScene(uid, config)}
+      <Vignette uid={uid} />
+    </svg>
+  );
+}

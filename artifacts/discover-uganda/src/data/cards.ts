@@ -1,3 +1,5 @@
+import type { IllustrationConfig } from "@/data/illustration-config";
+
 export type RegionCode = 'C' | 'W' | 'N' | 'E';
 export type CardType = 'Destination' | 'Community' | 'Experience' | 'Taste' | 'Journey' | 'Action';
 
@@ -7,7 +9,8 @@ export interface DestinationCard {
   region: 'Central' | 'Western' | 'Northern' | 'Eastern';
   regionCode: RegionCode;
   fact: string;
-  frontImage: string;
+  frontImage?: string;           // photo path — used when no illustration config
+  illustration?: IllustrationConfig; // SVG config — used instead of frontImage when present
   description: string;
   highlights: string[];
   cardType: CardType;
@@ -101,5 +104,153 @@ export const destinations: DestinationCard[] = [
     description: "A true, untouched wilderness offering spectacular landscapes and incredible wildlife in Uganda's most remote park.",
     highlights: ["Untouched Wilderness", "Cheetahs & Ostriches", "Karamojong Culture", "Narus Valley"],
     cardType: "Destination",
+  },
+
+  // ── Batch 1: Central Uganda — Destination Cards (SVG illustrated) ──────────
+
+  {
+    id: "kasubi-tombs",
+    title: "Kasubi Tombs",
+    region: "Central",
+    regionCode: "C",
+    fact: "The Kasubi Tombs are the final resting place of four Buganda Kabakas and are the largest thatched grass structure in the world, recognised by UNESCO as a World Heritage Site.",
+    description: "Sacred royal tombs of the Buganda Kingdom's kings, set within a complex of traditional thatched structures in Kampala.",
+    highlights: ["UNESCO World Heritage", "Royal Buganda Heritage", "Traditional Architecture", "Spiritual Landmark"],
+    cardType: "Destination",
+    illustration: {
+      id: "kasubi-tombs",
+      landmark: "kasubi-royal-tombs",
+      skyTop: "#F7D06A", skyBottom: "#E8834A", sun: "#FFE566",
+      hillsFar: "#5A9070", hillsMid: "#2D6A4F",
+      groundMid: "#1E5030", groundDark: "#0E3018",
+      accent: "#E8B84D",
+    },
+  },
+  {
+    id: "uganda-museum",
+    title: "Uganda Museum",
+    region: "Central",
+    regionCode: "C",
+    fact: "Uganda's oldest museum, founded in 1908, holds one of East Africa's finest collections of cultural artefacts, traditional instruments, and natural history exhibits.",
+    description: "Uganda's oldest and most comprehensive museum, exploring the country's people, wildlife, music, and cultural history.",
+    highlights: ["Cultural Artefacts", "Traditional Instruments", "Natural History", "Colonial Architecture"],
+    cardType: "Destination",
+    illustration: {
+      id: "uganda-museum",
+      landmark: "uganda-museum",
+      skyTop: "#A8D8EA", skyBottom: "#5B8FB9", sun: "#FFF5A0",
+      hillsFar: "#6AB080", hillsMid: "#3D8050",
+      groundMid: "#2D6A4F", groundDark: "#1A4A30",
+      accent: "#E8B84D",
+    },
+  },
+  {
+    id: "kabakas-palace",
+    title: "Kabaka's Palace (Lubiri)",
+    region: "Central",
+    regionCode: "C",
+    fact: "The Lubiri Palace has been the seat of Buganda's Kabaka for centuries — its walls have witnessed coronations, diplomacy, and the resilience of one of Africa's most organised traditional kingdoms.",
+    description: "The official palace of the Kabaka of Buganda, a historic site of royal tradition, ceremony, and Buganda Kingdom governance.",
+    highlights: ["Royal Palace", "Buganda Kingdom", "Ceremonial Gates", "Cultural Heritage"],
+    cardType: "Destination",
+    illustration: {
+      id: "kabakas-palace",
+      landmark: "kabakas-palace",
+      skyTop: "#F5E07A", skyBottom: "#E8A84A", sun: "#FFE566",
+      hillsFar: "#5A9070", hillsMid: "#2D6A4F",
+      groundMid: "#1E5030", groundDark: "#0E3018",
+      accent: "#E8B84D",
+    },
+  },
+  {
+    id: "gaddafi-mosque",
+    title: "Gaddafi National Mosque",
+    region: "Central",
+    regionCode: "C",
+    fact: "Climb the 30-metre minaret of the Gaddafi National Mosque for the best panoramic view of Kampala's seven hills — one of the most breathtaking perspectives of any African capital.",
+    description: "Kampala's most iconic landmark, offering panoramic views of the city from its towering minaret above Old Kampala Hill.",
+    highlights: ["Panoramic City Views", "Iconic Minaret", "Architectural Wonder", "Old Kampala Hill"],
+    cardType: "Destination",
+    illustration: {
+      id: "gaddafi-mosque",
+      landmark: "gaddafi-mosque",
+      skyTop: "#1A4A8A", skyBottom: "#3A78C0", sun: "#FFF5A0",
+      hillsFar: "#2A5848", hillsMid: "#1A3A30",
+      groundMid: "#162E24", groundDark: "#0E1E18",
+      accent: "#E8B84D",
+    },
+  },
+  {
+    id: "ndere-cultural-centre",
+    title: "Ndere Cultural Centre",
+    region: "Central",
+    regionCode: "C",
+    fact: "The Ndere Cultural Centre has preserved over 50 distinct cultural performances from across Uganda since 1986 — every show brings all four regions onto one stage.",
+    description: "Uganda's premier cultural performance venue, celebrating music, dance, storytelling, and traditions from across all regions.",
+    highlights: ["Cultural Performances", "Traditional Music", "Dance Shows", "All Ugandan Regions"],
+    cardType: "Destination",
+    illustration: {
+      id: "ndere-cultural-centre",
+      landmark: "ndere-centre",
+      skyTop: "#E87830", skyBottom: "#C04A18", sun: "#FFD060",
+      hillsFar: "#4A7858", hillsMid: "#2D5840",
+      groundMid: "#1E4030", groundDark: "#0E2818",
+      accent: "#E8B84D",
+    },
+  },
+  {
+    id: "mabira-forest",
+    title: "Mabira Forest",
+    region: "Central",
+    regionCode: "C",
+    fact: "Mabira Forest has stood for over 900 years and shelters more than 300 bird species, 218 butterfly species, and 23 small mammal species — all within 54 km of Kampala.",
+    description: "One of Uganda's largest and most accessible rainforests, offering walking trails, bird watching, and an ancient canopy alive with wildlife.",
+    highlights: ["Ancient Rainforest", "300+ Bird Species", "Forest Walks", "Primates & Butterflies"],
+    cardType: "Destination",
+    illustration: {
+      id: "mabira-forest",
+      landmark: "mabira-forest",
+      skyTop: "#1A5030", skyBottom: "#0E3018", sun: "#C8C840",
+      hillsFar: "#0E3018", hillsMid: "#0A2814",
+      groundMid: "#0E3018", groundDark: "#081808",
+      accent: "#A8C840",
+    },
+  },
+  {
+    id: "ssese-islands",
+    title: "Ssese Islands",
+    region: "Central",
+    regionCode: "C",
+    fact: "The Ssese archipelago spans 84 islands scattered across Lake Victoria — the largest tropical lake in the world — offering pristine beaches and spectacular sunsets.",
+    description: "An archipelago of 84 islands on Lake Victoria, known for sandy beaches, fishing villages, and unforgettable sunset views.",
+    highlights: ["84 Island Archipelago", "Lake Victoria", "Sandy Beaches", "Traditional Fishing"],
+    cardType: "Destination",
+    illustration: {
+      id: "ssese-islands",
+      landmark: "ssese-islands",
+      skyTop: "#7A3090", skyBottom: "#E87830", sun: "#FFD060",
+      hillsFar: "#1A3028", hillsMid: "#0E2018",
+      groundMid: "#0E2018", groundDark: "#080C10",
+      accent: "#E8B84D",
+      water: "#2A5068",
+    },
+  },
+  {
+    id: "namugongo-shrine",
+    title: "Namugongo Martyrs Shrine",
+    region: "Central",
+    regionCode: "C",
+    fact: "Every year on 3rd June, over two million pilgrims walk to Namugongo — some travelling hundreds of kilometres on foot — making it one of the largest annual pilgrimages in Africa.",
+    description: "One of Africa's most sacred pilgrimage sites, honouring the Uganda Martyrs and drawing millions of visitors annually on Martyrs' Day.",
+    highlights: ["Annual Pilgrimage", "Religious Heritage", "Uganda Martyrs", "Sacred Memorial"],
+    cardType: "Destination",
+    illustration: {
+      id: "namugongo-shrine",
+      landmark: "namugongo-shrine",
+      skyTop: "#F5E8A0", skyBottom: "#C8D8F0", sun: "#FFE566",
+      hillsFar: "#5A9070", hillsMid: "#2D6A4F",
+      groundMid: "#1E5030", groundDark: "#0E3018",
+      accent: "#E8B84D",
+    },
   },
 ];

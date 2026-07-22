@@ -125,6 +125,7 @@ export default function Explore() {
                   >
                     <InteractiveCard
                       frontImage={dest.frontImage}
+                      illustration={dest.illustration}
                       title={dest.title}
                       region={dest.region}
                       regionCode={dest.regionCode}

@@ -1,9 +1,12 @@
 import { useState, useId } from "react";
 import { motion } from "framer-motion";
 import type { RegionCode, CardType } from "@/data/cards";
+import type { IllustrationConfig } from "@/data/illustration-config";
+import { CardIllustration } from "@/components/ui/card-illustration";
 
 interface InteractiveCardProps {
-  frontImage: string;
+  frontImage?: string;
+  illustration?: IllustrationConfig;
   title: string;
   region: string;
   regionCode: RegionCode;
@@ -255,7 +258,7 @@ function QRPlaceholder() {
 /* ── Main component ── */
 
 export function InteractiveCard({
-  frontImage, title, region, regionCode, fact, cardType = "Destination",
+  frontImage, illustration, title, region, regionCode, fact, cardType = "Destination",
   defaultFlipped = false,
 }: InteractiveCardProps) {
   const [isFlipped, setIsFlipped] = useState(defaultFlipped);
@@ -284,8 +287,14 @@ export function InteractiveCard({
           className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl"
           style={{ backfaceVisibility: "hidden" }}
         >
-          {/* Photo */}
-          <img src={frontImage} alt={title} className="w-full h-full object-cover" loading="lazy" />
+          {/* Illustration or photo */}
+          {illustration ? (
+            <div style={{ width: "100%", height: "100%" }}>
+              <CardIllustration config={illustration} title={title} />
+            </div>
+          ) : (
+            <img src={frontImage ?? ""} alt={title} className="w-full h-full object-cover" loading="lazy" />
+          )}
 
           {/* Top gradient overlay */}
           <div className="absolute inset-x-0 top-0 h-36" style={{
