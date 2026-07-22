@@ -36,20 +36,27 @@ function Layout({ children }: { children: React.ReactNode }) {
 
 function Router() {
   return (
-    <Layout>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/explore" component={Explore} />
-        <Route path="/shop" component={Shop} />
-        <Route path="/partners" component={Partners} />
-        <Route path="/discover" component={DiscoverUganda} />
-        <Route path="/about" component={About} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/profile" component={Profile} />
-        <Route component={NotFound} />
-      </Switch>
-    </Layout>
+    <Switch>
+      {/* Auth pages — full-screen, no navbar/footer */}
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
+
+      {/* All other pages use the shared Layout */}
+      <Route>
+        <Layout>
+          <Switch>
+            <Route path="/" component={Home} />
+            <Route path="/explore" component={Explore} />
+            <Route path="/shop" component={Shop} />
+            <Route path="/partners" component={Partners} />
+            <Route path="/discover" component={DiscoverUganda} />
+            <Route path="/about" component={About} />
+            <Route path="/profile" component={Profile} />
+            <Route component={NotFound} />
+          </Switch>
+        </Layout>
+      </Route>
+    </Switch>
   );
 }
 
