@@ -22,9 +22,13 @@ export default defineConfig({
   },
   server: {
     host: "0.0.0.0",
+    port: process.env.PORT ? Number(process.env.PORT) : 5173,
     allowedHosts: true,
     fs: {
       strict: true,
+    },
+    proxy: {
+      "/api": "http://localhost:3000",
     },
   },
   preview: {
