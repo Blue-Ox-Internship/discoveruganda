@@ -292,63 +292,56 @@ export function InteractiveCard({
             <div style={{ width: "100%", height: "100%" }}>
               <CardIllustration config={illustration} title={title} />
             </div>
-          ) : (
-            <img src={frontImage ?? ""} alt={title} className="w-full h-full object-cover" loading="lazy" />
-          )}
+          ) : frontImage ? (
+            <img src={frontImage} alt={title} className="w-full h-full object-cover" loading="lazy" />
+          ) : null}
 
-          {/* Top gradient overlay */}
-          <div className="absolute inset-x-0 top-0 h-36" style={{
-            background: "linear-gradient(to bottom, rgba(15,8,3,0.82) 0%, rgba(15,8,3,0.55) 55%, transparent 100%)",
+          {/* Top gradient — card type label + title */}
+          <div className="absolute inset-x-0 top-0" style={{
+            background: "linear-gradient(to bottom, rgba(10,5,2,0.88) 0%, rgba(10,5,2,0.65) 55%, transparent 100%)",
+            paddingTop: 30,
+            paddingBottom: 20,
+            paddingLeft: 14,
+            paddingRight: 14,
+            textAlign: "center",
           }}>
-            <div className="pt-12 px-4 text-center">
-              <div style={{ fontSize: 9, letterSpacing: "0.22em", textTransform: "uppercase", color: "#E8B84D", fontWeight: 600, marginBottom: 2 }}>
-                {cardType}
-              </div>
-              <h3 style={{ ...playfair, fontSize: 22, fontWeight: 900, color: "#fff", lineHeight: 1.05, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
-                {title}
-              </h3>
+            <div style={{ fontSize: 8.5, letterSpacing: "0.24em", textTransform: "uppercase", color: "#E8B84D", fontWeight: 600, marginBottom: 3 }}>
+              {cardType}
             </div>
+            <h3 style={{ ...playfair, fontSize: 19, fontWeight: 900, color: "#fff", lineHeight: 1.1, textShadow: "0 2px 10px rgba(0,0,0,0.6)" }}>
+              {title}
+            </h3>
           </div>
 
           {/* Region badge — top left */}
           <div className="absolute top-2.5 left-2.5 z-10">
             <div style={{
-              width: 34, height: 34, borderRadius: "50%",
+              width: 32, height: 32, borderRadius: "50%",
               background: badgeColor,
               border: "2px solid rgba(255,255,255,0.35)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: 13, fontWeight: 700, color: "#fff",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.35)",
+              fontSize: 12, fontWeight: 700, color: "#fff",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
               ...playfair,
             }}>
               {regionCode}
             </div>
           </div>
 
-          {/* Fact pill — center */}
-          <div className="absolute inset-x-4" style={{ top: "50%", transform: "translateY(-50%)" }}>
-            <div style={{
-              background: "rgba(15,8,3,0.55)",
-              backdropFilter: "blur(4px)",
-              WebkitBackdropFilter: "blur(4px)",
-              padding: "12px 14px",
-              borderRadius: 8,
-              border: "1px solid rgba(232,184,77,0.2)",
-              textAlign: "center",
-            }}>
-              <div style={{ width: 28, height: 1.5, background: "#E8B84D", margin: "0 auto 8px", borderRadius: 1 }} />
-              <p style={{ fontSize: 11, lineHeight: 1.65, color: "#fff", textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>
-                {fact}
-              </p>
-              <div style={{ width: 28, height: 1.5, background: "#E8B84D", margin: "8px auto 0", borderRadius: 1 }} />
-            </div>
-          </div>
-
-          {/* Bottom gradient + QR */}
-          <div className="absolute inset-x-0 bottom-0 flex justify-center pb-3 pt-12" style={{
-            background: "linear-gradient(to top, rgba(15,8,3,0.78) 0%, rgba(15,8,3,0.45) 55%, transparent 100%)",
+          {/* Bottom gradient — fact text + QR */}
+          <div className="absolute inset-x-0 bottom-0" style={{
+            background: "linear-gradient(to top, rgba(10,5,2,0.94) 0%, rgba(10,5,2,0.78) 55%, transparent 100%)",
+            padding: "32px 14px 10px",
+            textAlign: "center",
           }}>
-            <QRPlaceholder />
+            <div style={{ width: 26, height: 1.5, background: "#E8B84D", margin: "0 auto 7px", borderRadius: 1 }} />
+            <p style={{ fontSize: 10, lineHeight: 1.6, color: "rgba(255,255,255,0.92)", textShadow: "0 1px 6px rgba(0,0,0,0.8)", marginBottom: 7 }}>
+              {fact}
+            </p>
+            <div style={{ width: 26, height: 1.5, background: "#E8B84D", margin: "0 auto 9px", borderRadius: 1 }} />
+            <div className="flex justify-center">
+              <QRPlaceholder />
+            </div>
           </div>
         </div>
 
