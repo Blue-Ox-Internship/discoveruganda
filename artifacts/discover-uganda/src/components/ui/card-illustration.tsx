@@ -2078,6 +2078,592 @@ function TororoRock({ uid, cfg }: SceneProps) {
   );
 }
 
+// ── Scene 33 — Buganda Regalia ───────────────────────────────────────────────
+// The royal symbols of the Buganda Kingdom: the Kabaka's throne, tall engalabi
+// drums, ceremonial spears, and the royal crown. Rich deep reds and gold.
+
+function BugandaRegalia({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <rect width={W} height={H} fill={cfg.skyTop} />
+      {/* Warm light from above */}
+      {cfg.sun && (
+        <ellipse cx="150" cy="0" rx="140" ry="80" fill={cfg.sun} opacity="0.14" />
+      )}
+      {/* Patterned drape / backdrop */}
+      {Array.from({ length: 10 }, (_, i) => (
+        <rect key={i} x={i * 30} y={0} width="15" height={H} fill={cfg.accent} opacity="0.06" />
+      ))}
+      {/* Royal throne — high-backed wooden chair */}
+      <rect x="98" y="182" width="104" height="118" fill="#3A1A08" />
+      <rect x="104" y="188" width="92" height="106" fill="#4A2510" />
+      {/* Throne back — carved panel */}
+      <rect x="110" y="192" width="80" height="72" fill="#5A3018" />
+      {[198,212,226,240,254].map(y => (
+        <line key={y} x1="114" y1={y} x2="186" y2={y} stroke="#7A4A28" strokeWidth="1.2" opacity="0.45" />
+      ))}
+      {/* Throne arch top */}
+      <path d="M98,182 Q150,156 202,182" fill="#3A1A08" />
+      <path d="M104,182 Q150,162 196,182" fill="#4A2510" />
+      {/* Crown on throne top */}
+      <path d="M120,162 L130,142 L140,158 L150,134 L160,158 L170,142 L180,162 Z" fill={cfg.accent} />
+      <rect x="118" y="162" width="64" height="12" fill={cfg.accent} opacity="0.82" />
+      {[122,134,146,158,170].map((x,i) => (
+        <circle key={i} cx={x+4} cy={166} r={3} fill={cfg.skyTop} opacity="0.72" />
+      ))}
+      {/* Throne seat cushion */}
+      <ellipse cx="150" cy="298" rx="44" ry="12" fill="#8B2020" />
+      <rect x="106" y="288" width="88" height="12" fill="#6A1818" />
+      {/* Throne legs */}
+      {[106,180].map((x,i) => (
+        <rect key={i} x={x} y="296" width="14" height="40" fill="#2A1008" />
+      ))}
+      {/* Left engalabi drum — tall, narrow */}
+      <ellipse cx="58" cy="224" rx="16" ry="7" fill="#6A3010" />
+      <rect x="42" y="222" width="32" height="98" fill="#7A3A18" />
+      <ellipse cx="58" cy="320" rx="16" ry="7" fill="#5A2808" />
+      {/* Drum lacing */}
+      {[234,252,270,290,308].map((y,i) => (
+        <path key={i} d={`M44,${y} Q58,${y+4} 72,${y}`} stroke="#C88040" strokeWidth="1.5" fill="none" opacity="0.55" />
+      ))}
+      {/* Right engalabi drum */}
+      <ellipse cx="242" cy="218" rx="16" ry="7" fill="#6A3010" />
+      <rect x="226" y="216" width="32" height="104" fill="#7A3A18" />
+      <ellipse cx="242" cy="320" rx="16" ry="7" fill="#5A2808" />
+      {[228,246,264,282,300,316].map((y,i) => (
+        <path key={i} d={`M228,${y} Q242,${y+4} 256,${y}`} stroke="#C88040" strokeWidth="1.5" fill="none" opacity="0.55" />
+      ))}
+      {/* Ceremonial spears — crossed behind throne */}
+      <line x1="88" y1="140" x2="142" y2="340" stroke="#8B6040" strokeWidth="5" />
+      <line x1="212" y1="140" x2="158" y2="340" stroke="#8B6040" strokeWidth="5" />
+      <polygon points="88,140 82,120 94,130" fill={cfg.accent} />
+      <polygon points="212,140 206,120 218,130" fill={cfg.accent} />
+      {/* Leopard skin draped over throne arm */}
+      <path d="M98,244 Q72,252 64,278 Q80,268 98,276" fill="#C89848" opacity="0.72" />
+      {[70,78,86,92].map((x,i) => (
+        <circle key={i} cx={x} cy={252+i*6} r={3} fill="#3A2808" opacity="0.38" />
+      ))}
+      {/* Floor mat */}
+      <path d="M32,336 Q150,322 268,336 L272,400 L28,400 Z" fill="#8B5030" opacity="0.52" />
+      {Array.from({ length: 8 }, (_, i) => (
+        <line key={i} x1={42+i*30} y1="336" x2={40+i*30} y2="400" stroke="#6A3A18" strokeWidth="1.5" opacity="0.3" />
+      ))}
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 34 — Bark Cloth Makers ─────────────────────────────────────────────
+// The UNESCO-listed craft of Buganda: men beat the soaked inner bark of ficus
+// trees with ribbed mallets, stretching it into supple reddish-brown cloth.
+// Sheets hang drying in the compound under afternoon light.
+
+function BarkClothMakers({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <rect width={W} height={H} fill={cfg.skyTop} />
+      {cfg.sun && (
+        <>
+          <circle cx="230" cy="68" r="54" fill={`url(#${sid(uid,"sun")})`} />
+          <circle cx="230" cy="68" r="26" fill={cfg.sun} opacity="0.86" />
+        </>
+      )}
+      {/* Compound wall / background */}
+      <rect x="0" y="162" width={W} height="238" fill={cfg.groundMid} />
+      <rect x="0" y="162" width={W} height="8" fill={cfg.groundDark} opacity="0.38" />
+      {/* Ficus tree left */}
+      <rect x="10" y="84" width="14" height="178" fill="#3A2010" />
+      <ellipse cx="17" cy="80" rx="42" ry="52" fill={cfg.hillsMid} />
+      <ellipse cx="8"  cy="96" rx="28" ry="36" fill={cfg.hillsFar} opacity="0.62" />
+      {/* Bark cloth sheets hanging on line */}
+      <line x1="28" y1="152" x2="272" y2="148" stroke="#5C3820" strokeWidth="2.5" />
+      {[[34,148,48,90],[90,148,52,96],[148,148,50,88],[204,148,46,84]].map(([x,y,w,h],i) => (
+        <rect key={i} x={x} y={y} width={w} height={h}
+          fill={i%2===0 ? cfg.accent : "#C87840"} opacity="0.82" rx="1" />
+      ))}
+      {/* Cloth texture lines */}
+      {[34,90,148,204].map((x,i) => (
+        [160,172,184,196,208,220].map((cy,j) => (
+          <line key={j} x1={x+4} y1={cy} x2={x+[48,52,50,46][i]-4} y2={cy}
+            stroke="#3A2010" strokeWidth="1" opacity="0.18" />
+        ))
+      ))}
+      {/* Heavy log work-table */}
+      <rect x="68" y="268" width="164" height="20" fill="#2A1408" />
+      {[76,212].map((x,i) => (
+        <rect key={i} x={x} y="286" width="12" height="40" fill="#1A0C04" />
+      ))}
+      {/* Bark cloth piece on table */}
+      <rect x="78" y="258" width="144" height="14" fill="#C87030" opacity="0.84" />
+      {/* Craftsman 1 — beating with mallet, left side */}
+      <g transform="translate(96,268)">
+        <rect x="-8" y="-72" width="16" height="40" fill="#1A0C04" />
+        <circle cx="0" cy="-78" r="12" fill="#1A0C04" />
+        {/* Raised arm holding mallet */}
+        <path d="M8,-52 Q28,-80 22,-96" stroke="#1A0C04" strokeWidth="10" fill="none" strokeLinecap="round" />
+        <rect x="16" y="-104" width="6" height="22" fill="#3A2010" rx="2" />
+        <ellipse cx="19" cy="-108" rx="7" ry="4" fill="#5A3018" />
+        {/* Standing legs */}
+        <rect x="-8" y="-34" width="7" height="36" fill="#1A0C04" />
+        <rect x="1"  y="-34" width="7" height="36" fill="#1A0C04" />
+      </g>
+      {/* Craftsman 2 — opposite end */}
+      <g transform="translate(204,268) scale(-1,1)">
+        <rect x="-8" y="-72" width="16" height="40" fill="#1A0C04" />
+        <circle cx="0" cy="-78" r="12" fill="#1A0C04" />
+        <path d="M8,-52 Q28,-76 24,-92" stroke="#1A0C04" strokeWidth="10" fill="none" strokeLinecap="round" />
+        <rect x="18" y="-100" width="6" height="20" fill="#3A2010" rx="2" />
+        <ellipse cx="21" cy="-104" rx="7" ry="4" fill="#5A3018" />
+        <rect x="-8" y="-34" width="7" height="36" fill="#1A0C04" />
+        <rect x="1"  y="-34" width="7" height="36" fill="#1A0C04" />
+      </g>
+      {/* Finished rolls of bark cloth stacked right */}
+      {[0,1,2].map(i => (
+        <ellipse key={i} cx="258" cy={330-i*14} rx="20" ry="10" fill={cfg.accent} opacity={0.75-i*0.08} />
+      ))}
+      {/* Ground */}
+      <rect x="0" y="354" width={W} height="46" fill={cfg.groundDark} />
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 35 — Owino Market ───────────────────────────────────────────────────
+// St. Balikuddembe Market — the largest open-air market in East Africa.
+// A dense maze of stalls bursting with printed kitenge cloth, plastic baskets,
+// vegetables, and the colour and energy of Kampala's trading heart.
+
+function OwinoMarket({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <rect width={W} height={H} fill={cfg.skyTop} />
+      {/* Sky strip */}
+      <rect x="0" y="0" width={W} height="96" fill={cfg.skyBottom} opacity="0.44" />
+      {/* Back row stall roofs — corrugated iron, receding */}
+      {[[0,82,62,28],[58,78,66,32],[120,74,68,36],[184,76,64,30],[246,80,54,26]].map(([x,y,w,h],i) => (
+        <rect key={i} x={x} y={y} width={w} height={h} fill={["#8B3A18","#C86028","#A84820","#6A2810","#B05020"][i]} />
+      ))}
+      {/* Stall roof drips / fringes */}
+      {[0,58,120,184,246].map((x,i) => (
+        Array.from({ length: 7 }, (_, j) => (
+          <line key={j} x1={x+6+j*8} y1={[82,78,74,76,80][i]+[28,32,36,30,26][i]}
+            x2={x+8+j*8} y2={[82,78,74,76,80][i]+[28,32,36,30,26][i]+10}
+            stroke={["#C84818","#E87030","#D05820","#9A3610","#D06030"][i]}
+            strokeWidth="2" />
+        ))
+      ))}
+      {/* Mid-row stalls — closer, taller */}
+      {[[0,108,80,68],[76,104,82,72],[154,106,78,70],[228,110,72,66]].map(([x,y,w,h],i) => (
+        <rect key={i} x={x} y={y} width={w} height={h}
+          fill={["#A04020","#D06830","#B85028","#7A3010"][i]} />
+      ))}
+      {/* Fabric bolts hanging from stalls */}
+      {[[8,110],[28,110],[52,110],[84,110],[108,110],[162,110],[186,110],[210,110],[236,110],[258,110]].map(([x,y],i) => (
+        <rect key={i} x={x} y={y} width="14" height="56"
+          fill={["#E84848","#2A88D0","#E8C830","#4AAA60","#D040A0","#FF7030","#3060C0","#E8A820","#60C060","#E04060"][i]}
+          opacity="0.85" />
+      ))}
+      {/* Baskets piled */}
+      {[[16,174],[38,170],[60,176],[236,172],[258,168],[276,174]].map(([x,y],i) => (
+        <ellipse key={i} cx={x} cy={y} rx={10+i%2*3} ry={7} fill="#C88030" opacity="0.72" />
+      ))}
+      {/* Foreground traders — silhouettes */}
+      {[[52,280],[108,268],[162,276],[220,272],[268,278]].map(([x,y],i) => (
+        <g key={i}>
+          <circle cx={x} cy={y-40} r={12} fill="#1A0C04" />
+          <rect x={x-9} y={y-28} width="18" height="30" fill="#1A0C04" />
+          {/* Head wrap on some */}
+          {i%2===0 && <ellipse cx={x} cy={y-50} rx="14" ry="6" fill={["#E84848","#2A88D0","#E8C830"][i%3]} opacity="0.72" />}
+          <rect x={x-7} y={y+2} width="6" height="24" fill="#1A0C04" />
+          <rect x={x+1} y={y+2} width="6" height="24" fill="#1A0C04" />
+        </g>
+      ))}
+      {/* Ground — red laterite dirt */}
+      <rect x="0" y="340" width={W} height="60" fill={cfg.groundDark} />
+      <rect x="0" y="340" width={W} height="8" fill={cfg.groundMid} opacity="0.5" />
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 36 — Kampala Rolex Stand ───────────────────────────────────────────
+// Uganda's beloved street food: a chapati rolled with a fried egg, tomatoes,
+// and cabbage. A night-time rolex stand glows with charcoal and lamplight,
+// the vendor's hands fast over the sizzling griddle.
+
+function KampalaRolex({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      {/* Night sky */}
+      <rect width={W} height={H} fill={cfg.skyTop} />
+      {/* Stars */}
+      {[[28,18],[72,36],[118,14],[186,28],[234,16],[278,38],[44,52],[156,44],[260,54]].map(([x,y],i) => (
+        <circle key={i} cx={x} cy={y} r={i%3===0?1.8:1.2} fill="#F0E8C0" opacity={0.6+i%3*0.15} />
+      ))}
+      {/* Warm glow from the charcoal */}
+      <ellipse cx="152" cy="280" rx="130" ry="90" fill="#E07820" opacity="0.09" />
+      <ellipse cx="152" cy="300" rx="90" ry="60" fill="#E08020" opacity="0.10" />
+      {/* Cart / wooden stall */}
+      <rect x="62" y="218" width="176" height="112" fill="#2A1408" />
+      <rect x="58" y="214" width="184" height="14" fill="#3A1C0C" />
+      {/* Cart legs */}
+      {[66,218].map((x,i) => (
+        <rect key={i} x={x} y="328" width="10" height="48" fill="#1A0C04" />
+      ))}
+      {/* Griddle surface — hot cast iron */}
+      <ellipse cx="152" cy="222" rx="68" ry="14" fill="#1A1008" />
+      <ellipse cx="152" cy="220" rx="62" ry="11" fill="#2A1A08" />
+      {/* Glowing charcoal beneath */}
+      <ellipse cx="152" cy="228" rx="50" ry="8" fill="#E04010" opacity="0.32" />
+      {[130,146,160,172].map((x,i) => (
+        <circle key={i} cx={x} cy={226} r={4+i%2} fill="#FF6020" opacity={0.42+i*0.05} />
+      ))}
+      {/* Chapati on griddle — golden disc */}
+      <ellipse cx="132" cy="218" rx="28" ry="10" fill="#E8C060" opacity="0.88" />
+      {/* Cracked egg sizzling beside */}
+      <ellipse cx="172" cy="218" rx="18" ry="8" fill="#F8F0C0" opacity="0.84" />
+      <circle  cx="172" cy="217" r="7" fill="#F8C030" opacity="0.88" />
+      {/* Steam wisps */}
+      <path d="M128,206 Q122,190 126,176" stroke="rgba(220,210,180,0.38)" strokeWidth="4" fill="none" strokeLinecap="round" />
+      <path d="M152,204 Q148,186 152,172" stroke="rgba(220,210,180,0.30)" strokeWidth="3" fill="none" strokeLinecap="round" />
+      <path d="M174,206 Q180,188 176,174" stroke="rgba(220,210,180,0.34)" strokeWidth="4" fill="none" strokeLinecap="round" />
+      {/* Ingredients on counter — tomato, cabbage pile */}
+      <ellipse cx="88"  cy="220" rx="12" ry="9" fill="#CC2820" opacity="0.82" />
+      <ellipse cx="210" cy="220" rx="14" ry="9" fill="#5A9030" opacity="0.78" />
+      {/* Lamp hanging above — warm glow */}
+      <circle cx="152" cy="152" r="18" fill={cfg.accent} opacity="0.82" />
+      <circle cx="152" cy="152" r="12" fill="#FFF0A0" opacity="0.9" />
+      <line x1="152" y1="134" x2="152" y2="108" stroke="#5C3820" strokeWidth="3" />
+      <ellipse cx="152" cy="108" rx="20" ry="4" fill="#3A1C0C" />
+      {/* Vendor silhouette behind cart */}
+      <rect x="132" y="136" width="18" height="84" fill="#1A0C04" />
+      <circle cx="141" cy="128" r="14" fill="#1A0C04" />
+      {/* Vendor arm reaching over griddle */}
+      <path d="M150,168 Q168,180 172,196" stroke="#1A0C04" strokeWidth="10" fill="none" strokeLinecap="round" />
+      {/* Spatula in hand */}
+      <line x1="172" y1="196" x2="178" y2="214" stroke="#5C3820" strokeWidth="4" />
+      <rect x="172" y="213" width="14" height="5" fill="#3A1C0C" />
+      {/* Customer silhouette right */}
+      <rect x="228" y="248" width="16" height="80" fill="#1A0C04" opacity="0.82" />
+      <circle cx="236" cy="240" r="12" fill="#1A0C04" opacity="0.82" />
+      {/* Ground */}
+      <rect x="0" y="370" width={W} height="30" fill={cfg.groundDark} />
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 37 — Victoria Fishermen ────────────────────────────────────────────
+// Before dawn on Lake Victoria, silhouette crews haul nets by lamplight.
+// Three wooden boats, lanterns swaying, a pink horizon beginning to glow.
+
+function VictoriaFishermen({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {/* Pre-dawn horizon glow */}
+      {cfg.sun && (
+        <ellipse cx="152" cy="198" rx="180" ry="56" fill={cfg.sun} opacity="0.18" />
+      )}
+      {/* Sky gradient — deep night to pink dawn */}
+      <rect x="0" y="0" width={W} height="198" fill={cfg.skyTop} opacity="0.82" />
+      {/* Far shoreline — low dark silhouette */}
+      <path d="M0,196 C55,186 112,196 165,188 C218,180 266,194 300,186 L300,224 L0,224 Z"
+        fill={cfg.hillsFar} opacity="0.68" />
+      {/* Trees on far shore */}
+      <path d="M0,197 C12,188 24,184 32,188 C40,192 44,188 52,186 C60,184 68,188 76,194 L76,224 L0,224 Z"
+        fill={cfg.hillsMid} opacity="0.72" />
+      <path d="M224,190 C234,182 248,178 258,182 C268,186 276,180 284,178 C292,176 298,182 300,188 L300,224 L224,224 Z"
+        fill={cfg.hillsMid} opacity="0.68" />
+      {/* Lake — dark and still */}
+      <path d="M0,212 C52,204 108,214 160,206 C212,198 262,212 300,202 L300,400 L0,400 Z"
+        fill={cfg.water ?? "#1A3858"} />
+      {/* Dawn reflection on water */}
+      <ellipse cx="152" cy="270" rx="60" ry="80" fill={cfg.sun ?? "#F8C060"} opacity="0.06" />
+      {/* Gentle ripples */}
+      {[228,248,268,290,314,338].map((y,i) => (
+        <path key={i} d={`M${22+i*8},${y} Q152,${y-4} ${278-i*8},${y}`}
+          stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" fill="none" />
+      ))}
+      {/* Boat 1 — large, left, net hauling */}
+      <path d="M18,276 Q68,264 118,276 Q68,290 18,276 Z" fill="#1A0E06" />
+      {/* Fishermen on boat 1 */}
+      {[34,54,76,100].map((x,i) => (
+        <g key={i}>
+          <circle cx={x} cy={264} r={7} fill="#0E0804" />
+          <rect x={x-5} y={270} width="10" height="18" fill="#0E0804" />
+        </g>
+      ))}
+      {/* Net being hauled — draped rope arcs */}
+      <path d="M28,270 Q68,282 108,270" stroke="#5C4028" strokeWidth="2" fill="none" opacity="0.62" />
+      <path d="M32,276 Q68,288 104,276" stroke="#5C4028" strokeWidth="1.5" fill="none" opacity="0.44" />
+      {[38,52,66,80,94].map((x,i) => (
+        <line key={i} x1={x} y1={270} x2={x+2} y2={284} stroke="#5C4028" strokeWidth="1.2" opacity="0.38" />
+      ))}
+      {/* Boat 1 lantern */}
+      <circle cx="118" cy="256" r="6" fill={cfg.accent} opacity="0.82" />
+      <ellipse cx="118" cy="258" rx="14" ry="8" fill={cfg.accent} opacity="0.14" />
+      {/* Boat 2 — mid, rowing */}
+      <path d="M108,304 Q152,294 196,304 Q152,316 108,304 Z" fill="#1A0E06" />
+      {[122,144,168,186].map((x,i) => (
+        <g key={i}>
+          <circle cx={x} cy={292} r={6} fill="#0E0804" />
+          <rect x={x-4} y={297} width="9" height="16" fill="#0E0804" />
+        </g>
+      ))}
+      {/* Oars on boat 2 */}
+      <path d="M122,302 Q108,310 96,306" stroke="#3A2010" strokeWidth="4" fill="none" strokeLinecap="round" />
+      <path d="M180,302 Q196,308 208,304" stroke="#3A2010" strokeWidth="4" fill="none" strokeLinecap="round" />
+      {/* Boat 2 lantern */}
+      <circle cx="152" cy="284" r="5" fill={cfg.accent} opacity="0.76" />
+      {/* Boat 3 — far right, smaller */}
+      <path d="M196,288 Q232,280 268,288 Q232,298 196,288 Z" fill="#1A0E06" opacity="0.86" />
+      <circle cx="238" cy="276" r="5" fill={cfg.accent} opacity="0.64" />
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 38 — Ngoma Drummers ─────────────────────────────────────────────────
+// A circle of Buganda engalabi drummers at night around a fire.
+// Tall drums, dancing figures, warm firelight painting the scene in amber.
+
+function NgomaDrummers({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <rect width={W} height={H} fill={cfg.skyTop} />
+      {/* Stars */}
+      {[[22,20],[66,12],[128,30],[194,16],[248,24],[282,10],[48,44],[170,38],[260,46]].map(([x,y],i) => (
+        <circle key={i} cx={x} cy={y} r={i%3===0?1.8:1.2} fill="#E8E0C0" opacity={0.5+i%3*0.15} />
+      ))}
+      {/* Fire glow — the central light source */}
+      <ellipse cx="152" cy="290" rx="160" ry="120" fill="#E07010" opacity="0.08" />
+      <ellipse cx="152" cy="302" rx="110" ry="80" fill="#E08010" opacity="0.10" />
+      <ellipse cx="152" cy="316" rx="68" ry="46" fill="#E07020" opacity="0.13" />
+      {/* Ground — firelight-lit red earth */}
+      <path d="M0,298 C50,284 110,298 162,286 C214,274 264,292 300,280 L300,400 L0,400 Z"
+        fill={cfg.groundMid} />
+      <rect x="0" y="368" width={W} height="32" fill={cfg.groundDark} />
+      {/* The fire */}
+      <ellipse cx="152" cy="310" rx="22" ry="8" fill="#C04010" opacity="0.62" />
+      <path d="M152,308 Q136,282 140,258 Q146,238 152,250 Q158,238 154,258 Q158,282 152,308 Z"
+        fill="#E04010" />
+      <path d="M152,304 Q140,280 144,260 Q148,244 152,254 Q156,244 148,260 Q158,278 152,304 Z"
+        fill="#F08020" />
+      <path d="M152,298 Q144,276 148,260 Q152,248 156,260 Q160,276 152,298 Z"
+        fill="#FFD040" opacity="0.88" />
+      <path d="M148,290 Q146,272 150,262 Q152,254 154,262 Q158,272 152,290 Z"
+        fill="#FFE880" opacity="0.72" />
+      {/* Tall engalabi drums arranged in semicircle */}
+      {[[56,236],[90,218],[124,210],[178,210],[212,218],[248,232]].map(([x,y],i) => (
+        <g key={i}>
+          <ellipse cx={x} cy={y} rx="10" ry="5" fill="#6A3010" />
+          <rect x={x-10} y={y} width="20" height="76" fill={cfg.accent} opacity="0.78" />
+          <ellipse cx={x} cy={y+76} rx="10" ry="5" fill="#5A2808" />
+          {[y+16,y+32,y+48,y+62].map((ly,j) => (
+            <line key={j} x1={x-8} y1={ly} x2={x+8} y2={ly}
+              stroke="#3A1808" strokeWidth="1" opacity="0.3" />
+          ))}
+        </g>
+      ))}
+      {/* Drummer figures */}
+      {[[56,308],[90,296],[178,296],[248,304]].map(([x,y],i) => (
+        <g key={i}>
+          <circle cx={x} cy={y-52} r={10} fill="#0E0804" />
+          <rect x={x-7} y={y-42} width="14" height="44" fill="#0E0804" />
+          {/* Drumming arm raised */}
+          <path d={`M${x+6},${y-28} Q${x+22},${y-48} ${x+18},${y-62}`}
+            stroke="#0E0804" strokeWidth="8" fill="none" strokeLinecap="round" />
+          <rect x={x-6} y={y+2} width="5" height="22" fill="#0E0804" />
+          <rect x={x+1} y={y+2} width="5" height="22" fill="#0E0804" />
+        </g>
+      ))}
+      {/* Central dancer silhouettes around the fire */}
+      {[[128,282],[152,270],[176,280]].map(([x,y],i) => (
+        <g key={i}>
+          <circle cx={x} cy={y-38} r={9} fill="#0E0804" />
+          <rect x={x-6} y={y-30} width="12" height="32" fill="#0E0804" />
+          {/* Arms raised dancing */}
+          <path d={`M${x-6},${y-18} Q${x-20},${y-34} ${x-16},${y-48}`}
+            stroke="#0E0804" strokeWidth="7" fill="none" strokeLinecap="round" />
+          <path d={`M${x+6},${y-18} Q${x+20},${y-34} ${x+16},${y-48}`}
+            stroke="#0E0804" strokeWidth="7" fill="none" strokeLinecap="round" />
+          <rect x={x-5} y={y+2} width="4" height="20" fill="#0E0804" />
+          <rect x={x+1} y={y+2} width="4" height="20" fill="#0E0804" />
+        </g>
+      ))}
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 39 — Batwa Weavers ──────────────────────────────────────────────────
+// The Batwa people, Uganda's oldest indigenous community, are master weavers.
+// Women sit in a forest clearing weaving intricate baskets from papyrus and
+// raffia, their hands moving with practiced precision.
+
+function BatwaWeavers({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <rect width={W} height={H} fill={cfg.skyTop} />
+      {cfg.sun && (
+        <>
+          <circle cx="216" cy="66" r="48" fill={`url(#${sid(uid,"sun")})`} />
+          <circle cx="216" cy="66" r="24" fill={cfg.sun} opacity="0.84" />
+        </>
+      )}
+      {/* Forest clearing background */}
+      <path d="M0,148 C44,126 92,142 138,128 C184,114 240,134 300,120 L300,222 L0,222 Z" fill={cfg.hillsFar} />
+      <path d="M0,180 C50,158 104,174 154,160 C204,146 260,166 300,152 L300,248 L0,248 Z" fill={cfg.hillsMid} />
+      {/* Flanking forest trees */}
+      <RoundTree x={22}  y={154} h={88} r={34} dark={cfg.hillsMid} light={cfg.hillsFar} />
+      <RoundTree x={278} y={148} h={84} r={32} dark={cfg.hillsMid} light={cfg.hillsFar} />
+      {/* Dappled light patches on ground */}
+      <ellipse cx="80"  cy="306" rx="28" ry="12" fill={cfg.sun ?? "#FFE566"} opacity="0.09" />
+      <ellipse cx="210" cy="314" rx="24" ry="10" fill={cfg.sun ?? "#FFE566"} opacity="0.08" />
+      {/* Ground — clearing */}
+      <path d="M0,234 C44,222 98,236 150,224 C202,212 258,230 300,218 L300,400 L0,400 Z" fill={cfg.groundMid} />
+      <rect x="0" y="372" width={W} height="28" fill={cfg.groundDark} />
+      {/* Baskets being woven — on the ground */}
+      {[[72,302,24,16],[122,308,28,18],[176,304,26,17],[226,298,22,15]].map(([x,y,rx,ry],i) => (
+        <g key={i}>
+          <ellipse cx={x} cy={y} rx={rx} ry={ry} fill={["#C88030","#A86820","#D89040","#B87030"][i]} opacity="0.82" />
+          {/* Weave pattern rings */}
+          {[0,1,2].map(j => (
+            <ellipse key={j} cx={x} cy={y-j*4} rx={rx-j*5} ry={ry-j*4}
+              fill="none" stroke="#3A2010" strokeWidth="1" opacity={0.28-j*0.05} />
+          ))}
+        </g>
+      ))}
+      {/* Weaver 1 — seated, left */}
+      <g transform="translate(72,296)">
+        <ellipse cx="0" cy="14" rx="18" ry="12" fill="#1A0C04" />
+        <rect x="-7" y="-22" width="14" height="36" fill="#1A0C04" />
+        <circle cx="0" cy="-28" r="11" fill="#1A0C04" />
+        {/* Head wrap */}
+        <ellipse cx="0" cy="-35" rx="13" ry="6" fill={cfg.accent} opacity="0.72" />
+        {/* Arms reaching forward over basket */}
+        <path d="M7,-10 Q18,4 16,18" stroke="#1A0C04" strokeWidth="7" fill="none" strokeLinecap="round" />
+        <path d="M-7,-10 Q-16,4 -14,18" stroke="#1A0C04" strokeWidth="7" fill="none" strokeLinecap="round" />
+      </g>
+      {/* Weaver 2 — seated, centre */}
+      <g transform="translate(152,296)">
+        <ellipse cx="0" cy="14" rx="18" ry="12" fill="#1A0C04" />
+        <rect x="-7" y="-22" width="14" height="36" fill="#1A0C04" />
+        <circle cx="0" cy="-28" r="11" fill="#1A0C04" />
+        <ellipse cx="0" cy="-35" rx="13" ry="6" fill="#D04060" opacity="0.68" />
+        <path d="M7,-10 Q20,2 18,16" stroke="#1A0C04" strokeWidth="7" fill="none" strokeLinecap="round" />
+        <path d="M-7,-10 Q-18,4 -16,16" stroke="#1A0C04" strokeWidth="7" fill="none" strokeLinecap="round" />
+      </g>
+      {/* Weaver 3 — seated, right */}
+      <g transform="translate(228,292)">
+        <ellipse cx="0" cy="14" rx="18" ry="12" fill="#1A0C04" />
+        <rect x="-7" y="-22" width="14" height="36" fill="#1A0C04" />
+        <circle cx="0" cy="-28" r="11" fill="#1A0C04" />
+        <ellipse cx="0" cy="-35" rx="13" ry="6" fill="#2A88D0" opacity="0.66" />
+        <path d="M7,-10 Q18,4 16,18" stroke="#1A0C04" strokeWidth="7" fill="none" strokeLinecap="round" />
+        <path d="M-7,-10 Q-18,2 -16,14" stroke="#1A0C04" strokeWidth="7" fill="none" strokeLinecap="round" />
+      </g>
+      {/* Papyrus reeds on ground — raw material */}
+      {[36,48,258,270,282].map((x,i) => (
+        <g key={i}>
+          <line x1={x} y1="356" x2={x+(i%2===0?3:-3)} y2="322" stroke="#5A8020" strokeWidth="2.5" />
+          <ellipse cx={x+(i%2===0?3:-3)} cy="320" rx="5" ry="2" fill="#6A9028" />
+        </g>
+      ))}
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 40 — Lubiri Palace Guards ──────────────────────────────────────────
+// Two Buganda Kingdom ceremonial guards at the gates of the Lubiri Palace.
+// Traditional bark cloth robes, spears, the palace walls and flag behind them.
+
+function PalaceGuards({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <rect width={W} height={H} fill={cfg.skyTop} />
+      {cfg.sun && (
+        <>
+          <circle cx="240" cy="70" r="52" fill={`url(#${sid(uid,"sun")})`} />
+          <circle cx="240" cy="70" r="26" fill={cfg.sun} opacity="0.86" />
+        </>
+      )}
+      {/* Palace exterior wall — white-washed brick */}
+      <rect x="0"   y="172" width={W} height="228" fill="#E8E0D0" />
+      <rect x="0"   y="172" width={W} height="10"  fill="#D0C8B8" />
+      {/* Brick rows */}
+      {[182,196,210,224,238,252,266,280,294,308,322,336].map((y,i) => (
+        Array.from({ length: 11 }, (_, j) => (
+          <rect key={j} x={j*28+(i%2)*14} y={y} width="26" height="12"
+            fill="none" stroke="#C8C0B0" strokeWidth="0.8" opacity="0.32" />
+        ))
+      ))}
+      {/* Gate arch — the main entrance */}
+      <rect x="114" y="218" width="72" height="182" fill="#C8C0B0" />
+      <path d="M114,218 Q150,186 186,218" fill="#C0B8A8" />
+      <rect x="118" y="220" width="64" height="178" fill="#1A0C04" />
+      {/* Gate doors ajar */}
+      <rect x="120" y="222" width="28" height="174" fill="#3A2010" />
+      <rect x="152" y="222" width="28" height="174" fill="#2A1808" />
+      {/* Door panels / carvings */}
+      {[238,278,318,356].map((y,i) => (
+        <rect key={i} x={124} y={y} width="20" height="24" fill="#4A2A14" opacity="0.6" />
+      ))}
+      {[238,278,318,356].map((y,i) => (
+        <rect key={i} x={156} y={y} width="20" height="24" fill="#3A2010" opacity="0.6" />
+      ))}
+      {/* Battlements on top of wall */}
+      {[0,22,44,66,88,110,154,176,198,220,242,264,286].map((x,i) => (
+        <rect key={i} x={x} y="158" width="16" height="16" fill="#E8E0D0" />
+      ))}
+      {/* Flag pole on right tower */}
+      <rect x="258" y="94" width="4" height="80" fill="#8B6040" />
+      <path d="M262,94 L290,108 L262,122 Z" fill={cfg.accent} opacity="0.86" />
+      {/* Guard 1 — left of gate */}
+      <g transform="translate(82,220)">
+        {/* Bark cloth robe */}
+        <path d="M-14,0 Q0,-4 14,0 L18,110 Q0,116 -18,110 Z" fill="#8B4820" />
+        <path d="M-14,0 Q0,-4 14,0 L12,60 Q0,64 -12,60 Z" fill="#A05828" opacity="0.6" />
+        {/* Head */}
+        <circle cx="0" cy="-20" r="18" fill="#1A0C04" />
+        {/* Headdress */}
+        <ellipse cx="0" cy="-36" rx="16" ry="6" fill="#C88830" opacity="0.82" />
+        {["-20,-36","-12,-44","0,-48","12,-44","20,-36"].map((pos,i) => {
+          const [px, py] = pos.split(',').map(Number);
+          return <circle key={i} cx={px} cy={py} r="3.5" fill={cfg.accent} opacity="0.76" />;
+        })}
+        {/* Spear */}
+        <line x1="22" y1="-60" x2="22" y2="118" stroke="#8B6040" strokeWidth="5" />
+        <polygon points="22,-60 16,-80 28,-68" fill={cfg.accent} opacity="0.82" />
+        {/* Arms */}
+        <path d="M14,30 Q26,38 24,54" stroke="#1A0C04" strokeWidth="8" fill="none" strokeLinecap="round" />
+        {/* Feet */}
+        <rect x="-12" y="108" width="10" height="14" fill="#1A0C04" />
+        <rect x="2"   y="108" width="10" height="14" fill="#1A0C04" />
+      </g>
+      {/* Guard 2 — right of gate, mirrored */}
+      <g transform="translate(218,220) scale(-1,1)">
+        <path d="M-14,0 Q0,-4 14,0 L18,110 Q0,116 -18,110 Z" fill="#8B4820" />
+        <path d="M-14,0 Q0,-4 14,0 L12,60 Q0,64 -12,60 Z" fill="#A05828" opacity="0.6" />
+        <circle cx="0" cy="-20" r="18" fill="#1A0C04" />
+        <ellipse cx="0" cy="-36" rx="16" ry="6" fill="#C88830" opacity="0.82" />
+        {["-20,-36","-12,-44","0,-48","12,-44","20,-36"].map((pos,i) => {
+          const [px, py] = pos.split(',').map(Number);
+          return <circle key={i} cx={px} cy={py} r="3.5" fill={cfg.accent} opacity="0.76" />;
+        })}
+        <line x1="22" y1="-60" x2="22" y2="118" stroke="#8B6040" strokeWidth="5" />
+        <polygon points="22,-60 16,-80 28,-68" fill={cfg.accent} opacity="0.82" />
+        <path d="M14,30 Q26,38 24,54" stroke="#1A0C04" strokeWidth="8" fill="none" strokeLinecap="round" />
+        <rect x="-12" y="108" width="10" height="14" fill="#1A0C04" />
+        <rect x="2"   y="108" width="10" height="14" fill="#1A0C04" />
+      </g>
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
 // ── Scene dispatcher ──────────────────────────────────────────────────────────
 
 function renderScene(uid: string, cfg: IllustrationConfig): React.ReactNode {
@@ -2115,6 +2701,14 @@ function renderScene(uid: string, cfg: IllustrationConfig): React.ReactNode {
     case "wanale-ridge":        return <WanaleRidge         {...p} />;
     case "sisiyi-falls":        return <SisiyiFalls         {...p} />;
     case "tororo-rock":         return <TororoRock          {...p} />;
+    case "buganda-regalia":     return <BugandaRegalia      {...p} />;
+    case "bark-cloth-makers":   return <BarkClothMakers     {...p} />;
+    case "owino-market":        return <OwinoMarket         {...p} />;
+    case "kampala-rolex":       return <KampalaRolex        {...p} />;
+    case "victoria-fishermen":  return <VictoriaFishermen   {...p} />;
+    case "ngoma-drummers":      return <NgomaDrummers       {...p} />;
+    case "batwa-weavers":       return <BatwaWeavers        {...p} />;
+    case "palace-guards":       return <PalaceGuards        {...p} />;
     default: return null;
   }
 }

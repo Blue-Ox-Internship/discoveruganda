@@ -37,7 +37,16 @@ export type LandmarkType =
   | "lake-victoria"
   | "wanale-ridge"
   | "sisiyi-falls"
-  | "tororo-rock";
+  | "tororo-rock"
+  // Batch 5 — Central Uganda Community
+  | "buganda-regalia"
+  | "bark-cloth-makers"
+  | "owino-market"
+  | "kampala-rolex"
+  | "victoria-fishermen"
+  | "ngoma-drummers"
+  | "batwa-weavers"
+  | "palace-guards";
 
 export interface IllustrationConfig {
   id: string;
