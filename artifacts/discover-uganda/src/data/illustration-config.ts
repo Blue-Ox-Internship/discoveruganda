@@ -28,7 +28,16 @@ export type LandmarkType =
   | "ajai-wildlife"
   | "karuma-falls"
   | "fort-patiko"
-  | "pian-upe";
+  | "pian-upe"
+  // Batch 4 — Eastern Uganda
+  | "sipi-falls"
+  | "mount-elgon"
+  | "source-of-nile"
+  | "nyero-rock"
+  | "lake-victoria"
+  | "wanale-ridge"
+  | "sisiyi-falls"
+  | "tororo-rock";
 
 export interface IllustrationConfig {
   id: string;

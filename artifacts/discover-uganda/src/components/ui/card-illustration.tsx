@@ -1616,6 +1616,468 @@ function PianUpe({ uid, cfg }: SceneProps) {
   );
 }
 
+// ── Scene 25 — Sipi Falls ────────────────────────────────────────────────────
+// Three-tiered waterfall on the slopes of Mount Elgon — Uganda's most
+// photographed falls. Lush green cliff face, coffee plantations on the ledge,
+// distant Karamoja plains stretching far below.
+
+function SipiFalls({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="228" cy="74" r="52" fill={`url(#${sid(uid,"sun")})`} />
+          <circle cx="228" cy="74" r="26" fill={cfg.sun} opacity="0.88" />
+        </>
+      )}
+      {/* Distant plains of Karamoja far below */}
+      <path d="M0,158 C55,140 115,154 165,138 C215,122 268,146 300,132 L300,210 L0,210 Z" fill={cfg.hillsFar} opacity="0.54" />
+      {/* Cliff face — left wall */}
+      <path d="M0,106 C18,98 38,92 58,102 L62,400 L0,400 Z" fill={cfg.groundDark} />
+      <path d="M0,108 C18,100 36,94 50,104 L44,400 L0,400 Z" fill={cfg.groundMid} opacity="0.38" />
+      {/* Cliff face — right wall */}
+      <path d="M300,94 C280,86 252,80 238,92 L242,400 L300,400 Z" fill={cfg.groundDark} />
+      <path d="M300,96 C280,88 254,82 242,94 L248,400 L300,400 Z" fill={cfg.groundMid} opacity="0.32" />
+      {/* Vegetation on cliff top */}
+      <path d="M58,102 C72,88 90,78 110,84 C130,90 148,82 168,78 C188,74 210,82 238,92"
+        fill={cfg.hillsMid} stroke={cfg.hillsMid} strokeWidth="2" />
+      {/* Upper ledge with coffee plants */}
+      <path d="M62,204 C80,196 108,204 130,198 C152,192 180,202 206,196 L242,206 L242,242 L62,242 Z"
+        fill={cfg.hillsMid} />
+      {/* Coffee plant rows on ledge */}
+      {[72,92,112,132,152,172,192,212,228].map((x,i) => (
+        <g key={i}>
+          <rect x={x} y={196} width="5" height="14" fill="#2A4A18" />
+          <ellipse cx={x+2} cy={193} rx="7" ry="5" fill="#3A6028" />
+        </g>
+      ))}
+      {/* Top falls — tier 1 */}
+      <path d="M110,88 Q152,80 192,88 L196,200 Q152,208 108,200 Z" fill={cfg.water ?? "#4A98C8"} opacity="0.82" />
+      <path d="M114,88 Q152,82 188,88 L184,168 Q152,174 118,168 Z" fill="rgba(255,255,255,0.48)" />
+      {/* Mid-tier ledge */}
+      <path d="M106,199 Q152,190 196,199 L200,230 Q152,238 104,230 Z" fill={cfg.groundMid} />
+      {/* Mid falls — tier 2 */}
+      <path d="M108,228 Q152,220 196,228 L200,318 Q152,328 106,318 Z" fill={cfg.water ?? "#4A98C8"} opacity="0.78" />
+      <path d="M112,228 Q152,222 192,228 L190,294 Q152,302 114,294 Z" fill="rgba(255,255,255,0.44)" />
+      {/* Mist at base */}
+      <ellipse cx="152" cy="322" rx="80" ry="28" fill="rgba(212,228,242,0.56)" />
+      {/* Plunge pool */}
+      <ellipse cx="152" cy="338" rx="68" ry="22" fill={cfg.water ?? "#4A98C8"} opacity="0.74" />
+      {/* Spray lines */}
+      {[240,256,274,292,310].map((y,i) => (
+        <path key={i}
+          d={`M110,${y} Q${124+i*3},${y-4} ${138+i*4},${y}`}
+          stroke="rgba(255,255,255,0.22)" strokeWidth="2" fill="none" />
+      ))}
+      {[240,256,274,292,310].map((y,i) => (
+        <path key={i}
+          d={`M192,${y} Q${178-i*3},${y-4} ${164-i*4},${y}`}
+          stroke="rgba(255,255,255,0.22)" strokeWidth="2" fill="none" />
+      ))}
+      {/* Foreground rocky banks */}
+      <path d="M0,354 C28,340 68,356 108,346 L108,400 L0,400 Z" fill={cfg.groundMid} />
+      <path d="M300,346 C272,334 232,348 192,340 L192,400 L300,400 Z" fill={cfg.groundMid} />
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 26 — Mount Elgon ───────────────────────────────────────────────────
+// Africa's oldest and largest volcanic caldera. Crater rim at 4,321m.
+// Layered peaks, mist belt, giant heather forest in the foreground.
+
+function MountElgon({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="152" cy="54" r="52" fill={`url(#${sid(uid,"sun")})`} />
+          <circle cx="152" cy="54" r="24" fill={cfg.sun} opacity="0.82" />
+        </>
+      )}
+      {/* Distant shoulder ridges */}
+      <path d="M0,246 C26,162 72,128 112,148 C138,160 152,188 155,230 L0,278 Z" fill={cfg.hillsFar} opacity="0.54" />
+      <path d="M300,242 C274,158 228,124 192,144 C168,156 155,186 154,228 L300,278 Z" fill={cfg.hillsFar} opacity="0.54" />
+      {/* Secondary peak left */}
+      <path d="M14,284 L102,138 L184,284 Z" fill={cfg.hillsFar} opacity="0.68" />
+      {/* Main caldera rim — the broad flat-topped summit */}
+      <path d="M48,284 L152,84 L256,284 Z" fill={cfg.hillsMid} />
+      {/* Caldera bowl at summit */}
+      <path d="M152,84 L130,118 C138,110 152,98 166,110 Z" fill="#E8EEF8" opacity="0.62" />
+      {/* Snow patches */}
+      {[[124,120,22,8],[140,136,16,6],[162,118,18,7]].map(([x,y,w,h],i) => (
+        <ellipse key={i} cx={x} cy={y} rx={w} ry={h} fill="#F0F4FF" opacity={0.72-i*0.06} />
+      ))}
+      {/* Mist belt */}
+      <path d="M0,222 C44,210 96,224 152,216 C208,208 264,220 300,212 L300,252 L0,252 Z"
+        fill="rgba(210,220,234,0.82)" />
+      <path d="M0,236 C50,224 104,238 158,228 C212,218 268,232 300,224 L300,258 L0,258 Z"
+        fill="rgba(192,206,222,0.48)" />
+      {/* Montane forest below mist */}
+      <path d="M0,244 C48,230 100,246 150,236 C200,226 258,242 300,232 L300,330 L0,330 Z" fill={cfg.groundMid} />
+      {/* Giant heather — Elgon's iconic tree heather */}
+      {[[38,290],[84,284],[168,286],[218,292],[264,288]].map(([x,y],i) => (
+        <g key={i}>
+          <rect x={x-4} y={y-64} width="8" height="64" fill="#2A3818" />
+          {[-44,-32,-20,-8,6,20,34,46].map((dy,j) => (
+            <path key={j}
+              d={`M${x},${y-64+dy} L${x+(j%2===0?-18:18)},${y-64+dy+10}`}
+              stroke="#3A5028" strokeWidth="3" fill="none" strokeLinecap="round" opacity="0.8" />
+          ))}
+          <ellipse cx={x} cy={y-66} rx="8" ry="14" fill="#4A6838" />
+        </g>
+      ))}
+      <Ground mid={cfg.groundMid} dark={cfg.groundDark} />
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 27 — Source of the Nile ────────────────────────────────────────────
+// Jinja: the exact point where Lake Victoria releases the Nile.
+// Still, shimmering water. The Bujagali flow. Small memorial island.
+// Fishermen in wooden boats on the glass-like surface.
+
+function SourceOfNile({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="152" cy="78" r="68" fill={`url(#${sid(uid,"sun")})`} />
+          <circle cx="152" cy="78" r="34" fill={cfg.sun} opacity="0.86" />
+        </>
+      )}
+      {/* Sun path on water */}
+      <path d="M100,180 Q152,170 204,180 L210,340 Q152,348 94,340 Z" fill={cfg.sun ?? "#FFE566"} opacity="0.06" />
+      {/* Far shoreline — green tropical bank */}
+      <path d="M0,166 C50,148 108,160 158,146 C208,132 260,154 300,142 L300,214 L0,214 Z" fill={cfg.hillsFar} />
+      <path d="M0,200 C55,186 112,200 162,188 C212,176 264,198 300,184 L300,234 L0,234 Z" fill={cfg.hillsMid} />
+      {/* Trees on far bank */}
+      <RoundTree x={30}  y={170} h={74} r={28} dark={cfg.hillsMid} light={cfg.hillsFar} />
+      <RoundTree x={270} y={164} h={70} r={26} dark={cfg.hillsMid} light={cfg.hillsFar} />
+      <PalmTree x={64}  base={178} h={52} />
+      <PalmTree x={236} base={172} h={48} />
+      {/* Lake Victoria / Nile surface — vast, still */}
+      <path d="M0,218 C55,210 112,220 162,212 C212,204 264,218 300,208 L300,368 L0,368 Z"
+        fill={cfg.water ?? "#3878B0"} />
+      {/* Reflection of sun */}
+      <ellipse cx="152" cy="262" rx="22" ry="56" fill={cfg.sun ?? "#FFE566"} opacity="0.07" />
+      {/* Calm water ripple bands */}
+      {[230,246,264,282,300,320,340,360].map((y,i) => (
+        <path key={i} d={`M${14+i*6},${y} Q152,${y-4} ${286-i*6},${y}`}
+          stroke="rgba(255,255,255,0.09)" strokeWidth="1.5" fill="none" />
+      ))}
+      {/* Small monument island */}
+      <ellipse cx="152" cy="264" rx="30" ry="12" fill={cfg.hillsMid} />
+      {/* Nile source monument / obelisk */}
+      <rect x="148" y="238" width="8" height="28" fill="#D4C898" />
+      <polygon points="148,238 156,238 152,228" fill="#D4C898" />
+      <rect x="144" y="260" width="16" height="6" fill="#C4B880" />
+      {/* Palm trees on monument island */}
+      <PalmTree x={136} base={264} h={30} />
+      <PalmTree x={168} base={264} h={28} />
+      {/* Wooden fishing boat 1 */}
+      <path d="M58,308 Q82,300 108,308 Q82,318 58,308 Z" fill="#3A2010" />
+      <rect x="78" y="296" width="3" height="20" fill="#5C3820" />
+      <path d="M66,297 L79,303 M92,297 L79,303" stroke="#5C3820" strokeWidth="1.5" fill="none" />
+      {/* Fisherman silhouette */}
+      <ellipse cx="94" cy="301" rx="4" ry="5" fill="#180C04" />
+      <rect x="90" y="305" width="8" height="12" fill="#180C04" />
+      {/* Boat 2 — further */}
+      <path d="M188,292 Q208,285 232,292 Q208,300 188,292 Z" fill="#3A2010" opacity="0.82" />
+      <rect x="206" y="281" width="3" height="18" fill="#5C3820" opacity="0.82" />
+      {/* Foreground reeds */}
+      {[12,28,46,252,268,286].map((x,i) => (
+        <g key={i}>
+          <line x1={x} y1="368" x2={x+(i%2===0?2:-2)} y2="336" stroke="#3A6020" strokeWidth="3" />
+          <ellipse cx={x+(i%2===0?2:-2)} cy="334" rx="5" ry="2" fill="#4A7828" />
+        </g>
+      ))}
+      <Ground mid={cfg.groundMid} dark={cfg.groundDark} />
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 28 — Nyero Rock Paintings ──────────────────────────────────────────
+// Ancient ochre rock art on a granite outcrop in Kumi District —
+// Uganda's most significant archaeological site. Mysterious geometric patterns
+// and circular motifs painted by the Batwa over 1,000 years ago.
+
+function NyeroRock({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="240" cy="72" r="54" fill={`url(#${sid(uid,"sun")})`} />
+          <circle cx="240" cy="72" r="27" fill={cfg.sun} opacity="0.88" />
+        </>
+      )}
+      {/* Distant dry savannah */}
+      <path d="M0,186 C55,168 115,182 165,166 C215,150 268,172 300,158 L300,238 L0,238 Z" fill={cfg.hillsFar} />
+      {/* The granite rock face — massive smooth dome */}
+      <path d="M28,400 C32,280 62,196 110,164 C138,148 164,148 188,156 C224,168 252,204 268,256 C282,300 290,356 294,400 Z"
+        fill={cfg.groundMid} />
+      {/* Rock face shading */}
+      <path d="M32,400 C36,282 64,198 112,166 C128,156 140,152 152,152"
+        stroke={cfg.groundDark} strokeWidth="2" fill="none" opacity="0.3" />
+      {/* Overhang shadow at shelter zone */}
+      <path d="M96,228 C118,216 148,214 172,220 C188,224 200,232 204,244 L96,244 Z"
+        fill={cfg.groundDark} opacity="0.38" />
+      {/* Rock art panel — the painting shelter area */}
+      <rect x="98" y="226" width="108" height="60" fill={cfg.groundDark} opacity="0.18" rx="2" />
+      {/* Ancient geometric paintings — white circles, concentric rings, lines */}
+      {/* Concentric circle motifs */}
+      {[0,1,2].map(i => (
+        <circle key={i} cx={118} cy={256} r={20-i*6} fill="none"
+          stroke={cfg.accent} strokeWidth={2.5-i*0.5} opacity={0.72-i*0.08} />
+      ))}
+      {[0,1,2].map(i => (
+        <circle key={i} cx={158} cy={248} r={16-i*5} fill="none"
+          stroke={cfg.accent} strokeWidth={2-i*0.4} opacity={0.68-i*0.08} />
+      ))}
+      {[0,1].map(i => (
+        <circle key={i} cx={190} cy={258} r={13-i*5} fill="none"
+          stroke={cfg.accent} strokeWidth={2} opacity={0.60-i*0.1} />
+      ))}
+      {/* Geometric lines and boat motif */}
+      <path d="M106,272 L130,268 L154,272" stroke={cfg.accent} strokeWidth="2" fill="none" opacity="0.62" />
+      <path d="M106,278 Q130,270 154,278" stroke={cfg.accent} strokeWidth="1.5" fill="none" opacity="0.5" />
+      {/* Dot cluster */}
+      {[[168,265],[174,270],[178,263],[184,270],[172,276]].map(([x,y],i) => (
+        <circle key={i} cx={x} cy={y} r={2.5} fill={cfg.accent} opacity="0.58" />
+      ))}
+      {/* Boulders flanking */}
+      <ellipse cx="44"  cy="312" rx="34" ry="22" fill={cfg.groundDark} />
+      <ellipse cx="264" cy="306" rx="28" ry="18" fill={cfg.groundDark} />
+      {/* Dry grass and shrubs at base */}
+      {[20,58,280,296].map((x,i) => (
+        <path key={i}
+          d={`M${x},350 Q${x-3},336 ${x},328 M${x},350 Q${x+4},334 ${x+3},326`}
+          stroke={cfg.accent} strokeWidth="2" fill="none" opacity="0.44" />
+      ))}
+      <Ground mid={cfg.groundMid} dark={cfg.groundDark} />
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 29 — Lake Victoria ─────────────────────────────────────────────────
+// The largest tropical lake in the world — open water stretching to the horizon.
+// Fishing villages on the shore, papyrus fringe, traditional boats under a vast sky.
+
+function LakeVictoria({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="152" cy="82" r="72" fill={`url(#${sid(uid,"sun")})`} />
+          <circle cx="152" cy="82" r="36" fill={cfg.sun} opacity="0.84" />
+        </>
+      )}
+      {/* Sun reflection path */}
+      <path d="M118,200 Q152,192 186,200 L190,360 Q152,368 114,360 Z" fill={cfg.sun ?? "#FFE566"} opacity="0.055" />
+      {/* Distant shoreline — very low, lake dominates */}
+      <path d="M0,192 C55,178 115,190 165,176 C215,162 265,184 300,170 L300,220 L0,220 Z" fill={cfg.hillsFar} opacity="0.62" />
+      {/* Far bank trees */}
+      <RoundTree x={28}  y={178} h={64} r={24} dark={cfg.hillsMid} light={cfg.hillsFar} />
+      <RoundTree x={272} y={174} h={60} r={22} dark={cfg.hillsMid} light={cfg.hillsFar} />
+      <PalmTree x={68}  base={186} h={46} />
+      <PalmTree x={232} base={182} h={44} />
+      {/* The vast lake */}
+      <path d="M0,208 C52,200 110,210 160,202 C210,194 262,208 300,198 L300,390 L0,390 Z"
+        fill={cfg.water ?? "#2A68A8"} />
+      {/* Sun glitter on water */}
+      <ellipse cx="152" cy="268" rx="24" ry="64" fill={cfg.sun ?? "#FFE566"} opacity="0.06" />
+      {/* Wide calm ripples */}
+      {[220,238,258,278,300,322,346,368].map((y,i) => (
+        <path key={i} d={`M${10+i*5},${y} Q152,${y-5} ${290-i*5},${y}`}
+          stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" fill="none" />
+      ))}
+      {/* Traditional fishing boat — mukeka */}
+      <path d="M72,296 Q112,286 154,296 Q112,308 72,296 Z" fill="#3A2010" />
+      <rect x="110" y="278" width="3" height="26" fill="#5C3820" />
+      <path d="M78,278 L111,290 M145,278 L111,290" stroke="#5C3820" strokeWidth="1.5" fill="none" />
+      <ellipse cx="136" cy="288" rx="5" ry="6" fill="#180C04" />
+      <rect x="132" y="293" width="9" height="13" fill="#180C04" />
+      {/* Second boat — far right */}
+      <path d="M186,280 Q218,272 252,280 Q218,290 186,280 Z" fill="#3A2010" opacity="0.8" />
+      <rect x="216" y="263" width="3" height="24" fill="#5C3820" opacity="0.8" />
+      {/* Papyrus along near shore */}
+      {[8,22,36,52,68,228,248,264,278,292].map((x,i) => (
+        <g key={i}>
+          <line x1={x} y1="390" x2={x+(i%2===0?2:-2)} y2="360" stroke="#3A6020" strokeWidth="3" />
+          <ellipse cx={x+(i%2===0?2:-2)} cy="358" rx="5" ry="2.5" fill="#4A7828" />
+        </g>
+      ))}
+      {/* Foreground muddy bank */}
+      <path d="M0,380 C36,368 86,382 136,370 C186,358 246,376 300,364 L300,400 L0,400 Z" fill={cfg.groundMid} />
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 30 — Wanale Ridge ──────────────────────────────────────────────────
+// The dramatic escarpment overlooking Mbale town — a rocky ridge draped in
+// lush forest, with the town spread below in the plains and Elgon behind.
+
+function WanaleRidge({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="238" cy="70" r="54" fill={`url(#${sid(uid,"sun")})`} />
+          <circle cx="238" cy="70" r="27" fill={cfg.sun} opacity="0.88" />
+        </>
+      )}
+      {/* Mount Elgon massif behind the ridge */}
+      <path d="M0,220 C32,152 78,122 122,140 C152,154 168,176 172,220 L0,268 Z" fill={cfg.hillsFar} opacity="0.52" />
+      <path d="M122,224 C160,152 196,128 230,144 C252,156 264,180 266,224 L122,268 Z" fill={cfg.hillsFar} opacity="0.44" />
+      {/* The ridge itself — dramatic rock escarpment */}
+      <path d="M0,200 C30,162 68,142 108,148 C136,152 162,168 178,188 C202,216 222,252 244,278 C262,298 284,316 300,326 L300,400 L0,400 Z"
+        fill={cfg.groundDark} />
+      {/* Rock face texture — diagonal light lines */}
+      <path d="M18,400 C28,314 54,246 90,202" stroke={cfg.groundMid} strokeWidth="2" fill="none" opacity="0.28" />
+      <path d="M44,400 C58,332 82,266 118,222" stroke={cfg.groundMid} strokeWidth="1.5" fill="none" opacity="0.22" />
+      {/* Forest on ridge top */}
+      <path d="M0,204 C32,164 68,144 108,148 C128,150 148,160 164,174"
+        fill={cfg.hillsMid} stroke={cfg.hillsMid} strokeWidth="12" strokeLinejoin="round" />
+      {/* Trees growing on the ridge */}
+      <RoundTree x={24}  y={196} h={72} r={28} dark={cfg.groundMid} light={cfg.hillsMid} />
+      <RoundTree x={64}  y={178} h={62} r={24} dark={cfg.groundMid} light={cfg.hillsMid} />
+      <RoundTree x={102} y={170} h={56} r={22} dark={cfg.groundMid} light={cfg.hillsMid} />
+      {/* Mbale town far below — grid of small rectangles on the plains */}
+      <path d="M200,268 C230,260 262,268 300,256 L300,326 L200,326 Z" fill={cfg.hillsFar} opacity="0.62" />
+      {[210,228,248,268,285].map((x,i) => (
+        <g key={i}>
+          <rect x={x} y={280+i*4} width="14" height="9" fill="#E8D8B0" opacity="0.44" />
+          <rect x={x+16} y={282+i*4} width="10" height="7" fill="#D8C8A0" opacity="0.38" />
+        </g>
+      ))}
+      {/* Road snaking through town */}
+      <path d="M206,320 Q246,304 296,312" stroke="#C8B88A" strokeWidth="3" fill="none" opacity="0.38" />
+      {/* Foreground rocky outcrop */}
+      <path d="M0,354 C22,338 62,356 96,342 L96,400 L0,400 Z" fill={cfg.groundMid} />
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 31 — Sisiyi Falls ──────────────────────────────────────────────────
+// A hidden gem on Mount Elgon's slopes in Bulambuli — twin ribbons of water
+// dropping through dense tropical foliage into a rocky pool below.
+
+function SisiyiFalls({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="218" cy="68" r="46" fill={`url(#${sid(uid,"sun")})`} />
+          <circle cx="218" cy="68" r="22" fill={cfg.sun} opacity="0.86" />
+        </>
+      )}
+      {/* Dense forest background */}
+      <path d="M0,128 C44,106 92,122 138,108 C184,94 238,116 300,102 L300,208 L0,208 Z" fill={cfg.hillsFar} />
+      <path d="M0,162 C50,140 102,158 152,144 C202,130 258,152 300,138 L300,240 L0,240 Z" fill={cfg.hillsMid} />
+      {/* Forest trees left and right */}
+      <RoundTree x={24}  y={148} h={94} r={38} dark={cfg.hillsMid} light={cfg.hillsFar} />
+      <RoundTree x={276} y={142} h={90} r={36} dark={cfg.hillsMid} light={cfg.hillsFar} />
+      <RoundTree x={56}  y={172} h={74} r={28} dark={cfg.groundMid} light={cfg.hillsMid} />
+      <RoundTree x={244} y={168} h={70} r={26} dark={cfg.groundMid} light={cfg.hillsMid} />
+      {/* Rocky cliff between the two falls */}
+      <path d="M96,232 C112,222 136,218 152,220 C168,222 188,228 204,236 L204,356 Q152,366 96,356 Z"
+        fill={cfg.groundDark} />
+      <rect x="96" y="356" width="108" height="44" fill={cfg.groundDark} opacity="0.82" />
+      {/* Left falls ribbon */}
+      <path d="M80,208 Q100,214 108,228 L112,360 Q100,368 84,356 L80,224 Z"
+        fill={cfg.water ?? "#5AACCC"} opacity="0.84" />
+      <path d="M82,210 Q100,216 106,228 L108,316 Q96,322 84,316 Z"
+        fill="rgba(255,255,255,0.5)" />
+      {/* Right falls ribbon */}
+      <path d="M196,224 Q208,228 220,236 L222,358 Q210,368 196,358 L192,240 Z"
+        fill={cfg.water ?? "#5AACCC"} opacity="0.84" />
+      <path d="M196,226 Q208,230 218,238 L218,318 Q208,324 198,318 Z"
+        fill="rgba(255,255,255,0.48)" />
+      {/* Spray at base */}
+      {[270,286,304,322,340,356].map((y,i) => (
+        <path key={i}
+          d={`M82,${y} Q${96+i*2},${y-4} ${110+i*3},${y}`}
+          stroke="rgba(255,255,255,0.22)" strokeWidth="2" fill="none" />
+      ))}
+      {[270,286,304,322,340,356].map((y,i) => (
+        <path key={i}
+          d={`M218,${y} Q${204-i*2},${y-4} ${190-i*3},${y}`}
+          stroke="rgba(255,255,255,0.22)" strokeWidth="2" fill="none" />
+      ))}
+      {/* Pool at base */}
+      <ellipse cx="152" cy="366" rx="76" ry="24" fill={cfg.water ?? "#5AACCC"} opacity="0.72" />
+      <ellipse cx="152" cy="366" rx="64" ry="18" fill="rgba(255,255,255,0.18)" />
+      {/* Lush ferns at base */}
+      {[26,58,240,272].map((x,i) => (
+        <ellipse key={i} cx={x} cy={348+i*4} rx={28} ry={10} fill={cfg.hillsMid} opacity="0.56" />
+      ))}
+      <Ground mid={cfg.groundMid} dark={cfg.groundDark} />
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
+// ── Scene 32 — Tororo Rock ───────────────────────────────────────────────────
+// A dramatic volcanic plug rising 300m above the plains of eastern Uganda.
+// Near-vertical rock face, the town spread at its feet, distant plains horizon.
+
+function TororoRock({ uid, cfg }: SceneProps) {
+  return (
+    <>
+      <Sky uid={uid} />
+      {cfg.sun && (
+        <>
+          <circle cx="244" cy="68" r="52" fill={`url(#${sid(uid,"sun")})`} />
+          <circle cx="244" cy="68" r="26" fill={cfg.sun} opacity="0.88" />
+        </>
+      )}
+      {/* Flat distant plains of eastern Uganda */}
+      <path d="M0,200 C55,186 115,198 165,184 C215,170 265,192 300,178 L300,248 L0,248 Z" fill={cfg.hillsFar} opacity="0.58" />
+      {/* The volcanic plug — nearly vertical, narrowing at top */}
+      <path d="M76,400 C78,298 88,228 106,182 C118,152 134,134 152,128 C170,122 184,140 196,168 C212,204 222,272 224,400 Z"
+        fill={cfg.groundDark} />
+      {/* Rock face highlights — catching the sun */}
+      <path d="M152,128 C162,134 174,148 182,168 C194,200 204,256 208,332"
+        stroke={cfg.groundMid} strokeWidth="3" fill="none" opacity="0.42" />
+      <path d="M152,128 C144,136 134,154 128,180 C118,214 112,276 110,360"
+        stroke="#5A4028" strokeWidth="2" fill="none" opacity="0.28" />
+      {/* Summit vegetation */}
+      <ellipse cx="152" cy="126" rx="20" ry="10" fill={cfg.hillsMid} opacity="0.82" />
+      <RoundTree x={146} y={114} h={18} r={12} dark={cfg.groundMid} light={cfg.hillsMid} />
+      <RoundTree x={160} y={118} h={14} r={9}  dark={cfg.groundMid} light={cfg.hillsMid} />
+      {/* Boulders on lower slopes */}
+      <ellipse cx="94"  cy="322" rx="20" ry="12" fill="#5A4028" />
+      <ellipse cx="210" cy="306" rx="18" ry="11" fill="#5A4028" />
+      <ellipse cx="124" cy="368" rx="16" ry="10" fill="#5A4028" />
+      <ellipse cx="182" cy="374" rx="14" ry="9"  fill="#5A4028" />
+      {/* Tororo town spread below */}
+      <path d="M0,240 C30,232 70,242 110,234 C150,226 190,238 230,230 L300,244 L300,296 L0,296 Z"
+        fill={cfg.hillsFar} opacity="0.72" />
+      {/* Town building silhouettes */}
+      {[[18,258,18,20],[48,254,14,24],[78,260,20,18],[230,252,16,22],[256,256,22,18],[278,250,18,24]].map(([x,y,w,h],i) => (
+        <rect key={i} x={x} y={y} width={w} height={h} fill="#D8C8A0" opacity="0.38" />
+      ))}
+      {/* Road around the base */}
+      <path d="M0,294 Q76,280 152,284 Q228,288 300,276" stroke="#C8B880" strokeWidth="3" fill="none" opacity="0.36" />
+      {/* Scrub vegetation at base */}
+      <Ground mid={cfg.groundMid} dark={cfg.groundDark} />
+      <Vignette uid={uid} />
+    </>
+  );
+}
+
 // ── Scene dispatcher ──────────────────────────────────────────────────────────
 
 function renderScene(uid: string, cfg: IllustrationConfig): React.ReactNode {
@@ -1645,6 +2107,14 @@ function renderScene(uid: string, cfg: IllustrationConfig): React.ReactNode {
     case "karuma-falls":        return <KarumaFalls         {...p} />;
     case "fort-patiko":         return <FortPatiko          {...p} />;
     case "pian-upe":            return <PianUpe             {...p} />;
+    case "sipi-falls":          return <SipiFalls           {...p} />;
+    case "mount-elgon":         return <MountElgon          {...p} />;
+    case "source-of-nile":      return <SourceOfNile        {...p} />;
+    case "nyero-rock":          return <NyeroRock           {...p} />;
+    case "lake-victoria":       return <LakeVictoria        {...p} />;
+    case "wanale-ridge":        return <WanaleRidge         {...p} />;
+    case "sisiyi-falls":        return <SisiyiFalls         {...p} />;
+    case "tororo-rock":         return <TororoRock          {...p} />;
     default: return null;
   }
 }
