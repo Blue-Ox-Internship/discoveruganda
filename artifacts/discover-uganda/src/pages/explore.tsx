@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { motion } from "framer-motion";
 import { InteractiveCard } from "@/components/ui/interactive-card";
 import { KitengeDivider } from "@/components/ui/kitenge-divider";
@@ -100,10 +100,9 @@ export default function Explore() {
               const partnerSlot = activeRegion === "All" && idx === 2 && featuredPartners[0];
 
               return (
-                <>
+                <Fragment key={dest.id}>
                   {partnerSlot && (
                     <motion.div
-                      key="featured-partner-0"
                       initial={{ opacity: 0, y: 24 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: "-40px" }}
@@ -113,7 +112,6 @@ export default function Explore() {
                     </motion.div>
                   )}
                   <motion.div
-                    key={dest.id}
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
@@ -161,7 +159,7 @@ export default function Explore() {
                       />
                     </div>
                   </motion.div>
-                </>
+                </Fragment>
               );
             })}
           </div>

@@ -1,4 +1,5 @@
-import { Switch, Route, Router as WouterRouter } from "wouter";
+import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -20,6 +21,14 @@ import Profile from "@/pages/profile";
 
 const queryClient = new QueryClient();
 
+function ScrollToTop() {
+  const [location] = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  return null;
+}
+
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col min-h-screen">
@@ -36,7 +45,9 @@ function Layout({ children }: { children: React.ReactNode }) {
 
 function Router() {
   return (
-    <Switch>
+    <>
+      <ScrollToTop />
+      <Switch>
       {/* Auth pages — full-screen, no navbar/footer */}
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
@@ -57,6 +68,7 @@ function Router() {
         </Layout>
       </Route>
     </Switch>
+    </>
   );
 }
 
